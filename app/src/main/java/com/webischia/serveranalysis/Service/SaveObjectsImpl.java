@@ -29,10 +29,10 @@ public class SaveObjectsImpl implements SaveObjects {
 
     @Override
     public Graphic loadGraphics(String name) {
-            //Java deserialization ile oku graphic nesnesine aç ve döndür
+        //Java deserialization ile oku graphic nesnesine aç ve döndür
         Graphic temp;
         try {
-            FileInputStream fileIn = new FileInputStream("/server_analysis/"+name+".ser"); //bu isimi nereden okuyacağız
+            FileInputStream fileIn = new FileInputStream("/server_analysis/" + name + ".ser"); //bu isimi nereden okuyacağız
             ObjectInputStream in = new ObjectInputStream(fileIn);                               // ayrı bir text gibi birşeye kayıt ?
             temp = (Graphic) in.readObject();
             in.close();
@@ -46,5 +46,11 @@ public class SaveObjectsImpl implements SaveObjects {
             return null;
         }
         return null;
+    }
+
+    @Override
+    public void saveNames(String name) {
+
+
     }
 }

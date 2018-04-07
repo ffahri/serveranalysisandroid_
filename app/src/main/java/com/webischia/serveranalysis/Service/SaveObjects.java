@@ -8,4 +8,6 @@ public interface SaveObjects {
     public void saveGraphics(Graphic graphObj);
 
     public Graphic loadGraphics(String name);
+
+    public void saveNames(String name); //obje olarak değil txt olarak kaydediyoruz
 }
