@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+ Ekranın 3/4üne grafik kalan 1/4e yenile butonu sunumdakinin güzel hali
+ Sunumdaki grafik bu linkte - > https://github.com/ffahri/serveranalysisandroid
+ Bizim proje - > https://github.com/ffahri/serveranalysisandroid_
+ sonda "_" var
+  -->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

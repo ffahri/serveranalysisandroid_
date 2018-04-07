@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Burada server ipsi filan düzenleyeceği kısım olacak sadece yeterli bence
+
+    Ad
+    Server IP
+    Değiştir butonu
+    ?yardım?
+-->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

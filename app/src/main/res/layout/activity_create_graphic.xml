@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.webischia.serveranalysis.CreateGraphic">
+    <!--
+        Burada grafik oluştururken gerekli şeyleri gireceğiz sonra servisten kayıt et ile kaydedeceğiz
 
+        Grafik adı
+
+        Grafik metrik adı
+
+        Grafik metrik modu (bunu combobox yapabiliriz)
+
+        Grafik zaman aralığı (30 - 45 sn - 1 - 5 - 30 dk)
+
+        Button
+    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.webischia.serveranalysis.Dashboard">
-<!-- Graphics  ...  Alarms
+<!--
+     Login olduktan sonra buraya gelecek kullanıcı aşağıdaki gibi ekranı 4e böleceğiz
+     her biri bir buton gibi olacak buradan istediği yere gidecek
+     Graphics  ...  Alarms
      Settings  ...  About
                             -->
     <LinearLayout
