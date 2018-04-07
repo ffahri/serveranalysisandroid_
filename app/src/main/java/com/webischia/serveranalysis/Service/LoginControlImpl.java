@@ -31,7 +31,7 @@ public class LoginControlImpl implements LoginControl {
 
         try {
            //todo burada hata var
-            final RequestQueue queue ;//Volley.newRequestQueue(this);  // this = context
+            final RequestQueue queue = null;//Volley.newRequestQueue(this);  // this = context
 
             String url = "http://10.0.2.2:8080/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
