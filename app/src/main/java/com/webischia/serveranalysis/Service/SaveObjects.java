@@ -5,7 +5,7 @@ import com.webischia.serveranalysis.Models.Graphic;
 //Android hafızasına burada tanımladığımız metotlar ile yazacağız.
 public interface SaveObjects {
 
-    public void saveGraphics();
+    public void saveGraphics(Graphic graphObj);
 
     public Graphic loadGraphics(String name);
 }
