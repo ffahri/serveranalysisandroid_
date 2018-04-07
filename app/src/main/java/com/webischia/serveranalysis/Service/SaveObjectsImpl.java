@@ -4,8 +4,10 @@ package com.webischia.serveranalysis.Service;
 
 import com.webischia.serveranalysis.Models.Graphic;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class SaveObjectsImpl implements SaveObjects {
@@ -28,7 +30,21 @@ public class SaveObjectsImpl implements SaveObjects {
     @Override
     public Graphic loadGraphics(String name) {
             //Java deserialization ile oku graphic nesnesine aç ve döndür
-
+        Graphic temp;
+        try {
+            FileInputStream fileIn = new FileInputStream("/server_analysis/"+name+".ser"); //bu isimi nereden okuyacağız
+            ObjectInputStream in = new ObjectInputStream(fileIn);                               // ayrı bir text gibi birşeye kayıt ?
+            temp = (Graphic) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Graphic not found");
+            c.printStackTrace();
+            return null;
+        }
         return null;
     }
 }
