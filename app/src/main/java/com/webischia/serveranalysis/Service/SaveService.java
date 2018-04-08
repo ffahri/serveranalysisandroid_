@@ -12,5 +12,5 @@ public interface SaveService {
     public Graphic loadGraphics(String name);
 
     public void saveNames(String name,String username); //obje olarak değil txt olarak kaydediyoruz
-    void loadNames(String username);
+    void loadNames(String username,String token);
 }

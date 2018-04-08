@@ -10,6 +10,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.webischia.serveranalysis.Controls.QueryControl;
+import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.QueryService;
 import com.webischia.serveranalysis.Service.QueryServiceImpl;
 
@@ -19,12 +20,23 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
     QueryControl queryControl;
     QueryService queryService;
     LineChart linechart1; //xml den grafik ekranını çıktı aldık
+    Graphic graphic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graphic);
         queryControl = new ShowGraphic();
         queryService = new QueryServiceImpl(queryControl,this);
+        //getIntent().getExtras().getString("username")
+
+        ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
+        if(k == null)
+        {
+            //getIntent().getExtras().getString("graphname")
+
+        }
+        else
+        graphic = (Graphic)k.get(0);
         //put extra içine graph koyup query yaptırırız burada
     }
     public void refresh(View view)

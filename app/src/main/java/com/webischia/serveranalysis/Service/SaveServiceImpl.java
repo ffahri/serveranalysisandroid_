@@ -107,7 +107,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     @Override
-    public void loadNames(String username) {
+    public void loadNames(String username,String token) {
 
     ArrayList graphicList = null;
     File file = new File(context.getFilesDir(),username+".dat");
@@ -130,7 +130,7 @@ public class SaveServiceImpl implements SaveService {
             e.printStackTrace();
         }
         Log.d("Size = " ,""+graphicList.size());
-        saveControl.loadGraphs(graphicList, context);
+        saveControl.loadGraphs(graphicList, context,username,token);
         //return graphicList;
     }
         else
