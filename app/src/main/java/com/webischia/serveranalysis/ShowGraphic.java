@@ -32,7 +32,7 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
         ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
         if(k == null)
         {
-            //getIntent().getExtras().getString("graphname")
+            //getIntent().getExtras().getString("graphName");
 
         }
         else

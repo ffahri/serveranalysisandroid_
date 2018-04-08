@@ -46,7 +46,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     public void successSave(String name,Context context) {
         Log.d("test","OK!");
         Toast.makeText(context, "Graphic Saved !", Toast.LENGTH_SHORT).show();
-        Intent showGraphicIntent = new Intent(context,ShowGraphic.class);
+        Intent showGraphicIntent = new Intent(context,Dashboard.class);
         showGraphicIntent.putExtra("graphName",name);
         context.startActivity(showGraphicIntent);//contexti ref göstererek başlattım.
         finish(); //bu aktiviteyi kapat
