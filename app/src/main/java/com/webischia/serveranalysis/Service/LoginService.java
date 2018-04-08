@@ -20,11 +20,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginControlImpl {
+public class LoginService {
     LoginControl loginControl = null;
-    Context mContext;
+    static Context mContext;
 
-    public LoginControlImpl(LoginControl loginControl, Context mContext) {
+    public LoginService(LoginControl loginControl, Context mContext) {
         this.loginControl = loginControl;
         this.mContext = mContext;
     }
@@ -55,7 +55,7 @@ public class LoginControlImpl {
 //                                JSONArray token = jsonObj.getJSONArray("token");
                                 String jti = jsonObj.getString("access_token");
                                 if(loginControl != null)
-                                    loginControl.successLogin(username,jti);
+                                    loginControl.successLogin(username,jti,mContext);
                               //  Toast.makeText(MainActivity.this, "Başarıyla giriş yaptınız", Toast.LENGTH_SHORT).show();
                             }
                             catch (Exception e)

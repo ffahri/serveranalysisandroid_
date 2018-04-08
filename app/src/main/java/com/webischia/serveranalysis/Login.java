@@ -1,26 +1,26 @@
 package com.webischia.serveranalysis;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.webischia.serveranalysis.Service.LoginControl;
-import com.webischia.serveranalysis.Service.LoginControlImpl;
+import com.webischia.serveranalysis.Service.LoginService;
 
 public class Login extends AppCompatActivity implements LoginControl{
 
     LoginControl loginControl;
-    LoginControlImpl control;
+    LoginService control;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginControl = new Login();
-        control = new LoginControlImpl(loginControl,this);
+        control = new LoginService(loginControl,this);
     }
 
     //Service kullanarak login kontrol
@@ -34,15 +34,14 @@ public class Login extends AppCompatActivity implements LoginControl{
     }
 
     @Override
-    public void successLogin(String username, String token) {
-        Toast.makeText(this, "Login Success !", Toast.LENGTH_SHORT).show();
-        if(token != null) {
-            Toast.makeText(Login.this, "Login Success !" + token, Toast.LENGTH_SHORT).show();
-            Intent dashboardIntent = new Intent(Login.this,Dashboard.class);
+    public void successLogin(String username, String token, Context context) {
+            //Toast.makeText(getBaseContext(), "Login Success !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Login Success ! \nWelcome " + username, Toast.LENGTH_SHORT).show();
+            Intent dashboardIntent = new Intent(context,Dashboard.class);
             dashboardIntent.putExtra("token",token);
-            startActivity(dashboardIntent);
+            context.startActivity(dashboardIntent);//contexti ref göstererek başlattım.
             finish(); //bu aktiviteyi kapat
-        }
+
 
     }
 }
