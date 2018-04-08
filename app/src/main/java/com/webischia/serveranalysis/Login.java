@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.webischia.serveranalysis.Service.LoginControl;
+import com.webischia.serveranalysis.Controls.LoginControl;
 import com.webischia.serveranalysis.Service.LoginService;
 
 public class Login extends AppCompatActivity implements LoginControl{

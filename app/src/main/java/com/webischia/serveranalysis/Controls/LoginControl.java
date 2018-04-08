@@ -1,4 +1,4 @@
-package com.webischia.serveranalysis.Service;
+package com.webischia.serveranalysis.Controls;
 
 //Login kontrol metotları tanımlanacak.
 
