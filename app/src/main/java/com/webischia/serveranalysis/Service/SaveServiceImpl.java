@@ -108,7 +108,8 @@ public class SaveServiceImpl implements SaveService {
 
     @Override
     public void loadNames(String username) {
-    List graphicList = null;
+
+    ArrayList graphicList = null;
     File file = new File(context.getFilesDir(),username+".dat");
     FileInputStream fis;
     if(file.exists()) {

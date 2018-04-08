@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteX="3dp">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/create_graphic"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

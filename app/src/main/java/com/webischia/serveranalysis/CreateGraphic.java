@@ -14,6 +14,7 @@ import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.SaveService;
 import com.webischia.serveranalysis.Service.SaveServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateGraphic extends AppCompatActivity implements SaveControl {
@@ -53,7 +54,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     }
 
     @Override
-    public void loadGraphs(List graphs,Context context) {
+    public void loadGraphs(ArrayList graphs, Context context) {
 
     }
 }

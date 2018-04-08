@@ -2,6 +2,7 @@ package com.webischia.serveranalysis.Controls;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,5 +12,5 @@ import java.util.List;
 public interface SaveControl {
     void successSave(String name, Context context);
 
-    void loadGraphs(List graphs,Context context);
+    void loadGraphs(ArrayList graphs, Context context);
 }

@@ -2,6 +2,7 @@ package com.webischia.serveranalysis;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.webischia.serveranalysis.Controls.SaveControl;
 import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.SaveService;
 import com.webischia.serveranalysis.Service.SaveServiceImpl;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Graph_Dashboard extends AppCompatActivity implements SaveControl{
@@ -32,6 +36,14 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl{
         saveControl = new Graph_Dashboard();
         saveService = new SaveServiceImpl(saveControl,this);
         saveService.loadNames(getIntent().getExtras().getString("username"));
+        ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
+        if (graphs!=null && ll != null) {
+            for (int i = 0; i < graphs.size(); i++) {
+                Button temp = new Button(this);
+                temp.setText("a");
+                ll.addView(temp);
+            }
+        }
 
     }
     public void createGraphicButton(View view)
@@ -49,26 +61,13 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl{
     }
 
     @Override
-    public void loadGraphs(List graphs , Context context) {
+    public void loadGraphs(ArrayList graphs , Context context) {
         //gelen listedeki graph.getName() ile liste oluşturulacak button ile tıklanacak
-        try {
-            //added LInearLayout
-            //added LayoutParams
 
-            if (graphs.size() > 0 && ll != null) {
-                for (int i = 0; i < graphs.size(); i++) {
-                    Button temp = new Button(context);
-                    temp.setText("a");
-                    temp.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                    Log.d("is null",""+temp.getText());
-                    ll.addView(temp);
-                }
-            }
-        }
-        catch (Exception a)
-        {
-            a.printStackTrace();
-        }
-
+        Intent graphDash = new Intent(context,Graph_Dashboard.class);
+        graphDash.putParcelableArrayListExtra("graphs",graphs);
+        context.startActivity(graphDash);
+        finish(); //bu aktiviteyi kapat
+        //at least it works
     }
 }
