@@ -2,6 +2,7 @@ package com.webischia.serveranalysis.Service;
 
 //Login control metotları bulunacak.
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,9 +20,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginControlImpl implements LoginControl {
-    @Override
-    public String loginCheck(final String username, final String password) {
+public class LoginControlImpl {
+    LoginControl loginControl = null;
+    Context mContext;
+
+    public LoginControlImpl(LoginControl loginControl, Context mContext) {
+        this.loginControl = loginControl;
+        this.mContext = mContext;
+    }
+
+    public void loginCheck(final String username, final String password) {
         //yanlış şifre ise hata ver ve null dön
 
         //401 - 403 hatası alırsan hata ver diyalog çıkar
@@ -31,10 +39,10 @@ public class LoginControlImpl implements LoginControl {
 
         try {
            //todo burada hata var
-            final RequestQueue queue = null;//Volley.newRequestQueue(this);  // this = context
 
+            final RequestQueue queue = Volley.newRequestQueue(mContext);//Volley.newRequestQueue(this);  // this = context
             String url = "http://10.0.2.2:8080/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
-            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+            final StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -46,6 +54,8 @@ public class LoginControlImpl implements LoginControl {
                                 // Getting JSON Array node
 //                                JSONArray token = jsonObj.getJSONArray("token");
                                 String jti = jsonObj.getString("access_token");
+                                if(loginControl != null)
+                                    loginControl.successLogin(username,jti);
                               //  Toast.makeText(MainActivity.this, "Başarıyla giriş yaptınız", Toast.LENGTH_SHORT).show();
                             }
                             catch (Exception e)
@@ -57,7 +67,8 @@ public class LoginControlImpl implements LoginControl {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // error
-                            Log.d("Error.Response","error");
+                            error.printStackTrace();
+                            Log.d("Error.Response","error ");
                         }
                     }
             ) {
@@ -84,6 +95,6 @@ public class LoginControlImpl implements LoginControl {
         catch(Exception e)
         {
         }
-        return null;
+
     }
 }
