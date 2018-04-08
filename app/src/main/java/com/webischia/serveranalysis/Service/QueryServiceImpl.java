@@ -4,5 +4,5 @@ package com.webischia.serveranalysis.Service;
 olan json dosyasının parse edildiği sınıf
  **/
 
-public class QueryServerImpl implements QueryServer {
+public class QueryServiceImpl implements QueryService {
 }

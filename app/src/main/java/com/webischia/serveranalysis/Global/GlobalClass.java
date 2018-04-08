@@ -9,7 +9,7 @@ import android.app.Application;
 
 public class GlobalClass extends Application {
     String serverURI;
-
+    String username;
     public String getServerURI() {
         return serverURI;
     }

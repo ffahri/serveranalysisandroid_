@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.webischia.serveranalysis.Controls.LoginControl;
+import com.webischia.serveranalysis.Service.LoginServiceImpl;
 import com.webischia.serveranalysis.Service.LoginService;
 
 public class Login extends AppCompatActivity implements LoginControl{
@@ -20,7 +21,7 @@ public class Login extends AppCompatActivity implements LoginControl{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginControl = new Login();
-        control = new LoginService(loginControl,this);
+        control = new LoginServiceImpl(loginControl,this);
     }
 
     //Service kullanarak login kontrol
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity implements LoginControl{
     @Override
     public void successLogin(String username, String token, Context context) {
             //Toast.makeText(getBaseContext(), "Login Success !", Toast.LENGTH_SHORT).show();
+            //control.saveUser(username);
             Toast.makeText(context, "Login Success ! \nWelcome " + username, Toast.LENGTH_SHORT).show();
             Intent dashboardIntent = new Intent(context,Dashboard.class);
             dashboardIntent.putExtra("token",token);
