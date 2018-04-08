@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -109,15 +110,18 @@ public class SaveServiceImpl implements SaveService {
     public void loadNames(String username) {
     List graphicList = null;
     File file = new File(context.getFilesDir(),username+".dat");
+    FileInputStream fis;
     if(file.exists()) {
         try {
+            fis = new FileInputStream(file);
             graphicList= new ArrayList<Graphic>();
-            String path = context.getFilesDir()+"/"+username+".dat";
             BufferedReader in
-                    = new BufferedReader(new FileReader(path));
+                    = new BufferedReader(new InputStreamReader(fis));
+            //= new BufferedReader(new FileReader(path));
+
             while (in.ready()) {
                 String line = in.readLine();
-                Log.d("Line = ",line);
+                Log.d("Line = ",line); //satır satır okutamadım
                 graphicList.add(loadGraphics(line));
 
             }
