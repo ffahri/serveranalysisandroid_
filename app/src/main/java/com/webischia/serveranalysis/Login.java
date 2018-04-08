@@ -41,6 +41,7 @@ public class Login extends AppCompatActivity implements LoginControl{
             Toast.makeText(context, "Login Success ! \nWelcome " + username, Toast.LENGTH_SHORT).show();
             Intent dashboardIntent = new Intent(context,Dashboard.class);
             dashboardIntent.putExtra("token",token);
+            dashboardIntent.putExtra("username",username);
             context.startActivity(dashboardIntent);//contexti ref göstererek başlattım.
             finish(); //bu aktiviteyi kapat
 

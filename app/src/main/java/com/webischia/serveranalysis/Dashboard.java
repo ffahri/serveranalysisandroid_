@@ -16,7 +16,8 @@ public class Dashboard extends AppCompatActivity {
 
     public void showGraphs(View view){
         Intent graphDash = new Intent(this,Graph_Dashboard.class);
-        //dashboardIntent.putExtra("token",token);
+        graphDash.putExtra("token",getIntent().getExtras().getString("token"));
+        graphDash.putExtra("username",getIntent().getExtras().getString("username"));
         startActivity(graphDash);
         finish(); //bu aktiviteyi kapat
     }

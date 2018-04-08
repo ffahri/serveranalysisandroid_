@@ -30,7 +30,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     @Override
-    public void saveGraphics(Graphic graphObj) {
+    public void saveGraphics(Graphic graphObj,String username) {
             //Java serialization ile yaz
         try {
             //grafik ismine göre kayıt yapılıyor. Aynı isimde iki grafik olamaz.
@@ -42,7 +42,7 @@ public class SaveServiceImpl implements SaveService {
             out.close();
             outFile.close();
             Log.d("SAVE_GRAPH","SUCCESS");
-            //saveNames(graphObj.getName());
+            saveNames(graphObj.getName(),username);
             saveControl.successSave(graphObj.getName(),context);
         } catch (IOException i) {
             i.printStackTrace();
@@ -55,6 +55,7 @@ public class SaveServiceImpl implements SaveService {
     public Graphic loadGraphics(String name) {
         //Java deserialization ile oku graphic nesnesine aç ve döndür
         Graphic temp;
+
         try {
             FileInputStream fileIn = context.openFileInput(name + ".ser"); //bu isimi nereden okuyacağız
             ObjectInputStream in = new ObjectInputStream(fileIn);             // ayrı bir text gibi birşeye kayıt ?
@@ -69,7 +70,7 @@ public class SaveServiceImpl implements SaveService {
             c.printStackTrace();
             return null;
         }
-        return null;
+        return temp;
     }
 
     @Override
@@ -77,8 +78,15 @@ public class SaveServiceImpl implements SaveService {
 
         File file = new File(context.getFilesDir(), username+".dat");
         int id;
-        if(file.exists() != true) {
+        if(!file.exists()) {
             id=Context.MODE_PRIVATE;
+            try {
+                file.createNewFile();
+            }
+            catch (Exception a )
+            {
+                a.printStackTrace();
+            }
         }
         else
             id=Context.MODE_APPEND;
@@ -99,19 +107,29 @@ public class SaveServiceImpl implements SaveService {
 
     @Override
     public void loadNames(String username) {
-    List<Graphic> graphicList = new ArrayList<Graphic>();
+    List graphicList = null;
+    File file = new File(context.getFilesDir(),username+".dat");
+    if(file.exists()) {
         try {
+            graphicList= new ArrayList<Graphic>();
+            String path = context.getFilesDir()+"/"+username+".dat";
             BufferedReader in
-                    = new BufferedReader(new FileReader(username+".dat"));
-            while(in.ready())
-            {
+                    = new BufferedReader(new FileReader(path));
+            while (in.ready()) {
                 String line = in.readLine();
+                Log.d("Line = ",line);
                 graphicList.add(loadGraphics(line));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        saveControl.loadGraphs(graphicList,context);
+        Log.d("Size = " ,""+graphicList.size());
+        saveControl.loadGraphs(graphicList, context);
         //return graphicList;
+    }
+        else
+            Log.d("YOK","YOOOK");
+
     }
 }

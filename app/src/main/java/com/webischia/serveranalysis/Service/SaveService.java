@@ -7,7 +7,7 @@ import java.util.List;
 //Android hafızasına burada tanımladığımız metotlar ile yazacağız.
 public interface SaveService {
 
-    public void saveGraphics(Graphic graphObj);
+    public void saveGraphics(Graphic graphObj,String username);
 
     public Graphic loadGraphics(String name);
 

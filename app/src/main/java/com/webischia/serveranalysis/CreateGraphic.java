@@ -36,7 +36,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         EditText mode = (EditText) findViewById(R.id.editText_mode);
         EditText time = (EditText) findViewById(R.id.editText_time);
         Graphic newGraph = new Graphic(metric.getText().toString(),mode.getText().toString(),time.getText().toString(),name.getText().toString());
-        saveService.saveGraphics(newGraph);
+        saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"));
 
 
     }
