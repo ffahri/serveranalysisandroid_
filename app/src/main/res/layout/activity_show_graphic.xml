@@ -36,6 +36,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="11dp"
             android:layout_marginStart="19dp"
+            android:onClick="refresh"
             android:text="YENILE"
             tools:layout_editor_absoluteX="296dp"
             tools:layout_editor_absoluteY="2dp" />

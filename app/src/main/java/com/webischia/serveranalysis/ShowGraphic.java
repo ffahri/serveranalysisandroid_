@@ -3,6 +3,7 @@ package com.webischia.serveranalysis;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
@@ -26,7 +27,10 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
         queryService = new QueryServiceImpl(queryControl,this);
         //put extra içine graph koyup query yaptırırız burada
     }
-
+    public void refresh(View view)
+    {
+        //queryService.refresh();
+    }
     @Override
     public void successQuery(ArrayList list) {
         //diğer kısımlarda hata var deneyemedik UNIT TEST de yazmadım
