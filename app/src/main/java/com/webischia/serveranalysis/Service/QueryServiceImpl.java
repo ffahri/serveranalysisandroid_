@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.data.Entry;
 import com.webischia.serveranalysis.Controls.QueryControl;
+import com.webischia.serveranalysis.Models.Graphic;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,11 +37,11 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public void doQuery(String query, final String token) {
+    public void doQuery(Graphic graphic, final String token) {
         try {
             final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
 
-            String url = "http://192.168.122.160:9090/api/v1/query?query=node_cpu{mode=\"idle\"}[1m]";
+            String url = "http://192.168.122.160:9090/api/v1/query"+graphic.httpForm();
             StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
                         @Override
