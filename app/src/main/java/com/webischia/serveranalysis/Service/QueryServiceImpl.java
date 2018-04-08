@@ -36,9 +36,9 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public void doQuery(String query, String token) {
+    public void doQuery(String query, final String token) {
         try {
-            final RequestQueue queue = Volley.newRequestQueue(this);  // this = context
+            final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
 
             String url = "http://192.168.122.160:9090/api/v1/query?query=node_cpu{mode=\"idle\"}[1m]";
             StringRequest postRequest = new StringRequest(Request.Method.GET, url,
@@ -97,7 +97,6 @@ public class QueryServiceImpl implements QueryService {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    String token = getIntent().getExtras().getString("token");
                     if(token != null) {
                         params.put("Authorization", "Basic VXNlcjoxMjM0");
 
