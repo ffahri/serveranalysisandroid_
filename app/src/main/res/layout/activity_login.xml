@@ -14,9 +14,10 @@
         android:id="@+id/login"
         android:layout_width="207dp"
         android:layout_height="79dp"
-        android:layout_marginBottom="248dp"
+        android:layout_marginBottom="204dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="73dp"
         android:background="@color/colorPrimary"
         android:backgroundTint="?attr/colorPrimaryDark"
         android:onClick="loginCheck"
@@ -25,7 +26,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/textView"

@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
-                    android:text="Button"
+                    android:text="Graphics"
                     tools:text="Graphics" />
 
             </LinearLayout>
@@ -68,7 +68,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
-                    android:text="Button"
+                    android:text="Alarms"
                     tools:text="Alarms" />
 
             </LinearLayout>
@@ -101,7 +101,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
-                    android:text="Button"
+                    android:text="SETTINGS"
                     tools:text="Settings" />
 
             </LinearLayout>
@@ -127,7 +127,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
-                    android:text="Button"
+                    android:text="ABOUT"
                     tools:text="About" />
             </LinearLayout>
 
