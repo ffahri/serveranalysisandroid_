@@ -40,7 +40,8 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl{
         if (graphs!=null && ll != null) {
             for (int i = 0; i < graphs.size(); i++) {
                 Button temp = new Button(this);
-                temp.setText("a");
+                Graphic tmp = (Graphic) graphs.get(i);
+                temp.setText(tmp.getName());
                 ll.addView(temp);
             }
         }
