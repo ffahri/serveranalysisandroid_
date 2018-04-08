@@ -14,18 +14,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="top">
+                android:layout_gravity="top"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -35,26 +37,21 @@
                     android:visibility="visible"
                     app:srcCompat="@drawable/graphics" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Graphics" />
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
-                    android:text="Button" />
+                    android:text="Button"
+                    tools:text="Graphics" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="top">
+                android:layout_gravity="top"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -63,21 +60,30 @@
                     android:layout_weight="1"
                     app:srcCompat="@drawable/alarms" />
 
-                <TextView
-                    android:id="@+id/textView5"
+                <Button
+                    android:id="@+id/button3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Alarms" />
+                    android:onClick="showGraphs"
+                    android:text="Button"
+                    tools:text="Alarms" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -85,6 +91,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/settings" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="showGraphs"
+                    android:text="Button"
+                    tools:text="Settings" />
 
             </LinearLayout>
 
@@ -101,6 +116,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/about" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="showGraphs"
+                    android:text="Button"
+                    tools:text="About" />
             </LinearLayout>
 
         </LinearLayout>
