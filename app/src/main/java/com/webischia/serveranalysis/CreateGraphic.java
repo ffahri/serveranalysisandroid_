@@ -53,7 +53,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     }
 
     @Override
-    public void loadGraphs(List graphs) {
+    public void loadGraphs(List graphs,Context context) {
 
     }
 }
