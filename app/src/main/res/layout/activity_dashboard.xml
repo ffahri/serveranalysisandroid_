@@ -38,8 +38,9 @@
                     app:srcCompat="@drawable/graphics" />
 
                 <Button
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
                     android:text="Button"
@@ -62,8 +63,9 @@
 
                 <Button
                     android:id="@+id/button3"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
                     android:text="Button"
@@ -94,8 +96,9 @@
 
                 <Button
                     android:id="@+id/button4"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
                     android:text="Button"
@@ -119,8 +122,9 @@
 
                 <Button
                     android:id="@+id/button5"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
                     android:text="Button"
