@@ -29,6 +29,12 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
     Graphic graphic;
     Intent i;
     PendingIntent pen_i;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
