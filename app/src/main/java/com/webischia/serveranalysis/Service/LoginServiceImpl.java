@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
            //todo burada hata var
 
             final RequestQueue queue = Volley.newRequestQueue(mContext);//Volley.newRequestQueue(this);  // this = context
-            String url = "http://94.177.170.47:8080/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
+            String url = "http://10.0.2.2:8080/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
             final StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
