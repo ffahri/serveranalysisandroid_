@@ -54,6 +54,15 @@
             tools:layout_editor_absoluteX="296dp"
             tools:layout_editor_absoluteY="50dp" />
 
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button6"
+            android:layout_marginStart="29dp"
+            android:layout_toEndOf="@+id/textView4"
+            android:text="Alarm" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

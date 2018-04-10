@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/graph_dash_ll"
-        android:layout_width="381dp"
+        android:layout_width="400dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="3dp">

@@ -23,8 +23,20 @@
         <activity android:name=".CreateGraphic" />
         <activity android:name=".ShowGraphic" />
         <activity android:name=".UserSettings" />
-        <activity android:name=".Graph_Dashboard"></activity>
-        <receiver android:name=".alarm"/><!-- Alarmı androidmanifestxml !-->
+        <activity android:name=".Graph_Dashboard" />
+
+        <receiver android:name=".alarm" /> <!-- Alarmı androidmanifestxml ! -->
+        <activity
+            android:name=".NAV"
+            android:label="@string/title_activity_nav"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.webischia.serveranalysis.Dashboard" />
+        </activity>
+        <activity android:name=".CreateAlarm" />
+        <activity android:name=".AlarmDashboard"></activity>
     </application>
 
 </manifest>
