@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
            //todo burada hata var
 
             final RequestQueue queue = Volley.newRequestQueue(mContext);//Volley.newRequestQueue(this);  // this = context
-            String url = "http://10.0.2.2:8080/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
+            String url = "https://java.webischia.com/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
             final StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
@@ -55,6 +55,7 @@ public class LoginServiceImpl implements LoginService {
                                 String jti = jsonObj.getString("access_token");
                                 if(loginControl != null)
                                     loginControl.successLogin(username,jti,mContext);
+
                               //  Toast.makeText(MainActivity.this, "Başarıyla giriş yaptınız", Toast.LENGTH_SHORT).show();
                             }
                             catch (Exception e)

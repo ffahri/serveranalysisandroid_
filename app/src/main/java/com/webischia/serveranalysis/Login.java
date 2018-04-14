@@ -47,4 +47,9 @@ public class Login extends AppCompatActivity implements LoginControl{
 
 
     }
+
+    @Override
+    public void deniedLogin(Context context) {
+        Toast.makeText(context, "Login Success ! \nWelcome sss" , Toast.LENGTH_SHORT).show();
+    }
 }
