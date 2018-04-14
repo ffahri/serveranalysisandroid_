@@ -36,7 +36,11 @@
                 android:value="com.webischia.serveranalysis.Dashboard" />
         </activity>
         <activity android:name=".CreateAlarm" />
-        <activity android:name=".AlarmDashboard"></activity>
+        <activity android:name=".AlarmDashboard" />
+
+        <service
+            android:name=".AlarmChecker"
+            android:exported="false"></service>
     </application>
 
 </manifest>
