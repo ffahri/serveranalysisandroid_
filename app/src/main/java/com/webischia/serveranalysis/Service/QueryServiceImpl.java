@@ -61,11 +61,10 @@ public class QueryServiceImpl implements QueryService {
                                 JSONArray jsonArr = jsonObj2.getJSONArray("result");
                                 JSONObject jsonArr2 = jsonArr.getJSONObject(0);
                                 JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
-                                for(int ii = 0 ; ii < 12 ; ii++)
-                                {
-                                    JSONArray js3 = jsonArr3.getJSONArray(ii);
-                                    Log.d("js3", js3.toString());
+                                Log.d("id",""+jsonArr3.length());
 
+                                for(int ii=0 ; ii<jsonArr3.length() ; ii++){
+                                    JSONArray js3 = jsonArr3.getJSONArray(ii);
                                     String axes_x = js3.getString(1);
                                     Date timestamp = new Date(js3.getLong(0)*1000L);
                                     Float x = Float.parseFloat(axes_x);

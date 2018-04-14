@@ -26,9 +26,10 @@ public class Login extends AppCompatActivity implements LoginControl{
 
     //Service kullanarak login kontrol
     public void loginCheck(View view){
-        EditText txt_username,txt_password;
+        EditText txt_username,txt_password,server_ip;
         txt_username=findViewById(R.id.username);
         txt_password=findViewById(R.id.password);
+        server_ip=findViewById(R.id.server_ip);
         control.loginCheck(txt_username.getText().toString(),txt_password.getText().toString());
 
 

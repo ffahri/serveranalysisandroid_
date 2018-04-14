@@ -43,7 +43,7 @@ public class ShowGraphic extends AppCompatActivity{
     Graphic graphic;
     Intent i;
     PendingIntent pen_i;
-
+    Context mContext;
     @Override
     protected void onStop() {
         super.onStop();
@@ -55,6 +55,7 @@ public class ShowGraphic extends AppCompatActivity{
         setContentView(R.layout.activity_show_graphic);
         ArrayList<Entry> yValues = null ;
         ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
+        mContext = this;
         if(k == null)
         {
             //getIntent().getExtras().getString("graphName");
@@ -90,7 +91,7 @@ public class ShowGraphic extends AppCompatActivity{
     public void refresh(View view)
     {
 
-        ArrayList k = this.getIntent().getParcelableArrayListExtra("graphic");
+        ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
         if(k == null)
         {
             //getIntent().getExtras().getString("graphName");
@@ -100,18 +101,20 @@ public class ShowGraphic extends AppCompatActivity{
         else
             graphic = (Graphic)k.get(0);
         final String token = getIntent().getExtras().getString("token");
+        final ArrayList<Entry> yValues2 = new ArrayList<Entry>();
+
         try {
             final RequestQueue queue = Volley.newRequestQueue(this);  // this = context
 
             String url = "https://java.webischia.com/api/v1/metric/"+graphic.httpForm();
             Log.d("query_url",url);
+
             StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // response
                             Log.d("Response", response);
-                            ArrayList<Entry> yValues = new ArrayList<>();
 
 
                             try {
@@ -130,13 +133,13 @@ public class ShowGraphic extends AppCompatActivity{
                                     Date timestamp = new Date(js3.getLong(0)*1000L);
                                     Float x = Float.parseFloat(axes_x);
                                     // x = x/100000000;
-                                    yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
+                                    yValues2.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
                                     Toast.makeText(ShowGraphic.this,"Refreshed",Toast.LENGTH_SHORT).show();
 
                                 }
 
                                 ////////////////// GRAFIK
-                                editGraph(yValues);
+                                editGraph(yValues2);
                             }
                             catch (Exception e)
                             {
@@ -149,7 +152,7 @@ public class ShowGraphic extends AppCompatActivity{
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // error
-                            Log.d("Error.Response","error");
+                            Log.d("Error.Response",error.getMessage());
 
 
                         }
