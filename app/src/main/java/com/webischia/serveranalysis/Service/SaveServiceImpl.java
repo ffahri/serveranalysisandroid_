@@ -44,7 +44,7 @@ public class SaveServiceImpl implements SaveService {
             outFile.close();
             Log.d("SAVE_GRAPH","SUCCESS");
             saveNames(graphObj.getName(),username);
-            saveControl.successSave(graphObj.getName(),context);
+            saveControl.successSave(graphObj.getName(),context,username);
         } catch (IOException i) {
             i.printStackTrace();
             Log.d("SAVE_GRAPH","NOPE");
