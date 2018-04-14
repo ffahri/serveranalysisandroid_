@@ -96,8 +96,8 @@ public class SaveServiceImpl implements SaveService {
 
         try {
             outputStream = context.openFileOutput(username+".dat", id);
-            outputStream.write(name.getBytes());
-            outputStream.write("\n".getBytes()); //newline added
+            outputStream.write("\n".getBytes());
+            outputStream.write(name.getBytes());//newline added
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,7 +123,8 @@ public class SaveServiceImpl implements SaveService {
 
             while (in.ready()) {
                 String line = in.readLine();
-                Log.d("Line = ",line); //satır satır okutamadım
+                Log.d("Line = ",line); //
+                if(line.length()>0)
                 graphicList.add(loadGraphics(line));
 
             }
