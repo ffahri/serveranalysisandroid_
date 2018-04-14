@@ -97,6 +97,7 @@ public class SaveServiceImpl implements SaveService {
         try {
             outputStream = context.openFileOutput(username+".dat", id);
             outputStream.write(name.getBytes());
+            outputStream.write("\n".getBytes()); //newline added
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
