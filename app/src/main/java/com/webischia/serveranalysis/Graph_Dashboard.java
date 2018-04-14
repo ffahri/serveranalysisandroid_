@@ -13,8 +13,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.webischia.serveranalysis.Controls.QueryControl;
 import com.webischia.serveranalysis.Controls.SaveControl;
 import com.webischia.serveranalysis.Models.Graphic;
+import com.webischia.serveranalysis.Service.QueryService;
+import com.webischia.serveranalysis.Service.QueryServiceImpl;
 import com.webischia.serveranalysis.Service.SaveService;
 import com.webischia.serveranalysis.Service.SaveServiceImpl;
 
@@ -22,9 +25,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graph_Dashboard extends AppCompatActivity implements SaveControl {
+public class Graph_Dashboard extends AppCompatActivity implements SaveControl,QueryControl {
     SaveControl saveControl;
     SaveService saveService;
+    QueryControl queryControl;
+    QueryService queryService;
     LinearLayout ll;
     LinearLayout.LayoutParams lp;
     Context context;
@@ -36,8 +41,10 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl {
         Button a = findViewById(R.id.create_graphic);
         //  lp = lp = (LinearLayout.LayoutParams) ll.getLayoutParams();
         saveControl = new Graph_Dashboard();
-        ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
         saveService = new SaveServiceImpl(saveControl, this);
+        queryControl = new Graph_Dashboard();
+        queryService = new QueryServiceImpl(queryControl,this);
+        ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
         if(graphs == null)
             saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"));
         if (graphs != null && ll != null) {
@@ -49,14 +56,16 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl {
                 temp.setText(tmp.getName());
                 temp.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent showGraphic = new Intent(context, ShowGraphic.class);
-                        showGraphic.putExtra("token", getIntent().getExtras().getString("token"));
-                        showGraphic.putExtra("username", getIntent().getExtras().getString("username"));
-                        ArrayList tempList = new ArrayList<Graphic>();//should use parcelableobject todo
-                        tempList.add(tmp);
-                        showGraphic.putParcelableArrayListExtra("graphic", tempList);
-                        context.startActivity(showGraphic);
-                        finish(); //bu aktiviteyi kapat
+                        queryService.doQuery(tmp,getIntent().getExtras().getString("token"));
+
+//                        Intent showGraphic = new Intent(context, ShowGraphic.class);
+//                        showGraphic.putExtra("token", getIntent().getExtras().getString("token"));
+//                        showGraphic.putExtra("username", getIntent().getExtras().getString("username"));
+//                        ArrayList tempList = new ArrayList<Graphic>();//should use parcelableobject todo
+//                        tempList.add(tmp);
+//                        showGraphic.putParcelableArrayListExtra("graphic", tempList);
+//                        context.startActivity(showGraphic);
+//                        finish(); //bu aktiviteyi kapat
                     }
                 });
                 ll.addView(temp);
@@ -91,5 +100,14 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl {
             //at least it works
         }
 
+    }
+
+    @Override
+    public void successQuery(ArrayList list, Context context) {
+
+        Intent showGraphic = new Intent(context, ShowGraphic.class);
+        showGraphic.putParcelableArrayListExtra("values", list);
+        context.startActivity(showGraphic);
+        finish(); //bu aktiviteyi kapat
     }
 }

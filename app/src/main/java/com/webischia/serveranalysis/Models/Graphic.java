@@ -22,7 +22,7 @@ public class Graphic implements Serializable {
     //http://192.168.122.160:9090/api/v1/query?query=node_cpu{mode="idle"}[1m]
     public String httpForm()
     {
-        return "query="+query+"{mode=\""+mode+"\"}"+"["+time_range+"]"; //bu hardcoded oldu todo düzenle
+        return query+"{mode=\""+mode+"\"}"+"["+time_range+"]"; //bu hardcoded oldu todo düzenle
     }
     public String getName(){
         return name;

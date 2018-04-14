@@ -21,6 +21,7 @@ import com.webischia.serveranalysis.Service.QueryService;
 import com.webischia.serveranalysis.Service.QueryServiceImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShowGraphic extends AppCompatActivity implements QueryControl{
     QueryControl queryControl;
@@ -42,11 +43,10 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
         queryControl = new ShowGraphic();
         queryService = new QueryServiceImpl(queryControl,this);
         linechart1 = (LineChart) findViewById(R.id.linechart); //xml den java classına çağırdık
-
-        //getIntent().getExtras().getString("username")
-        startAlarim();
-
+        //startAlarim();
+        ArrayList<Entry> yValues = null ;
         ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
+        String token = getIntent().getExtras().getString("token");
         if(k == null)
         {
             //getIntent().getExtras().getString("graphName");
@@ -54,21 +54,20 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
         }
         else
         graphic = (Graphic)k.get(0);
+
+        if(getIntent().getParcelableArrayListExtra("values") != null)
+            yValues = getIntent().getParcelableArrayListExtra("values");
+
         //graifk utku
         //put extra içine graph koyup query yaptırırız burada
+
         linechart1.setDragEnabled(true);
         linechart1.setScaleEnabled(false);
-
-        ArrayList<Entry> yValues = new ArrayList<>(); // y değerleri
-        yValues.add(new Entry(0,60f)); //x 0 y 60 olsun f de float f si
-        yValues.add(new Entry(1,100f));
-        yValues.add(new Entry(2,40f));
-        yValues.add(new Entry(3,72f)); // x3 y 30 olsun
-
 
         LineDataSet set1 = new LineDataSet(yValues,"Data set y");// sol altta yazan yazı
 
         set1.setFillAlpha(110);
+
         set1.setColor(Color.RED);// çizgi rengi
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -78,12 +77,13 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
         linechart1.setData(data); // programa ekliyor
 
     }
+
     public void refresh(View view)
     {
         //queryService.refresh();
     }
     //alarm
-    private void startAlarim() {
+    private void startAlarm() {
 
         AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);//alarm servisini ekledik
 
@@ -95,25 +95,7 @@ public class ShowGraphic extends AppCompatActivity implements QueryControl{
     }
 
     @Override
-    public void successQuery(ArrayList list) {
-        //diğer kısımlarda hata var deneyemedik UNIT TEST de yazmadım
-/*
-
-        //yValues.add(new Entry((float)timestamp.getMinutes(),x)); //x 0 y 60 olsun f de float f si
-        LineDataSet set1 = new LineDataSet(list,"CPU KULLANIMI");// sol altta yazan yazı
-
-        set1.setFillAlpha(110);
-        set1.setColor(Color.RED);// çizgi rengi
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);// çizginin oluştuğu kısım heralde tam kontrol etmedim
-
-        LineData data = new LineData(dataSets);
-        linechart1.setData(data); // programa ekliyor
-        */
-        //utku
-
-
+    public void successQuery(ArrayList list,Context context) {
 
     }
 }

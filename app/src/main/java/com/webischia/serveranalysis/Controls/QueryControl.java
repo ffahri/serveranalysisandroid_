@@ -1,5 +1,7 @@
 package com.webischia.serveranalysis.Controls;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 /**
@@ -7,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface QueryControl {
-    void successQuery(ArrayList list);
+    void successQuery(ArrayList list, Context context);
 }

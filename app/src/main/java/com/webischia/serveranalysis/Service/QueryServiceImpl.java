@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**Query metotlarının yazıldığı ve güvenli bir şekilde servera iletilip rest cevabı
@@ -38,26 +39,29 @@ public class QueryServiceImpl implements QueryService {
 
     @Override
     public void doQuery(Graphic graphic, final String token) {
+
         try {
             final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
 
-            String url = "http://192.168.122.160:9090/api/v1/query"+graphic.httpForm();
+            String url = "https://java.webischia.com/api/v1/metric/"+graphic.httpForm();
+            Log.d("query_url",url);
             StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // response
                             Log.d("Response", response);
+                            ArrayList<Entry> yValues = new ArrayList<>();
+
 
                             try {
-                                ArrayList<Entry> yValues = new ArrayList<>();
                                 Intent i;
                                 JSONObject jsonObj = new JSONObject(response);
                                 JSONObject jsonObj2 = jsonObj.getJSONObject("data");
                                 JSONArray jsonArr = jsonObj2.getJSONArray("result");
                                 JSONObject jsonArr2 = jsonArr.getJSONObject(0);
                                 JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
-                                for(int ii = 0 ; ii < 5 ; ii++)
+                                for(int ii = 0 ; ii < 12 ; ii++)
                                 {
                                     JSONArray js3 = jsonArr3.getJSONArray(ii);
                                     Log.d("js3", js3.toString());
@@ -69,16 +73,13 @@ public class QueryServiceImpl implements QueryService {
                                     yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
 
                                 }
-//
-
-
-
+                                queryControl.successQuery(yValues,context);
                                 ////////////////// GRAFIK
 
                             }
                             catch (Exception e)
                             {
-                                Log.d("hata", e.getMessage());
+                                Log.d("Query_ERROR", e.getMessage());
 
                             }
                         }
@@ -99,7 +100,7 @@ public class QueryServiceImpl implements QueryService {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     if(token != null) {
-                        params.put("Authorization", "Basic VXNlcjoxMjM0");
+                        params.put("Authorization", "Bearer "+token);
 
                         return params;
                     }
@@ -112,5 +113,6 @@ public class QueryServiceImpl implements QueryService {
         catch(Exception e)
         {
         }
+
     }
 }
