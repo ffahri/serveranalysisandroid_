@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.webischia.serveranalysis.Controls.QueryControl;
 import com.webischia.serveranalysis.Controls.SaveControl;
@@ -45,10 +46,12 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         queryControl = new Graph_Dashboard();
         queryService = new QueryServiceImpl(queryControl,this);
         ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
-        if(graphs == null)
+        if(graphs == null) {
             saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"));
+            Log.d("graphs","null");
+        }
         if (graphs != null && ll != null) {
-            context = getApplicationContext();
+            Log.d("G_DASHB","null değil");
             for (int i = 0; i < graphs.size(); i++) {
                 Button temp = new Button(this);
                 temp.setLayoutParams(a.getLayoutParams());
@@ -56,7 +59,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
                 temp.setText(tmp.getName());
                 temp.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        queryService.doQuery(tmp,getIntent().getExtras().getString("token"));
+                        queryService.doQuery(tmp,getIntent().getExtras().getString("token"),getIntent().getExtras().getString("username"));
 
 //                        Intent showGraphic = new Intent(context, ShowGraphic.class);
 //                        showGraphic.putExtra("token", getIntent().getExtras().getString("token"));
@@ -103,14 +106,28 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
     }
 
     @Override
-    public void successQuery(ArrayList list, Context context,Graphic tmp) {
+    public void successQuery(ArrayList list, Context context,Graphic tmp,String username) {
 
         Intent showGraphic = new Intent(context, ShowGraphic.class);
         showGraphic.putParcelableArrayListExtra("values", list);
         ArrayList tempList = new ArrayList<Graphic>();//should use parcelableobject todo
         tempList.add(tmp);
         showGraphic.putParcelableArrayListExtra("graphic", tempList);
+        showGraphic.putExtra("username",username);
         context.startActivity(showGraphic);
         finish(); //bu aktiviteyi kapat
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String username = getIntent().getExtras().getString("username");
+        String token = getIntent().getExtras().getString("token");
+        Intent dashboardIntent = new Intent(this,Dashboard.class);
+        dashboardIntent.putExtra("token",token);
+        dashboardIntent.putExtra("username",username);
+        startActivity(dashboardIntent);//contexti ref göstererek başlattım.
+        finish(); //bu aktiviteyi kapat
+
     }
 }

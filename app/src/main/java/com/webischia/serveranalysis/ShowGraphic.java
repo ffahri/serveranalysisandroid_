@@ -191,5 +191,18 @@ public class ShowGraphic extends AppCompatActivity{
         manager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime()+3000,pen_i);//ekrana bildirimi göstermek için
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent graphDash = new Intent(this,Graph_Dashboard.class);
+        graphDash.putExtra("token",getIntent().getExtras().getString("token"));
+        graphDash.putExtra("username",getIntent().getExtras().getString("username"));
+        graphDash.putParcelableArrayListExtra("graphs",null);
+        this.finish();
+        startActivity(graphDash);
+        //grafikleri yükleyemiyoruz todo todo todooooo
+         //bu aktiviteyi kapat
+
+    }
 
 }

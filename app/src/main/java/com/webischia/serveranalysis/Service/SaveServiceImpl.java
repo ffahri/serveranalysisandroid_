@@ -112,7 +112,9 @@ public class SaveServiceImpl implements SaveService {
 
     ArrayList graphicList = null;
     File file = new File(context.getFilesDir(),username+".dat");
-    FileInputStream fis;
+        Log.d("SAVE_S_IMP ",username); //
+
+        FileInputStream fis;
     if(file.exists()) {
         try {
             fis = new FileInputStream(file);
@@ -128,6 +130,8 @@ public class SaveServiceImpl implements SaveService {
                 graphicList.add(loadGraphics(line));
 
             }
+            fis.close();
+            in.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

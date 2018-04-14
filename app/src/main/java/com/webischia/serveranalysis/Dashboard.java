@@ -21,4 +21,16 @@ public class Dashboard extends AppCompatActivity {
         startActivity(graphDash);
         finish(); //bu aktiviteyi kapat
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String username = getIntent().getExtras().getString("username");
+        String token = getIntent().getExtras().getString("token");
+        Intent dashboardIntent = new Intent(this,Login.class);
+        dashboardIntent.putExtra("token",token);
+        dashboardIntent.putExtra("username",username);
+        startActivity(dashboardIntent);//contexti ref göstererek başlattım.
+        finish(); //bu aktiviteyi kapat
+
+    }
 }

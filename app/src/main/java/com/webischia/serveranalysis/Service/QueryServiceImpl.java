@@ -38,7 +38,7 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public void doQuery(final Graphic graphic, final String token) {
+    public void doQuery(final Graphic graphic, final String token, final String username) {
 
         try {
             final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
@@ -72,7 +72,7 @@ public class QueryServiceImpl implements QueryService {
                                     yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
 
                                 }
-                                queryControl.successQuery(yValues,context,graphic);
+                                queryControl.successQuery(yValues,context,graphic,username);
                                 ////////////////// GRAFIK
 
                             }
