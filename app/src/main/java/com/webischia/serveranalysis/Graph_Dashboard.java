@@ -103,10 +103,13 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
     }
 
     @Override
-    public void successQuery(ArrayList list, Context context) {
+    public void successQuery(ArrayList list, Context context,Graphic tmp) {
 
         Intent showGraphic = new Intent(context, ShowGraphic.class);
         showGraphic.putParcelableArrayListExtra("values", list);
+        ArrayList tempList = new ArrayList<Graphic>();//should use parcelableobject todo
+        tempList.add(tmp);
+        showGraphic.putParcelableArrayListExtra("graphic", tempList);
         context.startActivity(showGraphic);
         finish(); //bu aktiviteyi kapat
     }
