@@ -51,6 +51,15 @@ public class Login extends AppCompatActivity implements LoginControl{
 
     @Override
     public void deniedLogin(Context context) {
-        Toast.makeText(context, "Login Success ! \nWelcome sss" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "ACCESS DENIED ! \nTHIS INCIDENT WILL BE REPORTED !" , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 }

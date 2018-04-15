@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Sample Graphic" />
+            android:text="SampleGraphic" />
 
         <TextView
             android:id="@+id/textView_metricname"
