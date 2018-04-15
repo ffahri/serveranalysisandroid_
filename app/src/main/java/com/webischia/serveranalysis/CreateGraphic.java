@@ -38,25 +38,41 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         EditText mode = (EditText) findViewById(R.id.editText_mode);
         EditText time = (EditText) findViewById(R.id.editText_time);
         Graphic newGraph = new Graphic(metric.getText().toString(),mode.getText().toString(),time.getText().toString(),fixName[0]);
-        saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"));
+        saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
 
 
     }
 
     @Override
-    public void successSave(String name,Context context,String username,String token) {
+    public void successSave(String name,Context context,String username,String token,String serverIP) {
         Log.d("test","OK!");
         Toast.makeText(context, "Graphic Saved !", Toast.LENGTH_SHORT).show();
         Intent showGraphicIntent = new Intent(context,Dashboard.class);
         showGraphicIntent.putExtra("graphName",name);
         showGraphicIntent.putExtra("username",username);
         showGraphicIntent.putExtra("token",token);
+        showGraphicIntent.putExtra("serverIP",serverIP);
         context.startActivity(showGraphicIntent);//contexti ref göstererek başlattım.
         finish(); //bu aktiviteyi kapat
 
     }
 
     @Override
-    public void loadGraphs(ArrayList graphs , Context context,String username ,String token){
+    public void loadGraphs(ArrayList graphs , Context context,String username ,String token,String serverIP){
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent graphDash = new Intent(this,Graph_Dashboard.class);
+        graphDash.putExtra("token",getIntent().getExtras().getString("token"));
+        graphDash.putExtra("username",getIntent().getExtras().getString("username"));
+        graphDash.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        graphDash.putParcelableArrayListExtra("graphs",null);
+        this.finish();
+        startActivity(graphDash);
+        //grafikleri yükleyemiyoruz todo todo todooooo
+        //bu aktiviteyi kapat
+
+    }
+
 }

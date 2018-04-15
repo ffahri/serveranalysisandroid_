@@ -5,6 +5,6 @@ package com.webischia.serveranalysis.Service;
  */
 
 public interface LoginService {
-    public void loginCheck(final String username, final String password);
+    public void loginCheck(final String server_ip , final String username, final String password);
     void saveUser(String username);
     }

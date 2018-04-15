@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -65,7 +66,8 @@ public class ShowGraphic extends AppCompatActivity{
         }
         else
         graphic = (Graphic)k.get(0);
-
+        TextView temp = (TextView)findViewById(R.id.graphic_name_tv);
+        temp.setText(graphic.getName());
         if(getIntent().getParcelableArrayListExtra("values") != null)
             yValues = getIntent().getParcelableArrayListExtra("values");
         editGraph(yValues);
@@ -108,7 +110,7 @@ public class ShowGraphic extends AppCompatActivity{
         try {
             RequestQueue queue = Volley.newRequestQueue(this);  // this = context
 
-            String url = "https://java.webischia.com/api/v1/metric/"+graphic.httpForm();
+            String url = "https://"+getIntent().getExtras().getString("serverIP")+"/api/v1/metric/"+graphic.httpForm();
             Log.d("query_url",url);
 
             StringRequest postRequest = new StringRequest(Request.Method.GET, url,
@@ -202,6 +204,7 @@ public class ShowGraphic extends AppCompatActivity{
         Intent graphDash = new Intent(this,Graph_Dashboard.class);
         graphDash.putExtra("token",getIntent().getExtras().getString("token"));
         graphDash.putExtra("username",getIntent().getExtras().getString("username"));
+        graphDash.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
         graphDash.putParcelableArrayListExtra("graphs",null);
         this.finish();
         startActivity(graphDash);

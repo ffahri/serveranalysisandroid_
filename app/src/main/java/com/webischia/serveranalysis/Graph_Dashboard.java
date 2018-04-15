@@ -47,7 +47,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         queryService = new QueryServiceImpl(queryControl,this);
         ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
         if(graphs == null) {
-            saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"));
+            saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
             Log.d("graphs","null");
         }
         if (graphs != null && ll != null) {
@@ -59,16 +59,8 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
                 temp.setText(tmp.getName());
                 temp.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        queryService.doQuery(tmp,getIntent().getExtras().getString("token"),getIntent().getExtras().getString("username"));
-
-//                        Intent showGraphic = new Intent(context, ShowGraphic.class);
-//                        showGraphic.putExtra("token", getIntent().getExtras().getString("token"));
-//                        showGraphic.putExtra("username", getIntent().getExtras().getString("username"));
-//                        ArrayList tempList = new ArrayList<Graphic>();//should use parcelableobject todo
-//                        tempList.add(tmp);
-//                        showGraphic.putParcelableArrayListExtra("graphic", tempList);
-//                        context.startActivity(showGraphic);
-//                        finish(); //bu aktiviteyi kapat
+                        queryService.doQuery(tmp,getIntent().getExtras().getString("token"),
+                                getIntent().getExtras().getString("username"),getIntent().getExtras().getString("serverIP"));
                     }
                 });
                 ll.addView(temp);
@@ -81,23 +73,25 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         Intent crtgrph = new Intent(this, CreateGraphic.class);
         crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
         crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
+        crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
         startActivity(crtgrph);
         finish(); //bu aktiviteyi kapat
     }
 
     @Override
-    public void successSave(String name, Context context,String username,String token) {
+    public void successSave(String name, Context context,String username,String token,String serverIP) {
 
     }
 
     @Override
-    public void loadGraphs(ArrayList graphs, Context context, String username, String token) {
+    public void loadGraphs(ArrayList graphs, Context context, String username, String token,String serverIP) {
         //gelen listedeki graph.getName() ile liste oluşturulacak button ile tıklanacak
         if (graphs.size() > 0) {
             Intent graphDash = new Intent(context, Graph_Dashboard.class);
             graphDash.putParcelableArrayListExtra("graphs", graphs);
             graphDash.putExtra("token", token);
             graphDash.putExtra("username", username);
+            graphDash.putExtra("serverIP",serverIP);
             context.startActivity(graphDash);
             finish(); //bu aktiviteyi kapat
             //at least it works
@@ -106,7 +100,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
     }
 
     @Override
-    public void successQuery(ArrayList list, Context context,Graphic tmp,String username,String token) {
+    public void successQuery(ArrayList list, Context context,Graphic tmp,String username,String token,String serverIP) {
 
         Intent showGraphic = new Intent(context, ShowGraphic.class);
         showGraphic.putParcelableArrayListExtra("values", list);
@@ -114,6 +108,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         tempList.add(tmp);
         showGraphic.putParcelableArrayListExtra("graphic", tempList);
         showGraphic.putExtra("username",username);
+        showGraphic.putExtra("serverIP",serverIP);
         showGraphic.putExtra("token",token);
         context.startActivity(showGraphic);
         finish(); //bu aktiviteyi kapat
@@ -127,6 +122,8 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         Intent dashboardIntent = new Intent(this,Dashboard.class);
         dashboardIntent.putExtra("token",token);
         dashboardIntent.putExtra("username",username);
+        dashboardIntent.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+
         startActivity(dashboardIntent);//contexti ref göstererek başlattım.
         finish(); //bu aktiviteyi kapat
 

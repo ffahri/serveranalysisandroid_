@@ -10,6 +10,6 @@ import java.util.List;
 //Server ile android arasındaki querylerin çağırılacağı metotların belirtilidiği yer
 public interface QueryService {
 
-    void doQuery(Graphic graphic, String token,String username);
+    void doQuery(Graphic graphic, String token,String username,String serverIP);
 
 }

@@ -44,7 +44,7 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public void doQuery(final Graphic graphic, final String token, final String username) {
+    public void doQuery(final Graphic graphic, final String token, final String username,final String serverIP) {
         RequestQueue mRequestQueue;
         try {
 
@@ -57,7 +57,7 @@ public class QueryServiceImpl implements QueryService {
            // final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
             mRequestQueue.start();
 
-            String url = "https://java.webischia.com/api/v1/metric/"+graphic.httpForm();
+            String url = "https://"+serverIP+"/api/v1/metric/"+graphic.httpForm();
             Log.d("query_url",url);
             //Log.d("username",username);
            // Log.d("token",token);
@@ -88,7 +88,7 @@ public class QueryServiceImpl implements QueryService {
                                     yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
 
                                 }
-                                queryControl.successQuery(yValues,context,graphic,username,token);
+                                queryControl.successQuery(yValues,context,graphic,username,token,serverIP);
                                 ////////////////// GRAFIK
 
                             }

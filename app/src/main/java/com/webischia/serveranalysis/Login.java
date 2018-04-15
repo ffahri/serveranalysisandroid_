@@ -30,18 +30,19 @@ public class Login extends AppCompatActivity implements LoginControl{
         txt_username=findViewById(R.id.username);
         txt_password=findViewById(R.id.password);
         server_ip=findViewById(R.id.server_ip);
-        control.loginCheck(txt_username.getText().toString(),txt_password.getText().toString());
+        control.loginCheck(server_ip.getText().toString(),txt_username.getText().toString(),txt_password.getText().toString());
 
 
     }
 
     @Override
-    public void successLogin(String username, String token, Context context) {
+    public void successLogin(String serverIP,String username, String token, Context context) {
             //Toast.makeText(getBaseContext(), "Login Success !", Toast.LENGTH_SHORT).show();
             //control.saveUser(username);
             Toast.makeText(context, "Login Success ! \nWelcome " + username, Toast.LENGTH_SHORT).show();
             Intent dashboardIntent = new Intent(context,Dashboard.class);
             dashboardIntent.putExtra("token",token);
+            dashboardIntent.putExtra("serverIP",serverIP);
             dashboardIntent.putExtra("username",username);
             context.startActivity(dashboardIntent);//contexti ref göstererek başlattım.
             finish(); //bu aktiviteyi kapat

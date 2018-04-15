@@ -31,7 +31,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     @Override
-    public void saveGraphics(Graphic graphObj,String username,String token) {
+    public void saveGraphics(Graphic graphObj,String username,String token,String serverIP) {
             //Java serialization ile yaz
         try {
             //grafik ismine göre kayıt yapılıyor. Aynı isimde iki grafik olamaz.
@@ -44,7 +44,7 @@ public class SaveServiceImpl implements SaveService {
             outFile.close();
             Log.d("SAVE_GRAPH","SUCCESS");
             saveNames(graphObj.getName(),username);
-            saveControl.successSave(graphObj.getName(),context,username,token);
+            saveControl.successSave(graphObj.getName(),context,username,token,serverIP);
         } catch (IOException i) {
             i.printStackTrace();
             Log.d("SAVE_GRAPH","NOPE");
@@ -108,7 +108,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     @Override
-    public void loadNames(String username,String token) {
+    public void loadNames(String username,String token,String serverIP) {
 
     ArrayList graphicList = null;
     File file = new File(context.getFilesDir(),username+".dat");
@@ -136,7 +136,7 @@ public class SaveServiceImpl implements SaveService {
             e.printStackTrace();
         }
         Log.d("Size = " ,""+graphicList.size());
-        saveControl.loadGraphs(graphicList, context,username,token);
+        saveControl.loadGraphs(graphicList, context,username,token,serverIP);
         //return graphicList;
     }
         else

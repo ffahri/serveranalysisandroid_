@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
         this.mContext = mContext;
     }
 
-    public void loginCheck(final String username, final String password) {
+    public void loginCheck(final String serverIP,final String username, final String password) {
         //yanlış şifre ise hata ver ve null dön
 
         //401 - 403 hatası alırsan hata ver diyalog çıkar
@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
            //todo burada hata var
 
             final RequestQueue queue = Volley.newRequestQueue(mContext);//Volley.newRequestQueue(this);  // this = context
-            String url = "https://java.webischia.com/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
+            String url = "https://"+serverIP+"/oauth/token"; // GLOBAL VARIABLE ILE ALACAĞIM
             final StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
@@ -54,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
 //                                JSONArray token = jsonObj.getJSONArray("token");
                                 String jti = jsonObj.getString("access_token");
                                 if(loginControl != null)
-                                    loginControl.successLogin(username,jti,mContext);
+                                    loginControl.successLogin(serverIP,username,jti,mContext);
 
                               //  Toast.makeText(MainActivity.this, "Başarıyla giriş yaptınız", Toast.LENGTH_SHORT).show();
                             }
