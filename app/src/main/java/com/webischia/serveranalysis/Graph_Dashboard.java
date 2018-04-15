@@ -76,7 +76,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
         crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
         crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
-        context.startActivity(crtgrph);
+        startActivity(crtgrph);
         finish(); //bu aktiviteyi kapat
     }
 

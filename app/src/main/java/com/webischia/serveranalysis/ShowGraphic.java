@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -83,7 +84,8 @@ public class ShowGraphic extends AppCompatActivity{
         linechart1.setScaleEnabled(false);
         linechart1.getAxisRight().setEnabled(false);//sağ ekseni disable ettik
         linechart1.getAxisLeft().setEnabled(false);//sol ekseni disable ettik
-
+        linechart1.setPinchZoom(true);
+        linechart1.setDrawGridBackground(true);
         linechart1.setDrawGridBackground(true);
         XAxis xAxis = linechart1.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -94,8 +96,8 @@ public class ShowGraphic extends AppCompatActivity{
 
 
 
-        LineDataSet set1 = new LineDataSet(yValues,"Data set y");// sol altta yazan yazı
-
+        LineDataSet set1 = new LineDataSet(yValues,graphic.getQuery());// sol altta yazan yazı
+        //linechart1.setDescription();
         set1.setFillAlpha(110);
 
         set1.setColor(Color.RED);// çizgi rengi
