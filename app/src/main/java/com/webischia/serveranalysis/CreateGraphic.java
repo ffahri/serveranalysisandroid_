@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.webischia.serveranalysis.Controls.SaveControl;
@@ -28,16 +30,39 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         setContentView(R.layout.activity_create_graphic);
         saveControl = new CreateGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
+
+        String[] arraySpinner = new String[] {
+                "node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active", "node_network_receive_packets",
+                "node_network_transmit_packets","http_requests_total"
+        };
+        Spinner s = (Spinner) findViewById(R.id.spinner2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arraySpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s.setAdapter(adapter);
+        String[] timeSpinner = new String[] {
+                "1m","5m","10m","30m"
+        };
+        Spinner s2 = (Spinner) findViewById(R.id.spinner3);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,timeSpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s2.setAdapter(adapter2);
+
     }
     public void createGraph(View view){
 
-
+        Spinner s = (Spinner) findViewById(R.id.spinner2);
+        Spinner s2 = (Spinner) findViewById(R.id.spinner3);
         EditText name = (EditText) findViewById(R.id.editText_graphicname);
         String fixName[] = name.getText().toString().split(" ");
-        EditText metric = (EditText) findViewById(R.id.editText_metricname);
-        EditText mode = (EditText) findViewById(R.id.editText_mode);
-        EditText time = (EditText) findViewById(R.id.editText_time);
-        Graphic newGraph = new Graphic(metric.getText().toString(),mode.getText().toString(),time.getText().toString(),fixName[0]);
+       // EditText metric = (EditText) findViewById(R.id.editText_metricname);
+        //EditText mode = (EditText) findViewById(R.id.editText_mode);
+        //EditText time = (EditText) findViewById(R.id.editText_time);
+        String metric = (String)s.getSelectedItem();
+        String time = (String)s2.getSelectedItem();
+        String mode="";
+        Graphic newGraph = new Graphic(metric,time,fixName[0]);
         saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
 
 

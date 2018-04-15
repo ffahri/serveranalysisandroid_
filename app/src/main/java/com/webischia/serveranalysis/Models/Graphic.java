@@ -12,9 +12,14 @@ public class Graphic implements Serializable {
     String time_range;
     String name;
 
-    public Graphic(String query, String mode, String time_range, String name) {
+    public Graphic(String query, String time_range, String name) {
         this.query = query;
-        this.mode = mode;
+        if(query=="node_network_receive_packets" || query=="node_network_transmit_packets")
+        {
+            this.mode="{device=\"eth0\"}";
+        }
+        else
+        this.mode = "";
         this.time_range = time_range;
         this.name = name;
     }
@@ -22,7 +27,8 @@ public class Graphic implements Serializable {
     //http://192.168.122.160:9090/api/v1/query?query=node_cpu{mode="idle"}[1m]
     public String httpForm()
     {
-        return query+"{mode=\""+mode+"\"}"+"["+time_range+"]"; //bu hardcoded oldu todo düzenle
+            return query+mode+"["+time_range+"]"; //bu hardcoded oldu todo düzenle
+
     }
     public String getName(){
         return name;

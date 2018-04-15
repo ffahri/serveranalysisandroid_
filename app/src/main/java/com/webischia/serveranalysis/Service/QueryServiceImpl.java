@@ -84,8 +84,10 @@ public class QueryServiceImpl implements QueryService {
                                     String axes_x = js3.getString(1);
                                     Date timestamp = new Date(js3.getLong(0)*1000L);
                                     Float x = Float.parseFloat(axes_x);
+                                    if(graphic.getQuery()=="node_memory_MemFree" || graphic.getQuery()=="node_memory_Cached" || graphic.getQuery()=="node_memory_Active")
+                                        x = x * 1000000;
                                     // x = x/100000000;
-                                    yValues.add(new Entry(x,(float)timestamp.getSeconds())); //x 0 y 60 olsun f de float f si
+                                    yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
 
                                 }
                                 queryControl.successQuery(yValues,context,graphic,username,token,serverIP);

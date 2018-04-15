@@ -27,7 +27,9 @@
             android:id="@+id/TextView_graphicnname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:fontFamily="sans-serif"
+            android:text="Name"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/editText_graphicname"
@@ -41,50 +43,38 @@
             android:id="@+id/textView_metricname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Metrics" />
+            android:text="Metrics"
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/editText_metricname"
+        <Spinner
+            android:id="@+id/spinner2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="node_cpu" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mode" />
-
-        <EditText
-            android:id="@+id/editText_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="idle" />
+            android:layout_height="40dp"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time" />
+            android:text="Time"
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/editText_time"
+        <Spinner
+            android:id="@+id/spinner3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="1m" />
+            android:layout_height="40dp"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/button"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:onClick="createGraph"
-            android:text="Create" />
+            android:text="CREATE"
+            android:textSize="18sp"
+            android:typeface="monospace" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
