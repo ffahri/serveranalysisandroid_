@@ -45,8 +45,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="showGraphs"
-                    android:text="Graphics"
-                    tools:text="Graphics" />
+                    android:text="GRAPHICS"
+                    tools:text="GRAPHICS" />
 
             </LinearLayout>
 
@@ -104,7 +104,7 @@
                     android:layout_weight="1"
                     android:onClick="showGraphs"
                     android:text="SETTINGS"
-                    tools:text="Settings" />
+                    tools:text="SETTINGS" />
 
             </LinearLayout>
 

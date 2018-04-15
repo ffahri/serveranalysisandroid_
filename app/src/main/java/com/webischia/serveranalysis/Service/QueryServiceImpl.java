@@ -49,15 +49,11 @@ public class QueryServiceImpl implements QueryService {
         try {
 
 
-/* Instantiate the cache */
             Cache cache = new DiskBasedCache(context.getCacheDir(), 1024 * 1024); // 1MB cap
-
 // Set up the network to use HttpURLConnection as the HTTP client.
             Network network = new BasicNetwork(new HurlStack());
-
 // Instantiate the RequestQueue with the cache and network.
             mRequestQueue = new RequestQueue(cache, network);
-
            // final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
             mRequestQueue.start();
 
@@ -76,7 +72,6 @@ public class QueryServiceImpl implements QueryService {
 
 
                             try {
-                                Intent i;
                                 JSONObject jsonObj = new JSONObject(response);
                                 JSONObject jsonObj2 = jsonObj.getJSONObject("data");
                                 JSONArray jsonArr = jsonObj2.getJSONArray("result");
