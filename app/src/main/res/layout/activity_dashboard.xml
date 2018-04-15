@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
+                android:onClick="showAlarms"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -69,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="showGraphs"
+                    android:onClick="showAlarms"
                     android:text="Alarms"
                     tools:text="Alarms" />
 
@@ -87,6 +88,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
+                android:onClick="showSettings"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -102,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="showGraphs"
+                    android:onClick="showSettings"
                     android:text="SETTINGS"
                     tools:text="SETTINGS" />
 
@@ -113,6 +115,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
+                android:onClick="showAbout"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -128,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="showGraphs"
+                    android:onClick="showAbout"
                     android:text="ABOUT"
                     tools:text="About" />
             </LinearLayout>

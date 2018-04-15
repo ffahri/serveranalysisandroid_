@@ -22,6 +22,30 @@ public class Dashboard extends AppCompatActivity {
         startActivity(graphDash);
         finish(); //bu aktiviteyi kapat
     }
+    public void showAlarms(View view){
+        Intent showAlarmDash = new Intent(this,AlarmDashboard.class);
+        showAlarmDash.putExtra("token",getIntent().getExtras().getString("token"));
+        showAlarmDash.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        showAlarmDash.putExtra("username",getIntent().getExtras().getString("username"));
+        startActivity(showAlarmDash);
+        finish(); //bu aktiviteyi kapat
+    }
+    public void showAbout(View view){
+        Intent about = new Intent(this,About.class);
+        about.putExtra("token",getIntent().getExtras().getString("token"));
+        about.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        about.putExtra("username",getIntent().getExtras().getString("username"));
+        startActivity(about);
+        finish(); //bu aktiviteyi kapat
+    }
+    public void showSettings(View view){
+        Intent userSettings = new Intent(this,UserSettings.class);
+        userSettings.putExtra("token",getIntent().getExtras().getString("token"));
+        userSettings.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        userSettings.putExtra("username",getIntent().getExtras().getString("username"));
+        startActivity(userSettings);
+        finish(); //bu aktiviteyi kapat
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

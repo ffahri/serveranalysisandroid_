@@ -40,7 +40,9 @@
 
         <service
             android:name=".AlarmChecker"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".About"></activity>
     </application>
 
 </manifest>
