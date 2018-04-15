@@ -85,7 +85,7 @@ public class QueryServiceImpl implements QueryService {
                                     Date timestamp = new Date(js3.getLong(0)*1000L);
                                     Float x = Float.parseFloat(axes_x);
                                     // x = x/100000000;
-                                    yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
+                                    yValues.add(new Entry(x,(float)timestamp.getSeconds())); //x 0 y 60 olsun f de float f si
 
                                 }
                                 queryControl.successQuery(yValues,context,graphic,username,token,serverIP);

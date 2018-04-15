@@ -81,12 +81,16 @@ public class ShowGraphic extends AppCompatActivity{
         linechart1 = (LineChart) findViewById(R.id.linechart); //xml den java classına çağırdık
         linechart1.setDragEnabled(true);
         linechart1.setScaleEnabled(false);
+        linechart1.getAxisRight().setEnabled(false);//sağ ekseni disable ettik
+        linechart1.getAxisLeft().setEnabled(false);//sol ekseni disable ettik
+        linechart1.setDrawGridBackground(true);
         XAxis xAxis = linechart1.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
+        
 
 
         LineDataSet set1 = new LineDataSet(yValues,"Data set y");// sol altta yazan yazı
@@ -146,7 +150,7 @@ public class ShowGraphic extends AppCompatActivity{
                                     Date timestamp = new Date(js3.getLong(0)*1000L);
                                     Float x = Float.parseFloat(axes_x);
                                     // x = x/100000000;
-                                    yValues2.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
+                                    yValues2.add(new Entry(x,(float)timestamp.getSeconds())); //x 0 y 60 olsun f de float f si
                                     Toast.makeText(ShowGraphic.this,"Refreshed",Toast.LENGTH_SHORT).show();
 
                                 }
