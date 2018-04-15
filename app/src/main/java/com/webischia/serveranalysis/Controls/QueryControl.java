@@ -11,5 +11,5 @@ import java.util.ArrayList;
  */
 
 public interface QueryControl {
-    void successQuery(ArrayList list, Context context, Graphic graphic,String username);
+    void successQuery(ArrayList list, Context context, Graphic graphic,String username,String token);
 }

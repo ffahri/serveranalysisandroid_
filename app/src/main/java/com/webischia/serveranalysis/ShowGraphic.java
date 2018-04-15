@@ -44,6 +44,7 @@ public class ShowGraphic extends AppCompatActivity{
     Intent i;
     PendingIntent pen_i;
     Context mContext;
+    String token;
     @Override
     protected void onStop() {
         super.onStop();
@@ -56,6 +57,7 @@ public class ShowGraphic extends AppCompatActivity{
         ArrayList<Entry> yValues = null ;
         ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
         mContext = this;
+        token = getIntent().getExtras().getString("token");
         if(k == null)
         {
             //getIntent().getExtras().getString("graphName");
@@ -100,11 +102,11 @@ public class ShowGraphic extends AppCompatActivity{
         }
         else
             graphic = (Graphic)k.get(0);
-        final String token = getIntent().getExtras().getString("token");
+
         final ArrayList<Entry> yValues2 = new ArrayList<Entry>();
 
         try {
-            final RequestQueue queue = Volley.newRequestQueue(this);  // this = context
+            RequestQueue queue = Volley.newRequestQueue(this);  // this = context
 
             String url = "https://java.webischia.com/api/v1/metric/"+graphic.httpForm();
             Log.d("query_url",url);
@@ -168,11 +170,14 @@ public class ShowGraphic extends AppCompatActivity{
 
                         return params;
                     }
-                    else
+                    else {
+                        Log.d("volley.headers","token null");
                         return null;
+                    }
                 }
             };
             queue.add(postRequest);
+
         }
         catch(Exception e)
         {
