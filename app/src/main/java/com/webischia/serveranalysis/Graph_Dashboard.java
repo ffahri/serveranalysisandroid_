@@ -1,5 +1,6 @@
 package com.webischia.serveranalysis;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -61,6 +62,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
                     public void onClick(View v) {
                         queryService.doQuery(tmp,getIntent().getExtras().getString("token"),
                                 getIntent().getExtras().getString("username"),getIntent().getExtras().getString("serverIP"));
+                        finish();
                     }
                 });
                 ll.addView(temp);
@@ -74,7 +76,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
         crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
         crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
-        startActivity(crtgrph);
+        context.startActivity(crtgrph);
         finish(); //bu aktiviteyi kapat
     }
 
@@ -111,7 +113,14 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         showGraphic.putExtra("serverIP",serverIP);
         showGraphic.putExtra("token",token);
         context.startActivity(showGraphic);
-        finish(); //bu aktiviteyi kapat
+        ((Activity)getApplicationContext()).finish(); //bu aktiviteyi kapat
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+
     }
 
     @Override

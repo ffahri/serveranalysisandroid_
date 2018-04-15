@@ -21,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -79,6 +81,13 @@ public class ShowGraphic extends AppCompatActivity{
         linechart1 = (LineChart) findViewById(R.id.linechart); //xml den java classına çağırdık
         linechart1.setDragEnabled(true);
         linechart1.setScaleEnabled(false);
+        XAxis xAxis = linechart1.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(10f);
+        xAxis.setTextColor(Color.RED);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+
 
         LineDataSet set1 = new LineDataSet(yValues,"Data set y");// sol altta yazan yazı
 
