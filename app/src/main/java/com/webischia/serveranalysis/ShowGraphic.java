@@ -83,6 +83,7 @@ public class ShowGraphic extends AppCompatActivity{
         linechart1.setScaleEnabled(false);
         linechart1.getAxisRight().setEnabled(false);//sağ ekseni disable ettik
         linechart1.getAxisLeft().setEnabled(false);//sol ekseni disable ettik
+
         linechart1.setDrawGridBackground(true);
         XAxis xAxis = linechart1.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -90,7 +91,7 @@ public class ShowGraphic extends AppCompatActivity{
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
-        
+
 
 
         LineDataSet set1 = new LineDataSet(yValues,"Data set y");// sol altta yazan yazı
@@ -104,6 +105,7 @@ public class ShowGraphic extends AppCompatActivity{
 
         LineData data = new LineData(dataSets);
         linechart1.setData(data); // programa ekliyor
+        linechart1.invalidate();
     }
     public void refresh(View view)
     {
