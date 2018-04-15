@@ -38,18 +38,19 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         EditText mode = (EditText) findViewById(R.id.editText_mode);
         EditText time = (EditText) findViewById(R.id.editText_time);
         Graphic newGraph = new Graphic(metric.getText().toString(),mode.getText().toString(),time.getText().toString(),fixName[0]);
-        saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"));
+        saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"));
 
 
     }
 
     @Override
-    public void successSave(String name,Context context,String username) {
+    public void successSave(String name,Context context,String username,String token) {
         Log.d("test","OK!");
         Toast.makeText(context, "Graphic Saved !", Toast.LENGTH_SHORT).show();
         Intent showGraphicIntent = new Intent(context,Dashboard.class);
         showGraphicIntent.putExtra("graphName",name);
         showGraphicIntent.putExtra("username",username);
+        showGraphicIntent.putExtra("token",token);
         context.startActivity(showGraphicIntent);//contexti ref göstererek başlattım.
         finish(); //bu aktiviteyi kapat
 

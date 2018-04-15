@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public interface SaveControl {
-    void successSave(String name, Context context,String username);
+    void successSave(String name, Context context,String username,String token);
 
     public void loadGraphs(ArrayList graphs , Context context,String username ,String token);
 }
