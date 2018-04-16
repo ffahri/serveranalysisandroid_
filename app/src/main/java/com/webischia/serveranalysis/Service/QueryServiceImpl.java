@@ -82,12 +82,13 @@ public class QueryServiceImpl implements QueryService {
                                 for(int ii=0 ; ii<jsonArr3.length() ; ii++){
                                     JSONArray js3 = jsonArr3.getJSONArray(ii);
                                     String axes_x = js3.getString(1);
-                                    Date timestamp = new Date(js3.getLong(0)*1000L);
+                                    //Date timestamp = new Date(js3.getLong(0)*1000L);
+                                    Float timestamp = (float)(new Double(js3.getDouble(0)).longValue()%1000000);
                                     Float x = Float.parseFloat(axes_x);
                                     if(graphic.getQuery()=="node_memory_MemFree" || graphic.getQuery()=="node_memory_Cached" || graphic.getQuery()=="node_memory_Active")
                                         x = x * 1000000;
                                     // x = x/100000000;
-                                    yValues.add(new Entry((float)timestamp.getSeconds(),x)); //x 0 y 60 olsun f de float f si
+                                    yValues.add(new Entry(timestamp,x)); //x 0 y 60 olsun f de float f si
 
                                 }
                                 queryControl.successQuery(yValues,context,graphic,username,token,serverIP);

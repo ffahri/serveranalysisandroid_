@@ -113,13 +113,13 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         showGraphic.putExtra("serverIP",serverIP);
         showGraphic.putExtra("token",token);
         context.startActivity(showGraphic);
-        ((Activity)getApplicationContext()).finish(); //bu aktiviteyi kapat
+        //((Activity)getApplicationContext()).finish(); //bu aktiviteyi kapat
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
+        //finish();
 
     }
 

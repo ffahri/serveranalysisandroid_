@@ -89,22 +89,26 @@ public class ShowGraphic extends AppCompatActivity{
         linechart1.getAxisLeft().setDrawGridLines(true);
         //linechart1.getAxisRight()
         linechart1.setPinchZoom(true);
-        linechart1.setDrawGridBackground(true);
-        linechart1.setDrawGridBackground(true);
+        linechart1.setDrawGridBackground(false);
+        //linechart1.getAxisLeft().et
         XAxis xAxis = linechart1.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(true);
+
         xAxis.setDrawGridLines(true);
 
 
 
         LineDataSet set1 = new LineDataSet(yValues,graphic.getQuery());// sol altta yazan yazı
         //linechart1.setDescription();
-        set1.setFillAlpha(110);
 
-        set1.setColor(Color.RED);// çizgi rengi
+        set1.setFillAlpha(1100);
+        set1.setCircleRadius(10);
+        set1.setValueTextSize(10);
+        set1.setLineWidth(3);
+        set1.setColor(Color.GREEN);// çizgi rengi
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);// çizginin oluştuğu kısım heralde tam kontrol etmedim
@@ -157,7 +161,9 @@ public class ShowGraphic extends AppCompatActivity{
 
                                     String axes_x = js3.getString(1);
                                     //Date timestamp = new Date(js3.getLong(0)*1000L);
-                                    Float timestamp = Float.parseFloat(js3.getString(0));
+                                    //Float timestamp = Float.parseFloat(js3.getString(0));
+                                    Float timestamp = (float)(new Double(js3.getDouble(0)).longValue()%1000000);
+
                                     Float x = Float.parseFloat(axes_x);
                                     // x = x/100000000;
                                     yValues2.add(new Entry(timestamp,x)); //x 0 y 60 olsun f de float f si
