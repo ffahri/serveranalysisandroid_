@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.webischia.serveranalysis.Controls.QueryControl;
+import com.webischia.serveranalysis.Global.DayAxisValueFormatter;
 import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.QueryService;
 import com.webischia.serveranalysis.Service.QueryServiceImpl;
@@ -96,7 +97,6 @@ public class ShowGraphic extends AppCompatActivity{
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(true);
-
         xAxis.setDrawGridLines(true);
 
 
@@ -115,6 +115,7 @@ public class ShowGraphic extends AppCompatActivity{
 
         LineData data = new LineData(dataSets);
         //linechart1.getXAxis().setValueFormatter;
+        linechart1.getXAxis().setValueFormatter(new DayAxisValueFormatter(linechart1));
         linechart1.setData(data); // programa ekliyor
         linechart1.invalidate();
     }
@@ -162,11 +163,11 @@ public class ShowGraphic extends AppCompatActivity{
                                     String axes_x = js3.getString(1);
                                     //Date timestamp = new Date(js3.getLong(0)*1000L);
                                     //Float timestamp = Float.parseFloat(js3.getString(0));
-                                    Float timestamp = (float)(new Double(js3.getDouble(0)).longValue()%1000000);
+                                    Float timestamp = (float)(new Double(js3.getDouble(0)).longValue());//%1000000
 
                                     Float x = Float.parseFloat(axes_x);
                                     // x = x/100000000;
-                                    yValues2.add(new Entry(timestamp,x)); //x 0 y 60 olsun f de float f si
+                                    yValues2.add(new Entry(timestamp*1000,x)); //x 0 y 60 olsun f de float f si
                                     Toast.makeText(ShowGraphic.this,"Refreshed",Toast.LENGTH_SHORT).show();
 
                                 }
