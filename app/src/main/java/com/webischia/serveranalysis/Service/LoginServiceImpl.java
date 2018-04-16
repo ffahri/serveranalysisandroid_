@@ -60,6 +60,8 @@ public class LoginServiceImpl implements LoginService {
                             }
                             catch (Exception e)
                             {
+                                loginControl.deniedLogin(mContext);
+
                             }
                         }
                     },
@@ -69,6 +71,7 @@ public class LoginServiceImpl implements LoginService {
                             // error
                             error.printStackTrace();
                             Log.d("Error.Response","error ");
+                            loginControl.deniedLogin(mContext);
                         }
                     }
             ) {
@@ -94,6 +97,7 @@ public class LoginServiceImpl implements LoginService {
         }
         catch(Exception e)
         {
+            loginControl.deniedLogin(mContext);
         }
 
     }

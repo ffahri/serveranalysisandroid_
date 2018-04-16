@@ -100,4 +100,9 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
 
     }
 
+    @Override
+    public void saveError(Context context) {
+        Toast.makeText(context, "GRAPHIC NAMES CANNOT BE SAME !" , Toast.LENGTH_SHORT).show();
+
+    }
 }

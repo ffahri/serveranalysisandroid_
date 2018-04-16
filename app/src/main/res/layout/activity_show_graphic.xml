@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/common_google_signin_btn_text_light_default">
+        android:background="@color/common_google_signin_btn_text_dark_default">
 
         <Button
             android:id="@+id/button6"

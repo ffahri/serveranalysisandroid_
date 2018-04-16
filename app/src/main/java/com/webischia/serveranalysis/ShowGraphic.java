@@ -197,7 +197,7 @@ public class ShowGraphic extends AppCompatActivity{
                                     else
                                     {
                                         Long axes_x = js3.getLong(1);
-                                        yValues2.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+                                        yValues2.add(new Entry(ii,(Long)axes_x)); //x 0 y 60 olsun f de float f si
 
                                     }
 //                                    if(graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active"))

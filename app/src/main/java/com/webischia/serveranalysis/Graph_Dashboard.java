@@ -140,4 +140,9 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         finish(); //bu aktiviteyi kapat
 
     }
+
+    @Override
+    public void saveError(Context context) {
+
+    }
 }

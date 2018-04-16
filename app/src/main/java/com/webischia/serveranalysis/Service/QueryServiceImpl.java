@@ -102,7 +102,7 @@ public class QueryServiceImpl implements QueryService {
                                     else
                                     {
                                         Long axes_x = js3.getLong(1);
-                                        yValues.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+                                        yValues.add(new Entry(ii,(Long)axes_x)); //x 0 y 60 olsun f de float f si
 
                                     }
                                     xValues.add(formattedDate);

@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface SaveControl {
     void successSave(String name, Context context,String username,String token,String serverIP);
+    void saveError(Context context);
 
     public void loadGraphs(ArrayList graphs , Context context,String username ,String token,String serverIP);
 }
