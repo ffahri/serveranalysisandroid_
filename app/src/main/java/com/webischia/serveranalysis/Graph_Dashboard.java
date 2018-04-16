@@ -89,6 +89,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
     public void loadGraphs(ArrayList graphs, Context context, String username, String token,String serverIP) {
         //gelen listedeki graph.getName() ile liste oluşturulacak button ile tıklanacak
         if (graphs.size() > 0) {
+            //todo grafiklistesini sonraya at kontrol et
             Intent graphDash = new Intent(context, Graph_Dashboard.class);
             graphDash.putParcelableArrayListExtra("graphs", graphs);
             graphDash.putExtra("token", token);
