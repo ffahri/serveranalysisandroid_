@@ -24,6 +24,7 @@ import com.webischia.serveranalysis.Models.Graphic;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,7 +70,7 @@ public class QueryServiceImpl implements QueryService {
                             // response
                             Log.d("Response", response);
                             ArrayList<Entry> yValues = new ArrayList<>();
-
+                            ArrayList<String> xValues = new ArrayList<>();
 
                             try {
                                 JSONObject jsonObj = new JSONObject(response);
@@ -81,17 +82,32 @@ public class QueryServiceImpl implements QueryService {
 
                                 for(int ii=0 ; ii<jsonArr3.length() ; ii++){
                                     JSONArray js3 = jsonArr3.getJSONArray(ii);
-                                    String axes_x = js3.getString(1);
-                                    //Date timestamp = new Date(js3.getLong(0)*1000L);
-                                    Long timestamp = (new Double(js3.getDouble(0)).longValue());//%1000000
-                                    Float x = Float.parseFloat(axes_x);
-                                    if(graphic.getQuery()=="node_memory_MemFree" || graphic.getQuery()=="node_memory_Cached" || graphic.getQuery()=="node_memory_Active")
-                                        x = x * 1000000;
-                                    // x = x/100000000;
-                                    yValues.add(new Entry(timestamp*1000,x)); //x 0 y 60 olsun f de float f si
 
+                                    Double timestamp = (new Double(js3.getDouble(0))*1000);
+                                    Long timeLong = timestamp.longValue();//%1000000
+                                    Date date = new Date(timeLong);
+                                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                                    String formattedDate = sdf.format(date);
+                                    if(graphic.getQuery().equals("node_load1")) {
+                                        Double axes_x = js3.getDouble(1);
+                                        yValues.add(new Entry(ii, axes_x.floatValue())); //x 0 y 60 olsun f de float f si
+                                    }
+                                    else if(graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active")) {
+                                        Long axes_x = js3.getLong(1);
+                                        axes_x = axes_x / 1000000;
+                                        Log.d("if.qimp","böldüm");
+                                        yValues.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+
+                                    }
+                                    else
+                                    {
+                                        Long axes_x = js3.getLong(1);
+                                        yValues.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+
+                                    }
+                                    xValues.add(formattedDate);
                                 }
-                                queryControl.successQuery(yValues,context,graphic,username,token,serverIP);
+                                queryControl.successQuery(xValues,yValues,context,graphic,username,token,serverIP);
                                 ////////////////// GRAFIK
 
                             }
