@@ -96,6 +96,7 @@ public class ShowGraphic extends AppCompatActivity{
         //linechart1.getAxisRight()
         linechart1.setPinchZoom(true);
         linechart1.setDrawGridBackground(false);
+        linechart1.setDescription(graphic.getQuery());
         //linechart1.getAxisLeft().et
         XAxis xAxis = linechart1.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -103,6 +104,7 @@ public class ShowGraphic extends AppCompatActivity{
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
+
         //xAxis.setValueFormatter(new DayAxisValueFormatter(linechart1));
 
 
@@ -114,6 +116,7 @@ public class ShowGraphic extends AppCompatActivity{
         set1.setValueTextSize(10);
         set1.setLineWidth(3);
         set1.setColor(Color.GREEN);// çizgi rengi
+        set1.setHighlightEnabled(true);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);// çizginin oluştuğu kısım heralde tam kontrol etmedim
