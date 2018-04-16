@@ -88,7 +88,7 @@ public class ShowGraphic extends AppCompatActivity{
     {
         linechart1 = (LineChart) findViewById(R.id.linechart); //xml den java classına çağırdık
         linechart1.setDragEnabled(true);
-        linechart1.setScaleEnabled(false);
+        linechart1.setScaleEnabled(true);
         linechart1.getAxisRight().setEnabled(false);//sağ ekseni disable ettik
         linechart1.getAxisLeft().setEnabled(true);//sol ekseni disable ettik
         linechart1.getAxisRight().setDrawGridLines(true);

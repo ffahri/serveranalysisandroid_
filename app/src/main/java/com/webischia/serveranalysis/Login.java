@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity implements LoginControl{
 
     @Override
     public void deniedLogin(Context context) {
-        Toast.makeText(context, "ACCESS DENIED ! \nTHIS INCIDENT WILL BE REPORTED !" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "ACCESS DENIED ! \n" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
