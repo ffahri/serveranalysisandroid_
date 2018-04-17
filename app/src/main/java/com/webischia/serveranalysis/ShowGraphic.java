@@ -212,7 +212,7 @@ public class ShowGraphic extends AppCompatActivity{
                                     JSONObject jsonArr2 = jsonArr.getJSONObject(a);
                                     ArrayList<Entry> yValues2 = new ArrayList<Entry>();
                                     ArrayList<String> xValues = new ArrayList<String>();
-                                    metrNam.add(jsonArr2.getJSONObject("metric").getString("mode"));
+                                    metrNam.add(jsonArr2.getJSONObject("metric").getString("mode"));//todo mode sadece node_cpu için
                                     JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
                                     for (int ii = 0; ii < jsonArr3.length(); ii++) {
 
