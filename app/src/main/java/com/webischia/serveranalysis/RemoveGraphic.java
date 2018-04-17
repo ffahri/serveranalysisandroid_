@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,7 +25,7 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        saveControl = new CreateGraphic();
+        saveControl = new RemoveGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
         setContentView(R.layout.activity_remove_graphic);
         LinearLayout ll = findViewById(R.id.remove_graph_ll);
@@ -75,13 +76,15 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
 
     @Override
     public void successRemove(Context context, String username, String token, String serverIP) {
+
+        Log.d("Remove","SUCCESS");
         Toast.makeText(context, "GRAPHIC AND ALARM REMOVED !" , Toast.LENGTH_SHORT).show();
 
-        Intent graphDash = new Intent(context,Dashboard.class);
-        graphDash.putExtra("token",getIntent().getExtras().getString("token"));
-        graphDash.putExtra("username",getIntent().getExtras().getString("username"));
-        graphDash.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
-        graphDash.putParcelableArrayListExtra("graphs",null);
+        Intent graphDash = new Intent(context,Graph_Dashboard.class);
+        graphDash.putExtra("token",token);
+        graphDash.putExtra("username",username);
+        graphDash.putExtra("serverIP",serverIP);
+        //graphDash.putParcelableArrayListExtra("graphs",null);
         context.startActivity(graphDash);
         finish();
 
