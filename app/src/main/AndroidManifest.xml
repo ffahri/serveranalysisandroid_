@@ -25,7 +25,7 @@
         <activity android:name=".UserSettings" />
         <activity android:name=".Graph_Dashboard" />
 
-        <receiver android:name=".alarm" /> <!-- Alarmı androidmanifestxml ! -->
+        <!-- Alarmı androidmanifestxml ! -->
         <activity
             android:name=".NAV"
             android:label="@string/title_activity_nav"

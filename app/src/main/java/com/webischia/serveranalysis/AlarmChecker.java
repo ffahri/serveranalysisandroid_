@@ -1,8 +1,16 @@
 package com.webischia.serveranalysis;
-
+//ALARIM SERVİS KISMI
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.webischia.serveranalysis.Models.Alarm;
+
+import java.util.ArrayList;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -12,6 +20,8 @@ import android.content.Context;
  * helper methods.
  */
 public class AlarmChecker extends IntentService {
+
+
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_FOO = "com.webischia.serveranalysis.action.FOO";
@@ -38,10 +48,9 @@ public class AlarmChecker extends IntentService {
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
         context.startService(intent);
-
     }
 
-    /**g
+    /**
      * Starts this service to perform action Baz with the given parameters. If
      * the service is already performing a task this action will be queued.
      *
@@ -57,18 +66,46 @@ public class AlarmChecker extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (ACTION_FOO.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionFoo(param1, param2);
-            } else if (ACTION_BAZ.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionBaz(param1, param2);
-            }
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("Kapandı","program kapandı");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.i("program açıldı","açık");
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
+    }
+
+
+    //Arka plan için
+    @Override
+    protected void onHandleIntent(Intent intent) {//intent servisten gelen metod
+        //activtiy kapalı olduğunda bu kısım çalışıyor
+        int A_gelen = intent.getIntExtra("limit",100000);//Alarm limitten gelen// belki yeni bir intent tanımlamak lazım olabilir
+        Bundle b=intent.getExtras();
+      //  ArrayList<String> k_deger = b.getStringArrayList("data");// niye string geldi,long ? or int -> kontrol limitle karşılaşstır
+
+        if (intent == null) {
+            //if( karşılastır) alarm cagır control et
+            Log.v("activitye kapalı", "activitye kapalı:"+A_gelen);
+            return;
+        //     Alarm a = new Alarm,getApplicationContext());
+        }
+
+        else
+        //activtiy açıkken burası
+        {
+            Log.v("activitye kapalı", "activitye kapalı:"+A_gelen);
+            // Alarm a = new Alarm(context,intent);
+
+            return;
         }
     }
 

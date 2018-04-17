@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -68,6 +69,9 @@ public class ShowGraphic extends AppCompatActivity{
         ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
         mContext = this;
         token = getIntent().getExtras().getString("token");
+
+
+
         if(k == null)
         {
             //getIntent().getExtras().getString("graphName");
@@ -82,6 +86,12 @@ public class ShowGraphic extends AppCompatActivity{
             xValues = getIntent().getParcelableArrayListExtra("xValues");
         editGraph(yValues,xValues);
 
+        //utku
+       // i.putExtra()
+
+
+
+//max çizgisini intentten gönder
 
     }
     private void editGraph(ArrayList yValues,final ArrayList xValues)
@@ -105,26 +115,37 @@ public class ShowGraphic extends AppCompatActivity{
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
 
-        //xAxis.setValueFormatter(new DayAxisValueFormatter(linechart1));
-
-
-        LineDataSet set1 = new LineDataSet(yValues,graphic.getQuery());// sol altta yazan yazı
+//utku
+        LimitLine upper_limit = new LimitLine(0.32f,"Danger");
+        upper_limit.setLineWidth(4f);
+        upper_limit.enableDashedLine(10f,10f,0f);
+        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+        upper_limit.setTextSize(15f);
+        YAxis leftAxis = linechart1.getAxisLeft();
+        leftAxis.removeAllLimitLines();
+        leftAxis.addLimitLine(upper_limit);
+        leftAxis.enableGridDashedLine(10f,10f,0);
+        leftAxis.setDrawLimitLinesBehindData(true);
+        LineDataSet set1 = new LineDataSet(yValues,"");// sol altta yazan yazı
         //linechart1.setDescription();
-
+        set1.calcMinMax();
+        //set1.la
+     //   set1.setLabel(graphic.getQuery());
         set1.setFillAlpha(1100);
-        set1.setCircleRadius(10);
-        set1.setValueTextSize(10);
+        set1.setCircleRadius(1);
+        set1.setDrawCircles(false);
+        set1.disableDashedLine();
+        set1.setValueTextSize(0);
         set1.setLineWidth(3);
         set1.setColor(Color.GREEN);// çizgi rengi
-        set1.setHighlightEnabled(true);
+//        set1.setHighlightEnabled(true);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);// çizginin oluştuğu kısım heralde tam kontrol etmedim
 
         LineData data = new LineData(dataSets);
-        //linechart1.getXAxis().setValueFormatter;
         linechart1.setData(data); // programa ekliyor
-        //linechart1.getXAxis().setValueFormatter(new DayAxisValueFormatter(linechart1));
+
         xAxis.setValueFormatter(new AxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -265,7 +286,7 @@ public class ShowGraphic extends AppCompatActivity{
 
         AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);//alarm servisini ekledik
 
-        i= new Intent(ShowGraphic.this,alarm.class); //intent için class çağırdık
+        i= new Intent(ShowGraphic.this,Alarm.class); //intent için class çağırdık
         pen_i = PendingIntent.getBroadcast(this,0,i,0);//pendingintente ekran çıktı almamızı sağlıyor
 
         manager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime()+3000,pen_i);//ekrana bildirimi göstermek için
