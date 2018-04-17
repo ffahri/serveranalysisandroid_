@@ -37,7 +37,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         };
         Spinner s = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
+                android.R.layout.simple_list_item_1, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
         String[] timeSpinner = new String[] {
@@ -48,6 +48,9 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
                 android.R.layout.simple_spinner_item,timeSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s2.setAdapter(adapter2);
+        String[] graphicSpinner = new String[] {
+                "Line Chart","Bar Chart","Scatter Chart"
+        };
 
     }
     public void createGraph(View view){

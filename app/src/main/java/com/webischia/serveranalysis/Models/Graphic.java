@@ -11,8 +11,19 @@ public class Graphic implements Serializable {
     String mode;
     String time_range;
     String name;
+    int graphic_type;
+    Long threshold;
 
     public Graphic(String query, String time_range, String name) {
+        this.query = query;
+        if (query == "node_network_receive_packets" || query == "node_network_transmit_packets") {
+            this.mode = "{device=\"eth0\"}";
+        } else
+            this.mode = "";
+        this.time_range = time_range;
+        this.name = name;
+    }
+    public Graphic(String query, String time_range, String name,int graphic_type,Long threshold) {
         this.query = query;
         if(query=="node_network_receive_packets" || query=="node_network_transmit_packets")
         {
@@ -22,6 +33,8 @@ public class Graphic implements Serializable {
         this.mode = "";
         this.time_range = time_range;
         this.name = name;
+        this.graphic_type=graphic_type;
+        this.threshold=threshold;
     }
 
     //http://192.168.122.160:9090/api/v1/query?query=node_cpu{mode="idle"}[1m]
@@ -61,4 +74,5 @@ public class Graphic implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 }

@@ -12,6 +12,7 @@
         android:layout_width="400dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:overScrollMode="always"
         tools:layout_editor_absoluteX="3dp">
 
         <Button

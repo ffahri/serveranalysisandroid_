@@ -281,6 +281,7 @@ public class ShowGraphic extends AppCompatActivity{
 
         }
     }
+
     //alarm
     private void startAlarm() {
 
