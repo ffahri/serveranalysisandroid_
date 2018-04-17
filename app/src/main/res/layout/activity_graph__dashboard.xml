@@ -8,38 +8,61 @@
     tools:context="com.webischia.serveranalysis.Graph_Dashboard">
 
     <LinearLayout
-        android:id="@+id/graph_dash_horll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/create_graphic"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:onClick="createGraphicButton"
-            android:text="CREATE GRAPHICS" />
-
-        <Button
-            android:id="@+id/create_graphic2"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="removeGraphicButton"
-            android:text="REMOVE GRAPHIC" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/graph_dash_ll"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:overScrollMode="always"
-        app:layout_constraintTop_toBottomOf="@+id/graph_dash_horll"
-        tools:layout_editor_absoluteX="3dp">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/graph_dash_horll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/create_graphic"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:onClick="createGraphicButton"
+                android:text="CREATE GRAPHICS"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/create_graphic2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="removeGraphicButton"
+                android:text="REMOVE GRAPHIC"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/graph_dash_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:overScrollMode="always"
+            app:layout_constraintTop_toBottomOf="@+id/graph_dash_horll"
+            tools:layout_editor_absoluteX="3dp">
+
+            <Button
+                android:id="@+id/graph_test_button2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="144dp"
+                android:layout_marginStart="74dp"
+                android:text="Button"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
