@@ -16,9 +16,9 @@ public class Graphic implements Serializable {
 
     public Graphic(String query, String time_range, String name) {
         this.query = query;
-        if (query == "node_network_receive_packets" || query == "node_network_transmit_packets") {
-            this.mode = "{device=\"eth0\"}";
-        } else
+//        if (query == "node_network_receive_packets" || query == "node_network_transmit_packets") {
+//            this.mode = "{device=\"eth0\"}";
+//        } else
             this.mode = "";
         this.time_range = time_range;
         this.name = name;
@@ -27,10 +27,12 @@ public class Graphic implements Serializable {
         this.query = query;
         if(query=="node_network_receive_packets" || query=="node_network_transmit_packets")
         {
-            this.mode="{device=\"eth0\"}";
+            this.mode="device";
         }
-        else
-        this.mode = "";
+        else if(query=="node_cpu")
+        this.mode = "mode";
+        else if(query=="node_cpu")
+            this.mode = "mode";
         this.time_range = time_range;
         this.name = name;
         this.graphic_type=graphic_type;

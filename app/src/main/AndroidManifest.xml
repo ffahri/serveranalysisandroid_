@@ -42,7 +42,9 @@
             android:name=".AlarmChecker"
             android:exported="false" />
 
-        <activity android:name=".About"></activity>
+        <activity android:name=".About" />
+        <activity android:name=".RemoveGraphic" />
+        <activity android:name=".LoadingScreen"></activity>
     </application>
 
 </manifest>

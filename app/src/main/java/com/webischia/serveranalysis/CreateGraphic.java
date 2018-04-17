@@ -32,7 +32,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         saveService = new SaveServiceImpl(saveControl,this);
 
         String[] arraySpinner = new String[] {
-                "node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active", "node_network_receive_packets",
+                "node_cpu","node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active", "node_network_receive_packets",
                 "node_network_transmit_packets","http_requests_total"
         };
         Spinner s = (Spinner) findViewById(R.id.spinner2);
@@ -98,7 +98,6 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         graphDash.putParcelableArrayListExtra("graphs",null);
         this.finish();
         startActivity(graphDash);
-        //grafikleri yükleyemiyoruz todo todo todooooo
         //bu aktiviteyi kapat
 
     }
@@ -106,6 +105,11 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     @Override
     public void saveError(Context context) {
         Toast.makeText(context, "GRAPHIC NAMES CANNOT BE SAME !" , Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void successRemove(Context context, String username, String token, String serverIP) {
 
     }
 }

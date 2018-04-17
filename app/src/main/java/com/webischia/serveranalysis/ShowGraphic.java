@@ -40,6 +40,7 @@ import com.webischia.serveranalysis.Service.QueryServiceImpl;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,7 +85,9 @@ public class ShowGraphic extends AppCompatActivity{
         if(getIntent().getParcelableArrayListExtra("values") != null && getIntent().getParcelableArrayListExtra("xValues") != null)
             yValues = getIntent().getParcelableArrayListExtra("values");
             xValues = getIntent().getParcelableArrayListExtra("xValues");
-        editGraph(yValues,xValues);
+            ArrayList<String> tmp =new ArrayList<String>();
+            tmp.add(graphic.getQuery());
+        editGraph(yValues,xValues,tmp);
 
         //utku
        // i.putExtra()
@@ -94,7 +97,7 @@ public class ShowGraphic extends AppCompatActivity{
 //max çizgisini intentten gönder
 
     }
-    private void editGraph(ArrayList yValues,final ArrayList xValues)
+    private void editGraph(ArrayList yValues,final ArrayList xValues,ArrayList label)
     {
         linechart1 = (LineChart) findViewById(R.id.linechart); //xml den java classına çağırdık
         linechart1.setDragEnabled(true);
@@ -126,37 +129,43 @@ public class ShowGraphic extends AppCompatActivity{
         leftAxis.addLimitLine(upper_limit);
         leftAxis.enableGridDashedLine(10f,10f,0);
         leftAxis.setDrawLimitLinesBehindData(true);
-        LineDataSet set1 = new LineDataSet(yValues,"");// sol altta yazan yazı
-        //linechart1.setDescription();
-        set1.calcMinMax();
-        //set1.la
-     //   set1.setLabel(graphic.getQuery());
-        set1.setFillAlpha(1100);
-        set1.setCircleRadius(1);
-        set1.setDrawCircles(false);
-        set1.disableDashedLine();
-        set1.setValueTextSize(0);
-        set1.setLineWidth(3);
-        set1.setColor(Color.GREEN);// çizgi rengi
-//        set1.setHighlightEnabled(true);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);// çizginin oluştuğu kısım heralde tam kontrol etmedim
+        Log.d("y.values.size",""+yValues.size());
+        for(int i = 0 ; i<yValues.size() ; i++) {
+            LineDataSet set1 = new LineDataSet((ArrayList)yValues.get(i), "");// sol altta yazan yazı
+            //linechart1.setDescription();
+            set1.calcMinMax();
+            //set1.la
+            //   set1.setLabel(graphic.getQuery());
+            set1.setFillAlpha(1100);
+            set1.setCircleRadius(1);
+            set1.setDrawCircles(false);
+            set1.disableDashedLine();
+            set1.setValueTextSize(0);
+            set1.setLineWidth(3);
+            if(i%2==0)
+                set1.setColor(Color.GREEN);// çizgi rengi
+            else
+                set1.setColor(Color.RED);
+            final ArrayList<String> temp = (ArrayList)xValues.get(i);
+            xAxis.setValueFormatter(new AxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return (String)temp.get((int) value % temp.size());
+                }
 
+                @Override
+                public int getDecimalDigits() {
+                    return 0;
+                }
+            });
+
+            dataSets.add(set1);// çizginin oluştuğu kısım heralde tam kontrol etmedim
+        }
         LineData data = new LineData(dataSets);
         linechart1.setData(data); // programa ekliyor
 
-        xAxis.setValueFormatter(new AxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return (String)xValues.get((int) value % xValues.size());
-            }
-
-            @Override
-            public int getDecimalDigits() {
-                return 0;
-            }
-        });
 
 
         linechart1.invalidate();
@@ -174,8 +183,11 @@ public class ShowGraphic extends AppCompatActivity{
         else
             graphic = (Graphic)k.get(0);
 
-        final ArrayList<Entry> yValues2 = new ArrayList<Entry>();
-        final  ArrayList<String> xValues = new ArrayList<String>();
+
+        final ArrayList<ArrayList<Entry>> yList = new ArrayList<ArrayList<Entry>>();
+        final ArrayList<ArrayList<String>> xList = new ArrayList<ArrayList<String>>();
+        final ArrayList<String> metrNam = new ArrayList<>();
+
         try {
             RequestQueue queue = Volley.newRequestQueue(this);  // this = context
 
@@ -195,49 +207,56 @@ public class ShowGraphic extends AppCompatActivity{
                                 JSONObject jsonObj = new JSONObject(response);
                                 JSONObject jsonObj2 = jsonObj.getJSONObject("data");
                                 JSONArray jsonArr = jsonObj2.getJSONArray("result");
-                                JSONObject jsonArr2 = jsonArr.getJSONObject(0);
-                                JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
-                                for(int ii=0 ; ii<jsonArr3.length() ; ii++)
-                                {
-                                    JSONArray js3 = jsonArr3.getJSONArray(ii);
-                                    Log.d("js3", js3.toString());
+                                Log.d("json.arr.length",""+jsonArr.length());
+                                for(int a = 0 ; a<jsonArr.length();a++) {
+                                    JSONObject jsonArr2 = jsonArr.getJSONObject(a);
+                                    ArrayList<Entry> yValues2 = new ArrayList<Entry>();
+                                    ArrayList<String> xValues = new ArrayList<String>();
+                                    metrNam.add(jsonArr2.getJSONObject("metric").getString("mode"));
+                                    JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
+                                    for (int ii = 0; ii < jsonArr3.length(); ii++) {
 
-                                    //Long axes_x = js3.getLong(1);
-                                    Double timeDouble = js3.getDouble(0) * 1000;
-                                    Long timestamp = (timeDouble.longValue());
+                                        JSONArray js3 = jsonArr3.getJSONArray(ii);
 
-                                    //Float x = Float.parseL(axes_x);
-                                    if(graphic.getQuery().equals("node_load1")) {
-                                        Double axes_x = js3.getDouble(1);
-                                        yValues2.add(new Entry(ii, axes_x.floatValue())); //x 0 y 60 olsun f de float f si
-                                    }
-                                    else if(graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active")) {
-                                        Long axes_x = js3.getLong(1);
-                                        axes_x = axes_x / 1000000;
-                                        Log.d("if.qimp","böldüm");
-                                        yValues2.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+                                        Log.d("js3", js3.toString());
 
-                                    }
-                                    else
-                                    {
-                                        Long axes_x = js3.getLong(1);
-                                        yValues2.add(new Entry(ii,(Long)axes_x)); //x 0 y 60 olsun f de float f si
+                                        //Long axes_x = js3.getLong(1);
+                                        Double timeDouble = js3.getDouble(0) * 1000;
+                                        Long timestamp = (timeDouble.longValue());
 
-                                    }
+                                        //Float x = Float.parseL(axes_x);
+                                        if (graphic.getQuery().equals("node_load1")) {
+                                            Double axes_x = js3.getDouble(1);
+                                            yValues2.add(new Entry(ii, axes_x.floatValue())); //x 0 y 60 olsun f de float f si
+                                        } else if (graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active")) {
+                                            Long axes_x = js3.getLong(1);
+                                            axes_x = axes_x / 1000000;
+                                            Log.d("if.qimp", "böldüm");
+                                            yValues2.add(new Entry(ii, axes_x)); //x 0 y 60 olsun f de float f si
+
+                                        } else {
+                                            Long axes_x = js3.getLong(1);
+                                            yValues2.add(new Entry(ii, (Long) axes_x)); //x 0 y 60 olsun f de float f si
+
+                                        }
 //                                    if(graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active"))
 //                                        axes_x = axes_x /1000000;// 1000000;
-                                    Date date = new Date(timestamp);
-                                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                                    //sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-                                    String formattedDate = sdf.format(date);
+                                        Date date = new Date(timestamp);
+                                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                                        //sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+                                        String formattedDate = sdf.format(date);
 
-                                    //yValues2.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
-                                    xValues.add(formattedDate);
+                                        //yValues2.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+                                        xValues.add(formattedDate);
+
+                                    }
+                                    yList.add(yValues2);
+                                    xList.add(xValues);
                                 }
                                 Toast.makeText(ShowGraphic.this,"Refreshed",Toast.LENGTH_SHORT).show();
 
                                 ////////////////// GRAFIK
-                                editGraph(yValues2,xValues);
+                                editGraph(yList,xList,metrNam);
                             }
                             catch (Exception e)
                             {

@@ -14,4 +14,5 @@ public interface SaveControl {
     void saveError(Context context);
 
     public void loadGraphs(ArrayList graphs , Context context,String username ,String token,String serverIP);
+    void successRemove(Context context,String username,String token,String serverIP);
 }
