@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity implements LoginControl{
         txt_password=findViewById(R.id.password);
         server_ip=findViewById(R.id.server_ip);
         control.loginCheck(server_ip.getText().toString(),txt_username.getText().toString(),txt_password.getText().toString());
+        isInternetControl();
 
 
     }
@@ -65,5 +66,23 @@ public class Login extends AppCompatActivity implements LoginControl{
         startActivity(a);
 
 
+    }
+      //internet bağlantısı create yerine logine de eklenebilir
+    public boolean isInternetControl()
+    {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+          //  Toast.makeText(Login.this,"internet var",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else
+        {
+            Toast.makeText(Login.this,"Need Internet Connection",Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
     }
 }
