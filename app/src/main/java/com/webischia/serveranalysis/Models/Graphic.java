@@ -14,13 +14,13 @@ public class Graphic implements Serializable {
     int graphic_type;
     Long threshold;
 
-    public Graphic(String query, String time_range, String name) {
+    public Graphic(String query, String name) {
         this.query = query;
 //        if (query == "node_network_receive_packets" || query == "node_network_transmit_packets") {
 //            this.mode = "{device=\"eth0\"}";
 //        } else
             this.mode = "";
-        this.time_range = time_range;
+        this.time_range = "1m";
         this.name = name;
     }
     public Graphic(String query, String time_range, String name,int graphic_type,Long threshold) {
