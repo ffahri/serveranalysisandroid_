@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,7 +69,7 @@ public class ShowGraphic extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graphic);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//Ekranı yan çevirme kodu
-        String[] timeSpinner = new String[] {
+        final String[] timeSpinner = new String[] {
                 "30s","1m","5m","10m","30m","60m"
         };
         Spinner s2 = (Spinner) findViewById(R.id.sg_spinner);
@@ -83,7 +84,21 @@ public class ShowGraphic extends AppCompatActivity{
         mContext = this;
         token = getIntent().getExtras().getString("token");
 
+        s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                //graphQuery((String)selectedItemView);
+                graphQuery(timeSpinner[position]);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+                graphQuery("1d");
+            }
+
+        });
 
         if(k == null)
         {
@@ -317,14 +332,134 @@ public class ShowGraphic extends AppCompatActivity{
     }
 
     //alarm
-    private void startAlarm() {
+    private void graphQuery(String time_selected) {
 
-        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);//alarm servisini ekledik
+        ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
+        if(k == null)
+        {
+            //getIntent().getExtras().getString("graphName");
+            Log.d("kkkk","K NULL");
 
-        i= new Intent(ShowGraphic.this,Alarm.class); //intent için class çağırdık
-        pen_i = PendingIntent.getBroadcast(this,0,i,0);//pendingintente ekran çıktı almamızı sağlıyor
+        }
+        else
+            graphic = (Graphic)k.get(0);
 
-        manager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime()+3000,pen_i);//ekrana bildirimi göstermek için
+
+        final ArrayList<ArrayList<Entry>> yList = new ArrayList<ArrayList<Entry>>();
+        final ArrayList<ArrayList<String>> xList = new ArrayList<ArrayList<String>>();
+        final ArrayList<String> metrNam = new ArrayList<>();
+
+        try {
+            RequestQueue queue = Volley.newRequestQueue(this);  // this = context
+            graphic.setTime_range(time_selected);
+            String url = "https://"+getIntent().getExtras().getString("serverIP")+"/api/v1/metric/"+graphic.httpForm();
+            Log.d("query_url",url);
+
+            StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+
+
+                            try {
+
+                                JSONObject jsonObj = new JSONObject(response);
+                                JSONObject jsonObj2 = jsonObj.getJSONObject("data");
+                                JSONArray jsonArr = jsonObj2.getJSONArray("result");
+                                Log.d("json.arr.length",""+jsonArr.length());
+                                for(int a = 0 ; a<jsonArr.length();a++) {
+                                    JSONObject jsonArr2 = jsonArr.getJSONObject(a);
+                                    ArrayList<Entry> yValues2 = new ArrayList<Entry>();
+                                    ArrayList<String> xValues = new ArrayList<String>();
+                                    //metrNam.add(jsonArr2.getJSONObject("metric").getString("mode"));//todo mode sadece node_cpu için
+                                    JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
+                                    for (int ii = 0; ii < jsonArr3.length(); ii++) {
+
+                                        JSONArray js3 = jsonArr3.getJSONArray(ii);
+
+                                        Log.d("js3", js3.toString());
+
+                                        //Long axes_x = js3.getLong(1);
+                                        Double timeDouble = js3.getDouble(0) * 1000;
+                                        Long timestamp = (timeDouble.longValue());
+
+                                        //Float x = Float.parseL(axes_x);
+                                        if (graphic.getQuery().equals("node_load1")) {
+                                            Double axes_x = js3.getDouble(1);
+                                            yValues2.add(new Entry(ii, axes_x.floatValue())); //x 0 y 60 olsun f de float f si
+                                        } else if (graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active")) {
+                                            Long axes_x = js3.getLong(1);
+                                            axes_x = axes_x / 1000000;
+                                            Log.d("if.qimp", "böldüm");
+                                            yValues2.add(new Entry(ii, axes_x)); //x 0 y 60 olsun f de float f si
+
+                                        } else {
+                                            Long axes_x = js3.getLong(1);
+                                            yValues2.add(new Entry(ii, (Long) axes_x)); //x 0 y 60 olsun f de float f si
+
+                                        }
+//                                    if(graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active"))
+//                                        axes_x = axes_x /1000000;// 1000000;
+                                        Date date = new Date(timestamp);
+                                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                                        //sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+                                        String formattedDate = sdf.format(date);
+
+                                        //yValues2.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+                                        xValues.add(formattedDate);
+
+                                    }
+                                    yList.add(yValues2);
+                                    xList.add(xValues);
+                                }
+                                Toast.makeText(ShowGraphic.this,"Refreshed",Toast.LENGTH_SHORT).show();
+
+                                ////////////////// GRAFIK
+                                editGraph(yList,xList,metrNam);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.d("Query_ERROR", e.getMessage());
+
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error.Response",error.getMessage().toString());
+
+
+                        }
+                    }
+            ) {
+
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    if(token != null) {
+                        params.put("Authorization", "Bearer "+token);
+
+                        return params;
+                    }
+                    else {
+                        Log.d("volley.headers","token null");
+                        return null;
+                    }
+                }
+            };
+            queue.add(postRequest);
+
+        }
+        catch(Exception e)
+        {
+            Log.d("Error?",e.getMessage());
+
+        }
 
     }
     public void createAlarm(View view)

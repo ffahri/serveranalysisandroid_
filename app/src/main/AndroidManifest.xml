@@ -44,7 +44,8 @@
 
         <activity android:name=".About" />
         <activity android:name=".RemoveGraphic" />
-        <activity android:name=".LoadingScreen"></activity>
+        <activity android:name=".LoadingScreen" />
+        <activity android:name=".RemoveAlarm"></activity>
     </application>
 
 </manifest>
