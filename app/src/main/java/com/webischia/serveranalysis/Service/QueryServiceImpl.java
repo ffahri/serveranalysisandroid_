@@ -59,7 +59,6 @@ public class QueryServiceImpl implements QueryService {
             mRequestQueue = new RequestQueue(cache, network);
            // final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
             mRequestQueue.start();
-
             String url = "https://"+serverIP+"/api/v1/metric/"+graphic.httpForm();
             Log.d("query_url",url);
             //Log.d("username",username);
