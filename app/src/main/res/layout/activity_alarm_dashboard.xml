@@ -11,21 +11,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView5"
+        <LinearLayout
+            android:id="@+id/graph_dash_horll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No alarm was found"
-            tools:layout_editor_absoluteX="75dp"
-            tools:layout_editor_absoluteY="53dp" />
-    </LinearLayout>
+            android:gravity="top"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/alarm_dash_ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            <Button
+                android:id="@+id/create_graphic"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:onClick="createAlarm"
+                android:text="CREATE ALARM"
+                android:textAlignment="center" />
 
+            <Button
+                android:id="@+id/create_graphic2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="removeAlarm"
+                android:text="REMOVE ALARM"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/alarm_dash_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

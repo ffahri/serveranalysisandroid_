@@ -23,14 +23,13 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
 
     SaveControl saveControl;
     SaveService saveService;
-
+    Graphic graphic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_graphic);
         saveControl = new CreateGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
-
         String[] arraySpinner = new String[] {
                 "node_cpu","node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active", "node_network_receive_packets",
                 "node_network_transmit_packets","http_requests_total"
@@ -51,6 +50,11 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         String[] graphicSpinner = new String[] {
                 "Line Chart","Bar Chart","Scatter Chart"
         };
+        graphic = (Graphic)getIntent().getExtras().get("graphic");
+        if(graphic!=null)
+        {
+            
+        }
 
     }
     public void createGraph(View view){

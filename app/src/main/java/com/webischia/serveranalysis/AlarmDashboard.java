@@ -40,6 +40,13 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
                     temp.setText(tmp.getName());
                     temp.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+                            Intent crtgrph = new Intent(AlarmDashboard.this, CreateAlarm.class);
+                            crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
+                            crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
+                            crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+                            crtgrph.putExtra("graphic",tmp);
+                            startActivity(crtgrph);
+                            finish(); //bu aktiviteyi kapat
                             //        create_alarm parcel(graphic)                finish();
                         }
                     });
@@ -51,6 +58,24 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
             //todo ana ekran uyarı ver
         }
 
+    }
+    public void createAlarm(View view)
+    {
+        Intent crtgrph = new Intent(this, CreateAlarm.class);
+        crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
+        crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
+        crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        startActivity(crtgrph);
+        finish(); //bu aktiviteyi kapat
+    }
+    public void removeAlarm(View view)
+    {
+        Intent crtgrph = new Intent(this, CreateGraphic.class);
+        crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
+        crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
+        crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        startActivity(crtgrph);
+        finish(); //bu aktiviteyi kapat
     }
     @Override
     public void onBackPressed() {
