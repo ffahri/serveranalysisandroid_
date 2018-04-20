@@ -25,6 +25,8 @@ public class Login extends AppCompatActivity implements LoginControl{
         setContentView(R.layout.activity_login);
         loginControl = new Login();
         control = new LoginServiceImpl(loginControl,this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ekranın yatay dönmesini engelleme
+
     }
 
     //Service kullanarak login kontrol
