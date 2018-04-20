@@ -11,7 +11,7 @@ public class Graphic implements Serializable {
     String mode;
     String time_range;
     String name;
-    int graphic_type;
+    int graphic_type; //0 below - 1 above
     Long threshold;
     boolean AlarmStatus = false;
     public Graphic(String query, String name) {
@@ -91,5 +91,13 @@ public class Graphic implements Serializable {
 
     public void setAlarmStatus(boolean alarmStatus) {
         AlarmStatus = alarmStatus;
+    }
+
+    public int getGraphic_type() {
+        return graphic_type;
+    }
+
+    public void setGraphic_type(int graphic_type) {
+        this.graphic_type = graphic_type;
     }
 }

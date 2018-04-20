@@ -33,16 +33,18 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
         }
         if(graphs!= null) {
             for (int i = 0; i < graphs.size(); i++) {
-                Button temp = new Button(this);
-                //temp.setLayoutParams(a.getLayoutParams());
                 final Graphic tmp = (Graphic) graphs.get(i);
-                temp.setText(tmp.getName());
-                temp.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-            //        create_alarm parcel(graphic)                finish();
-                    }
-                });
-                ll.addView(temp);
+                if (tmp.isAlarmStatus()) {
+                    Button temp = new Button(this);
+                    //temp.setLayoutParams(a.getLayoutParams());
+                    temp.setText(tmp.getName());
+                    temp.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            //        create_alarm parcel(graphic)                finish();
+                        }
+                    });
+                    ll.addView(temp);
+                }
             }
         }
         else {

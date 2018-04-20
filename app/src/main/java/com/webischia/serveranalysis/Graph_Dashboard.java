@@ -49,7 +49,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
         if(graphs == null) {
             saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
-            finish();
+            //finish();
             Log.d("graphs","null");
         }
         if (graphs != null && ll != null) {
@@ -149,7 +149,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
         dashboardIntent.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
 
         startActivity(dashboardIntent);//contexti ref göstererek başlattım.
-        finish(); //bu aktiviteyi kapat
+//        finish(); //bu aktiviteyi kapat
 
     }
 
