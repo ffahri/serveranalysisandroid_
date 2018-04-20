@@ -78,6 +78,7 @@
 
             <TextView
                 android:id="@+id/graphic_name_tv"
+                style="@android:style/Widget.Material.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/sg_create_alarm"

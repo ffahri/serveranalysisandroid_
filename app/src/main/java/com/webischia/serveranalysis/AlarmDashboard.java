@@ -83,6 +83,7 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
         crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
         crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
         crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        crtgrph.putParcelableArrayListExtra("graphs",getIntent().getParcelableArrayListExtra("graphs"));
         startActivity(crtgrph);
         finish(); //bu aktiviteyi kapat
     }
