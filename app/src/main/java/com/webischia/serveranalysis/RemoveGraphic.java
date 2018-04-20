@@ -30,18 +30,23 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
         setContentView(R.layout.activity_remove_graphic);
         LinearLayout ll = findViewById(R.id.remove_graph_ll);
         ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
-        for (int i = 0; i < graphs.size(); i++) {
-            Button temp = new Button(this);
-            //temp.setLayoutParams(a.getLayoutParams());
-            final Graphic tmp = (Graphic) graphs.get(i);
-            temp.setText(tmp.getName());
-            temp.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                        saveService.removeGraphic(tmp,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
+        if(graphs!= null) {
+            for (int i = 0; i < graphs.size(); i++) {
+                Button temp = new Button(this);
+                //temp.setLayoutParams(a.getLayoutParams());
+                final Graphic tmp = (Graphic) graphs.get(i);
+                temp.setText(tmp.getName());
+                temp.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        saveService.removeGraphic(tmp, getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"), getIntent().getExtras().getString("serverIP"));
                         finish();
-                }
-            });
-            ll.addView(temp);
+                    }
+                });
+                ll.addView(temp);
+            }
+        }
+        else {
+            //todo ana ekran uyarı ver
         }
 
     }
