@@ -34,7 +34,8 @@ public class Login extends AppCompatActivity implements LoginControl{
         txt_password=findViewById(R.id.password);
         server_ip=findViewById(R.id.server_ip);
         control.loginCheck(server_ip.getText().toString(),txt_username.getText().toString(),txt_password.getText().toString());
-        isInternetControl();
+
+        //isInternetControl();
 
 
     }
