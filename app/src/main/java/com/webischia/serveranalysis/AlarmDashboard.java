@@ -26,10 +26,18 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
         saveControl = new AlarmDashboard();
         saveService = new SaveServiceImpl(saveControl,this);
         LinearLayout ll = findViewById(R.id.alarm_dash_ll);
-        ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
+        final ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
         if(graphs == null) {
             saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
             Log.d("graphs","null");
+        }
+
+            Boolean flag = (Boolean)getIntent().getExtras().get("flag");
+        if(flag!=null && flag) {
+            Intent i = new Intent(this,AlarmChecker.class);
+
+            stopService(i);//stop
+            startService(i);//start
         }
         if(graphs!= null) {
             for (int i = 0; i < graphs.size(); i++) {
@@ -45,6 +53,7 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
                             crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
                             crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
                             crtgrph.putExtra("graphic",tmp);
+                            crtgrph.putParcelableArrayListExtra("graphs",graphs);
                             startActivity(crtgrph);
                             finish(); //bu aktiviteyi kapat
                             //        create_alarm parcel(graphic)                finish();

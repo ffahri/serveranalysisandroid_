@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Toast;
 
 public class Dashboard extends AppCompatActivity {
-
+    Intent i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        i = new Intent(this,AlarmChecker.class);// servis çağımra
+        startService(i);
     }
 
     public void showGraphs(View view){

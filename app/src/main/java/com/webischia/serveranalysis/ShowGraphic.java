@@ -119,17 +119,20 @@ public class ShowGraphic extends AppCompatActivity{
         xAxis.setDrawGridLines(true);
 
 //utku
-        LimitLine upper_limit = new LimitLine(0.32f,"Danger");//todo graph threshold
-        upper_limit.setLineWidth(4f);
-        upper_limit.enableDashedLine(10f,10f,0f);
-        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
-        upper_limit.setTextSize(15f);
-        YAxis leftAxis = linechart1.getAxisLeft();
-        leftAxis.removeAllLimitLines();
-        leftAxis.addLimitLine(upper_limit);
-        leftAxis.enableGridDashedLine(10f,10f,0);
-        leftAxis.setDrawLimitLinesBehindData(true);
-
+        Intent utku=new Intent(this,AlarmChecker.class);
+        if(graphic.getThreshold()!=null) {
+            LimitLine upper_limit = new LimitLine(graphic.getThreshold(), "Danger");//todo graph threshold
+            utku.getLongExtra("limit",graphic.getThreshold());
+            upper_limit.setLineWidth(4f);
+            upper_limit.enableDashedLine(10f, 10f, 0f);
+            upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+            upper_limit.setTextSize(15f);
+            YAxis leftAxis = linechart1.getAxisLeft();
+            leftAxis.removeAllLimitLines();
+            leftAxis.addLimitLine(upper_limit);
+            leftAxis.enableGridDashedLine(10f, 10f, 0);
+            leftAxis.setDrawLimitLinesBehindData(true);
+        }
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         Log.d("y.values.size",""+yValues.size());
         for(int i = 0 ; i<yValues.size() ; i++) {

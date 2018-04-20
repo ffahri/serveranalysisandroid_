@@ -1,16 +1,11 @@
 package com.webischia.serveranalysis;
-//ALARIM SERVİS KISMI
+
 import android.app.IntentService;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.webischia.serveranalysis.Models.Alarm;
-
-import java.util.ArrayList;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -20,8 +15,6 @@ import java.util.ArrayList;
  * helper methods.
  */
 public class AlarmChecker extends IntentService {
-
-
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_FOO = "com.webischia.serveranalysis.action.FOO";
@@ -66,48 +59,55 @@ public class AlarmChecker extends IntentService {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("Kapandı","program kapandı");
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.i("program açıldı","açık");
-    }
-
-    @Override
-    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 
-
-    //Arka plan için
     @Override
-    protected void onHandleIntent(Intent intent) {//intent servisten gelen metod
-        //activtiy kapalı olduğunda bu kısım çalışıyor
-        int A_gelen = intent.getIntExtra("limit",100000);//Alarm limitten gelen// belki yeni bir intent tanımlamak lazım olabilir
-        Bundle b=intent.getExtras();
-      //  ArrayList<String> k_deger = b.getStringArrayList("data");// niye string geldi,long ? or int -> kontrol limitle karşılaşstır
+    protected void onHandleIntent(Intent intent) {//servis başlıyor activity açık
+        int i = 0;
+        if (intent == null) {//uygulama kapandıgında bu ife giriyor
+            while (i < 1) {
 
-        if (intent == null) {
-            //if( karşılastır) alarm cagır control et
-            Log.v("activitye kapalı", "activitye kapalı:"+A_gelen);
-            return;
-        //     Alarm a = new Alarm,getApplicationContext());
+                Log.v("i", "activitye kapalı:"+i);
+
+                if (i == 200000) {
+//alarm çağırma
+                    NotificationCompat.Builder builder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.mipmap.ic_launcher) //Bildirim resmi
+                                    .setContentTitle("Kapandı")   //Bildirimin başlığı
+                                    .setColor(0)//bildirim resmi arka plan rengi argb(red green blue)// cinsinden
+                                    .setContentText("Bildirim metni");   //Bildirim başlığı altındaki yazı
+
+                    // Add as notification
+                    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager.notify(0, builder.build());
+
+                    break;
+                }
+
+            }
+            Log.v("activitye kapalı", "activitye kapalı:");
+            return;// retunr olması lazım
         }
+
+
 
         else
         //activtiy açıkken burası
         {
-            Log.v("activitye kapalı", "activitye kapalı:"+A_gelen);
+            while (i < 1) {
+//Activity açıkken bıraya giriyor
+                Log.v("activitye acık", "activitye acık:");
+            }
             // Alarm a = new Alarm(context,intent);
 
-            return;
+
         }
     }
+
 
     /**
      * Handle action Foo in the provided background thread with the provided

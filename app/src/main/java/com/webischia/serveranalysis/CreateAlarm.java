@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class CreateAlarm extends AppCompatActivity implements SaveControl {
     Button create_alarm;
-    Intent i,j;
+    Intent i,j,gonder;
     EditText e_text;
     Graphic graphic;
     SaveControl saveControl;
@@ -104,7 +104,10 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         showGraphicIntent.putExtra("username",username);
         showGraphicIntent.putExtra("token",token);
         showGraphicIntent.putExtra("serverIP",serverIP);
+        showGraphicIntent.putExtra("flag",true);
+
         context.startActivity(showGraphicIntent);//contexti ref göstererek baattım.
+
         finish(); //bu aktiviteyi kapatşl
     }
 
