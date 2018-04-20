@@ -29,17 +29,22 @@ public class Login extends AppCompatActivity implements LoginControl{
 
     //Service kullanarak login kontrol
     public void loginCheck(View view){
-        EditText txt_username,txt_password,server_ip;
-        txt_username=findViewById(R.id.username);
-        txt_password=findViewById(R.id.password);
-        server_ip=findViewById(R.id.server_ip);
-        control.loginCheck(server_ip.getText().toString(),txt_username.getText().toString(),txt_password.getText().toString());
+        if(isInternetControl()==false)
+        {
+            Toast.makeText(Login.this,"Need Internet Connection",Toast.LENGTH_SHORT).show();
 
-        //isInternetControl();
+        }
+        else {
+            EditText txt_username, txt_password, server_ip;
+            txt_username = findViewById(R.id.username);
+            txt_password = findViewById(R.id.password);
+            server_ip = findViewById(R.id.server_ip);
+            control.loginCheck(server_ip.getText().toString(), txt_username.getText().toString(), txt_password.getText().toString());
+        }
+
 
 
     }
-
     @Override
     public void successLogin(String serverIP,String username, String token, Context context) {
             //Toast.makeText(getBaseContext(), "Login Success !", Toast.LENGTH_SHORT).show();
@@ -74,16 +79,16 @@ public class Login extends AppCompatActivity implements LoginControl{
     public boolean isInternetControl()
     {
 
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-          //  Toast.makeText(Login.this,"internet var",Toast.LENGTH_SHORT).show();
-            return true;
-        }
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                //we are connected to a network
+             //   Toast.makeText(Login.this,"internet var",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
         else
         {
-            Toast.makeText(Login.this,"Need Internet Connection",Toast.LENGTH_SHORT).show();
             return false;
 
         }
