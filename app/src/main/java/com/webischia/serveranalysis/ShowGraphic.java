@@ -4,12 +4,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,8 +67,15 @@ public class ShowGraphic extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graphic);
-    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//Ekranı yan çevirme kodu
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//Ekranı yan çevirme kodu
+        String[] timeSpinner = new String[] {
+                "30s","1m","5m","10m","30m","60m"
+        };
+        Spinner s2 = (Spinner) findViewById(R.id.sg_spinner);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,timeSpinner);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s2.setAdapter(adapter2);
         ArrayList<Entry> yValues = null ;
         ArrayList<Entry> xValues = null ;
 
@@ -195,7 +205,7 @@ public class ShowGraphic extends AppCompatActivity{
 
         try {
             RequestQueue queue = Volley.newRequestQueue(this);  // this = context
-
+            graphic.setTime_range("1d");
             String url = "https://"+getIntent().getExtras().getString("serverIP")+"/api/v1/metric/"+graphic.httpForm();
             Log.d("query_url",url);
 
@@ -217,7 +227,7 @@ public class ShowGraphic extends AppCompatActivity{
                                     JSONObject jsonArr2 = jsonArr.getJSONObject(a);
                                     ArrayList<Entry> yValues2 = new ArrayList<Entry>();
                                     ArrayList<String> xValues = new ArrayList<String>();
-                                    metrNam.add(jsonArr2.getJSONObject("metric").getString("mode"));//todo mode sadece node_cpu için
+                                    //metrNam.add(jsonArr2.getJSONObject("metric").getString("mode"));//todo mode sadece node_cpu için
                                     JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
                                     for (int ii = 0; ii < jsonArr3.length(); ii++) {
 
@@ -274,7 +284,7 @@ public class ShowGraphic extends AppCompatActivity{
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // error
-                            Log.d("Error.Response",error.getMessage());
+                            Log.d("Error.Response",error.getMessage().toString());
 
 
                         }
@@ -316,6 +326,17 @@ public class ShowGraphic extends AppCompatActivity{
 
         manager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime()+3000,pen_i);//ekrana bildirimi göstermek için
 
+    }
+    public void createAlarm(View view)
+    {
+        Intent crtgrph = new Intent(this, CreateAlarm.class);
+        crtgrph.putExtra("token", getIntent().getExtras().getString("token"));
+        crtgrph.putExtra("username", getIntent().getExtras().getString("username"));
+        crtgrph.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+        crtgrph.putExtra("graphic",graphic);
+        //crtgrph.putParcelableArrayListExtra("graphs",graphs);
+        startActivity(crtgrph);
+        finish(); //bu aktiviteyi kapat
     }
     @Override
     public void onBackPressed() {

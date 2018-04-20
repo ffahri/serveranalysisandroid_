@@ -13,58 +13,85 @@
     android:layout_height="match_parent"
     tools:context="com.webischia.serveranalysis.ShowGraphic">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/common_google_signin_btn_text_dark_default">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="11dp"
-            android:layout_marginStart="19dp"
-            android:onClick="refresh"
-            android:text="REFRESH"
-            tools:layout_editor_absoluteX="296dp"
-            tools:layout_editor_absoluteY="2dp" />
-
-        <TextView
-            android:id="@+id/graphic_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button7"
-            android:layout_alignBottom="@+id/button7"
-            android:layout_marginEnd="25dp"
-            android:layout_toStartOf="@+id/button7"
-            android:text="GrafikADI"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="296dp"
-            tools:layout_editor_absoluteY="50dp" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="60dp"
-            android:text="Alarm" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/linechart"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/button7"
-            android:layout_alignParentStart="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="1dp" />
+            android:layout_height="254dp"
+            android:orientation="horizontal">
 
-    </RelativeLayout>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/linechart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/sg_create_alarm"
+                android:layout_alignParentStart="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="1dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button6"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="11dp"
+                android:layout_marginStart="19dp"
+                android:layout_weight="1"
+                android:onClick="refresh"
+                android:text="REFRESH"
+                tools:layout_editor_absoluteX="296dp"
+                tools:layout_editor_absoluteY="2dp" />
+
+            <Button
+                android:id="@+id/sg_create_alarm"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/sg_spinner"
+                android:layout_weight="1"
+                android:onClick="createAlarm"
+                android:text="Alarm" />
+
+            <Spinner
+                android:id="@+id/sg_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignTop="@+id/graphic_name_tv"
+                android:layout_toEndOf="@+id/graphic_name_tv"
+                android:layout_weight="1"
+                tools:layout_editor_absoluteX="47dp"
+                tools:layout_editor_absoluteY="271dp" />
+
+            <TextView
+                android:id="@+id/graphic_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/sg_create_alarm"
+                android:layout_alignBottom="@+id/sg_create_alarm"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="GrafikADI"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="296dp"
+                tools:layout_editor_absoluteY="50dp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

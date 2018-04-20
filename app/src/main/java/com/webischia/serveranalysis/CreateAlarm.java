@@ -78,7 +78,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
     {
         EditText threshold = (EditText) findViewById(R.id.ca_threshold);
         graphic.setThreshold(Long.parseLong(threshold.getText().toString()));
-
+        graphic.setAlarmStatus(true);//d'uh???
         saveService.updateGraphic(graphic,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
     }
 
@@ -95,6 +95,18 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         startActivity(dashboardIntent);//contexti ref göstererek başlattım.
         finish(); //bu aktiviteyi kapat
 
+    }
+    public void cancel(View view)
+    {
+        String username = getIntent().getExtras().getString("username");
+        String token = getIntent().getExtras().getString("token");
+        Intent dashboardIntent = new Intent(this,Dashboard.class);
+        dashboardIntent.putExtra("token",token);
+        dashboardIntent.putExtra("username",username);
+        dashboardIntent.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
+
+        startActivity(dashboardIntent);//contexti ref göstererek başlattım.
+        finish(); //bu aktiviteyi kapat
     }
     @Override
     public void successSave(String name, Context context, String username, String token, String serverIP) {

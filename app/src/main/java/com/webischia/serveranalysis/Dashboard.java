@@ -1,6 +1,7 @@
 package com.webischia.serveranalysis;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +15,8 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ekranın yatay dönmesini engelleme
 
-        i = new Intent(this,AlarmChecker.class);// servis çağımra
-        startService(i);
+       // i = new Intent(this,AlarmChecker.class);// servis çağımra
+        //startService(i);
     }
 
     public void showGraphs(View view){

@@ -34,10 +34,10 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
 
             Boolean flag = (Boolean)getIntent().getExtras().get("flag");
         if(flag!=null && flag) {
-            Intent i = new Intent(this,AlarmChecker.class);
+           // Intent i = new Intent(this,AlarmChecker.class);
 
-            stopService(i);//stop
-            startService(i);//starta
+           // stopService(i);//stop
+          //  startService(i);//starta
         }
         if(graphs!= null) {
             for (int i = 0; i < graphs.size(); i++) {
