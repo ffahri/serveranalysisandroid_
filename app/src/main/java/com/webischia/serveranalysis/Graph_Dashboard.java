@@ -55,7 +55,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
             Log.d("G_DASHB","null değil");
             for (int i = 0; i < graphs.size(); i++) {
                 Button temp = new Button(this);
-                temp.setLayoutParams(a.getLayoutParams());
+                //temp.setLayoutParams(a.getLayoutParams());
                 final Graphic tmp = (Graphic) graphs.get(i);
                 temp.setText(tmp.getName());
                 temp.setOnClickListener(new View.OnClickListener() {
