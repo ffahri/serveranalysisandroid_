@@ -181,4 +181,39 @@ public class SaveServiceImpl implements SaveService {
         }
 
     }
+
+    @Override
+    public void updateGraphic(Graphic graphObj, String username, String token, String serverIP) {
+        try {
+            //grafik ismine göre kayıt yapılıyor. Aynı isimde iki grafik olamaz.
+            File file2 = new File(context.getFilesDir(), graphObj.getName() + ".ser");
+            file2.delete();
+            try {
+                //grafik ismine göre kayıt yapılıyor. Aynı isimde iki grafik olamaz.
+                File file = new File(context.getFilesDir(), graphObj.getName() + ".ser");
+                if (file.exists()) {
+                    saveControl.saveError(context);
+                } else {
+                    file.createNewFile();
+                    FileOutputStream outFile = context.openFileOutput(graphObj.getName() + ".ser", Context.MODE_PRIVATE);
+                    ObjectOutputStream out = new ObjectOutputStream(outFile);
+                    out.writeObject(graphObj); //objeyi yazdırdık
+                    out.close();
+                    outFile.close();
+                    Log.d("SAVE_GRAPH", "SUCCESS");
+                    //saveNames(graphObj.getName(), username);
+                    saveControl.successSave(graphObj.getName(), context, username, token, serverIP);
+                }
+            } catch (IOException i) {
+                i.printStackTrace();
+                Log.d("SAVE_GRAPH", "NOPE");
+
+            }
+
+        } catch (Exception i) {
+            i.printStackTrace();
+            Log.d("UPDATE.GRAPH", "NOPE");
+
+        }
+    }
 }

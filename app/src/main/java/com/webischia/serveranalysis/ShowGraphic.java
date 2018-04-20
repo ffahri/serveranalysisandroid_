@@ -119,7 +119,7 @@ public class ShowGraphic extends AppCompatActivity{
         xAxis.setDrawGridLines(true);
 
 //utku
-        LimitLine upper_limit = new LimitLine(0.32f,"Danger");
+        LimitLine upper_limit = new LimitLine(0.32f,"Danger");//todo graph threshold
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f,10f,0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);

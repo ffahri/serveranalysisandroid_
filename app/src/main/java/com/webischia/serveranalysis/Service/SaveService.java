@@ -9,6 +9,8 @@ public interface SaveService {
 
     public void saveGraphics(Graphic graphObj,String username,String token,String serverIP);
 
+    public void updateGraphic(Graphic graphicObj,String username,String token,String serverIP);
+
     public Graphic loadGraphics(String name);
 
     public void saveNames(String name,String username); //obje olarak değil txt olarak kaydediyoruz
