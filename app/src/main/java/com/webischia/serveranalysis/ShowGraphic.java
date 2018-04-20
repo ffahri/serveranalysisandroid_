@@ -67,7 +67,7 @@ public class ShowGraphic extends AppCompatActivity{
         ArrayList<Entry> yValues = null ;
         ArrayList<Entry> xValues = null ;
 
-        ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
+            ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
         mContext = this;
         token = getIntent().getExtras().getString("token");
 

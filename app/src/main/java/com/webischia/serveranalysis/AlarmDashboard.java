@@ -1,15 +1,54 @@
 package com.webischia.serveranalysis;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class AlarmDashboard extends AppCompatActivity {
+import com.webischia.serveranalysis.Controls.SaveControl;
+import com.webischia.serveranalysis.Models.Graphic;
+import com.webischia.serveranalysis.Service.SaveService;
+import com.webischia.serveranalysis.Service.SaveServiceImpl;
 
+import java.util.ArrayList;
+
+public class AlarmDashboard extends AppCompatActivity implements SaveControl{
+        SaveService saveService;
+        SaveControl saveControl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_dashboard);
+        saveControl = new AlarmDashboard();
+        saveService = new SaveServiceImpl(saveControl,this);
+        LinearLayout ll = findViewById(R.id.alarm_dash_ll);
+        ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
+        if(graphs == null) {
+            saveService.loadNames(getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
+            Log.d("graphs","null");
+        }
+        if(graphs!= null) {
+            for (int i = 0; i < graphs.size(); i++) {
+                Button temp = new Button(this);
+                //temp.setLayoutParams(a.getLayoutParams());
+                final Graphic tmp = (Graphic) graphs.get(i);
+                temp.setText(tmp.getName());
+                temp.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+            //        create_alarm parcel(graphic)                finish();
+                    }
+                });
+                ll.addView(temp);
+            }
+        }
+        else {
+            //todo ana ekran uyarı ver
+        }
+
     }
     @Override
     public void onBackPressed() {
@@ -23,6 +62,37 @@ public class AlarmDashboard extends AppCompatActivity {
 
         startActivity(dashboardIntent);//contexti ref göstererek başlattım.
         finish(); //bu aktiviteyi kapat
+
+    }
+
+
+    @Override
+    public void successSave(String name, Context context, String username, String token, String serverIP) {
+
+    }
+
+    @Override
+    public void saveError(Context context) {
+
+    }
+
+    @Override
+    public void loadGraphs(ArrayList graphs, Context context, String username, String token, String serverIP) {
+        if (graphs.size() > 0) {
+            //todo grafiklistesini sonraya at kontrol et
+            Intent graphDash = new Intent(context, AlarmDashboard.class);
+            graphDash.putParcelableArrayListExtra("graphs", graphs);
+            graphDash.putExtra("token", token);
+            graphDash.putExtra("username", username);
+            graphDash.putExtra("serverIP",serverIP);
+            context.startActivity(graphDash);
+            finish(); //bu aktiviteyi kapat
+            //at least it works
+        }
+    }
+
+    @Override
+    public void successRemove(Context context, String username, String token, String serverIP) {
 
     }
 }

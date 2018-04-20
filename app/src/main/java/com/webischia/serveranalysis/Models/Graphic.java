@@ -13,7 +13,7 @@ public class Graphic implements Serializable {
     String name;
     int graphic_type;
     Long threshold;
-
+    boolean AlarmStatus = false;
     public Graphic(String query, String name) {
         this.query = query;
 //        if (query == "node_network_receive_packets" || query == "node_network_transmit_packets") {
@@ -77,4 +77,19 @@ public class Graphic implements Serializable {
         this.name = name;
     }
 
+    public Long getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Long threshold) {
+        this.threshold = threshold;
+    }
+
+    public boolean isAlarmStatus() {
+        return AlarmStatus;
+    }
+
+    public void setAlarmStatus(boolean alarmStatus) {
+        AlarmStatus = alarmStatus;
+    }
 }

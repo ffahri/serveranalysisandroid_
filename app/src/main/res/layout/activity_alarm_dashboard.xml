@@ -6,11 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.webischia.serveranalysis.AlarmDashboard">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No alarm was found"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="53dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No alarm was found"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="53dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/alarm_dash_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

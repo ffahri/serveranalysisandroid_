@@ -4,13 +4,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.webischia.serveranalysis.Models.Graphic;
+
+import java.util.ArrayList;
 
 public class CreateAlarm extends AppCompatActivity {
     Button create_alarm;
     Intent i,j;
     EditText e_text;
+    Graphic graphic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,5 +35,21 @@ public class CreateAlarm extends AppCompatActivity {
                 finish();
             }
         });
+        ArrayList k = getIntent().getParcelableArrayListExtra("graphic");
+
+        if(k!=null) {
+            graphic = (Graphic) k.get(0);
+
+
+        }
+        String[] timeSpinner = new String[] {
+                "1m","5m","10m","30m","60m","300m"
+        };
+        Spinner s2 = (Spinner) findViewById(R.id.create_alarm_spinner1);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,timeSpinner);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s2.setAdapter(adapter2);
+
     }
 }
