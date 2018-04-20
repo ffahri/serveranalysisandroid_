@@ -7,13 +7,20 @@ import java.io.Serializable;
  */
 
 public class Graphic implements Serializable {
+
+    //graphics
     String query;
     String mode;
     String time_range;
     String name;
-    int graphic_type; //0 below - 1 above
-    Long threshold;
-    boolean AlarmStatus = true;
+
+
+    //alarms
+    int level;                          //0 below - 1 above alt mı üst mü
+    Long threshold;                     //alarm seviye değeri
+    int controlTime;                    // 0-1m 1-5m 2-10m 3-30m 4-60m
+    boolean AlarmStatus = false;
+
     public Graphic(String query, String name) {
         this.query = query;
 //        if (query == "node_network_receive_packets" || query == "node_network_transmit_packets") {
@@ -35,7 +42,7 @@ public class Graphic implements Serializable {
             this.mode = "mode";
         this.time_range = time_range;
         this.name = name;
-        this.graphic_type=graphic_type;
+        this.level =graphic_type;
         this.threshold=threshold;
     }
 
@@ -93,11 +100,19 @@ public class Graphic implements Serializable {
         AlarmStatus = alarmStatus;
     }
 
-    public int getGraphic_type() {
-        return graphic_type;
+    public int getLevel() {
+        return level;
     }
 
-    public void setGraphic_type(int graphic_type) {
-        this.graphic_type = graphic_type;
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getControlTime() {
+        return controlTime;
+    }
+
+    public void setControlTime(int controlTime) {
+        this.controlTime = controlTime;
     }
 }
