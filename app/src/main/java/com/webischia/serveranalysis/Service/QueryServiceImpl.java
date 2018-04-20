@@ -177,7 +177,7 @@ public class QueryServiceImpl implements QueryService {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // error
-                            Log.d("Error.Response",error.getMessage());
+                            Log.d("Error.Response",error.getMessage().toString());
 
 
                         }
