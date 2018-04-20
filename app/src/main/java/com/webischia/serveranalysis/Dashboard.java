@@ -12,6 +12,8 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ekranın yatay dönmesini engelleme
+
         i = new Intent(this,AlarmChecker.class);// servis çağımra
         startService(i);
     }
