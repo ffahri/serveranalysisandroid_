@@ -31,6 +31,8 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
+        setTitle("Create Alarm");
+
         saveControl = new CreateAlarm();
         saveService = new SaveServiceImpl(saveControl,this);
 //        create_alarm= findViewById(R.id.c_alarm);

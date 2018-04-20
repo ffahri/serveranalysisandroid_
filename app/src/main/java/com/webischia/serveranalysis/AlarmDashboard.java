@@ -23,6 +23,7 @@ public class AlarmDashboard extends AppCompatActivity implements SaveControl{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_dashboard);
+        setTitle("Alarm Dashboard");
         saveControl = new AlarmDashboard();
         saveService = new SaveServiceImpl(saveControl,this);
         LinearLayout ll = findViewById(R.id.alarm_dash_ll);

@@ -107,6 +107,7 @@ public class ShowGraphic extends AppCompatActivity{
         }
         else
         graphic = (Graphic)k.get(0);
+        setTitle("Graphic : "+graphic.getName());
         TextView temp = (TextView)findViewById(R.id.graphic_name_tv);
         temp.setText(graphic.getName());
         if(getIntent().getParcelableArrayListExtra("values") != null && getIntent().getParcelableArrayListExtra("xValues") != null)

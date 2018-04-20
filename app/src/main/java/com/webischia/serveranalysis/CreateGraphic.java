@@ -28,6 +28,8 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_graphic);
+        setTitle("Create Graphic");
+
         saveControl = new CreateGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
         String[] arraySpinner = new String[] {

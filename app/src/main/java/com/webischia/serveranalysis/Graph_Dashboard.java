@@ -39,6 +39,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph__dashboard);
+        setTitle("Graphic Dashboard");
         ll = findViewById(R.id.graph_dash_ll);
         Button a = findViewById(R.id.create_graphic);
         //  lp = lp = (LinearLayout.LayoutParams) ll.getLayoutParams();

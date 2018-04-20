@@ -14,8 +14,10 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ekranın yatay dönmesini engelleme
+        setTitle("Dashboard");
 
-       // i = new Intent(this,AlarmChecker.class);// servis çağımra
+
+        // i = new Intent(this,AlarmChecker.class);// servis çağımra
         //startService(i);
     }
 

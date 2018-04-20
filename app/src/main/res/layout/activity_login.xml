@@ -103,7 +103,7 @@
         android:ems="10"
         android:hint="Server IP"
         android:inputType="textPersonName"
-        android:text="52.15.130.207"
+        android:text="java.webischia.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"

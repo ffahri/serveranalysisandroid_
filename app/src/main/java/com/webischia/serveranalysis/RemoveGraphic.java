@@ -27,6 +27,7 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
         super.onCreate(savedInstanceState);
         saveControl = new RemoveGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
+        setTitle("Remove Graphic");
         setContentView(R.layout.activity_remove_graphic);
         LinearLayout ll = findViewById(R.id.remove_graph_ll);
         ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");

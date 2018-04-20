@@ -24,6 +24,7 @@ public class RemoveAlarm extends AppCompatActivity implements SaveControl{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remove_alarm);
+        setTitle("Remove Alarm");
         LinearLayout ll = findViewById(R.id.ra_ll);
         saveControl = new RemoveAlarm();
         saveService = new SaveServiceImpl(saveControl,this);
