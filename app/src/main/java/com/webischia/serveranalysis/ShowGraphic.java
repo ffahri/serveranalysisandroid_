@@ -64,6 +64,8 @@ public class ShowGraphic extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graphic);
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//Ekranı yan çevirme kodu
+
         ArrayList<Entry> yValues = null ;
         ArrayList<Entry> xValues = null ;
 
