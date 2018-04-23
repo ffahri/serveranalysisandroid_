@@ -125,11 +125,12 @@ public class JobServiceAlarm extends JobService {
                                                 //.setContentIntent(pendingIntent)
                                                 //.addAction(android.R.drawable., "Chat", pendingIntent)
                                                 .setSmallIcon(android.R.drawable.sym_def_app_icon)
+
                                                 .build();
 
                                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-                                        notificationManager.notify(1, notification);
+                                        notificationManager.notify(axes_x.intValue()*6, notification);
 
 //                                        Notification notification = new Notification.Builder(getApplicationContext())
 //                                                .setContentTitle("Server Analysis")
