@@ -120,9 +120,13 @@ public class JobServiceAlarm extends JobService {
                                         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
 
                                         Notification notification = new Notification.Builder(JobServiceAlarm.this)
+                                     Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);//default ses
+
                                                 .setContentTitle("Server Analysis")
                                                 .setContentText("Alarm : "+tag+" Alarm Value : "+axes_x)
                                                 //.setContentIntent(pendingIntent)
+                                                     .setSound(alarmSound)//ses
+                                                    .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })//titreşim
                                                 //.addAction(android.R.drawable., "Chat", pendingIntent)
                                                 .setSmallIcon(android.R.drawable.sym_def_app_icon)
 
@@ -137,6 +141,7 @@ public class JobServiceAlarm extends JobService {
 //                                                .setContentText("Alarm : "+tag+"\nAlarm Value : "+axes_x)
 //                                                .setContentIntent(pendingIntent)
 //                                                //.addAction(android.R.drawable., "Chat", pendingIntent)
+                                        
 //                                                .setSmallIcon(android.R.drawable.sym_def_app_icon)
 //                                                .build();
 //
