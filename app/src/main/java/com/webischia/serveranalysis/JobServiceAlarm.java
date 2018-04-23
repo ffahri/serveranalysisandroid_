@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
+import com.webischia.serveranalysis.Global.GlobalClass;
 import com.webischia.serveranalysis.Models.Graphic;
 
 import org.json.JSONArray;
@@ -108,7 +110,9 @@ public class JobServiceAlarm extends JobService {
                                     else
                                     Log.d("axes.x",""+axes_x);
                                     xList.add(axes_x);
-                                    if(level.equals("0")) {
+                                Long time= System.currentTimeMillis();
+
+                                if(level.equals("0")) {
                                         if (axes_x > thr) {
                                             //Toast.makeText(JobServiceAlarm.this, "???", Toast.LENGTH_SHORT).show();
                                             Log.d("OK?", "K?");
@@ -127,12 +131,13 @@ public class JobServiceAlarm extends JobService {
                                                     .setSound(alarmSound)//ses
                                                     .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})//titreşim
                                                     //.addAction(android.R.drawable., "Chat", pendingIntent)
+                                                    .setLights(GlobalClass.color_user,1000,1000)
+
                                                     .setSmallIcon(android.R.drawable.ic_dialog_alert)
                                                     .build();
 
                                             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                                            notificationManager.notify(axes_x.intValue() * 6, notification);
+                                            notificationManager.notify(time.intValue(), notification);
 
 
                                         }
@@ -155,10 +160,11 @@ public class JobServiceAlarm extends JobService {
                                                     .setSound(alarmSound)//ses
                                                     .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})//titreşim
                                                     .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                                                    .setLights(GlobalClass.color_user,1000,1000)
                                                     .build();
 
                                             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                            notificationManager.notify(axes_x.intValue() * 6, notification);
+                                            notificationManager.notify(time.intValue(), notification);
 
 
                                         }

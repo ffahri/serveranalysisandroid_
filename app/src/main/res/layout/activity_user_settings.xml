@@ -15,4 +15,29 @@ Burada server ipsi filan düzenleyeceği kısım olacak sadece yeterli bence
     android:layout_height="match_parent"
     tools:context="com.webischia.serveranalysis.UserSettings">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_user_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change LED  Color"
+            android:textSize="30sp" />
+
+        <Spinner
+            android:id="@+id/user_settings_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="62dp" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="colorChange"
+            android:text="Change Color" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
