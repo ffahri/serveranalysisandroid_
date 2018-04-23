@@ -1,10 +1,7 @@
 package com.webischia.serveranalysis;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +13,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.webischia.serveranalysis.Controls.SaveControl;
 import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.SaveService;
@@ -30,12 +34,14 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
     Graphic graphic;
     SaveControl saveControl;
     SaveService saveService;
+    FirebaseJobDispatcher dispatcher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
         setTitle("Create Alarm");
-
+        dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
         saveControl = new CreateAlarm();
         saveService = new SaveServiceImpl(saveControl,this);
 //        create_alarm= findViewById(R.id.c_alarm);
@@ -61,7 +67,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s2.setAdapter(adapter2);
         graphic = (Graphic) getIntent().getExtras().get("graphic");
-
+        s2.setSelection(graphic.getControlTime());
         if(graphic!=null) {
             Log.d("Create.Alarm","k null değil");
             Button tmp = (Button)findViewById(R.id.ca_button);
@@ -73,8 +79,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
             threshold.setText(graphic.getThreshold().toString());
             Spinner s3 = (Spinner) findViewById(R.id.create_alarm_spinner1);
             //todo string -> int kontrolü
-            s3.setSelection(2);
-            graphic.setControlTime(s3.getSelectedItemPosition());
+            s3.setSelection(graphic.getControlTime());
 
         }
 
@@ -85,11 +90,41 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         EditText threshold = (EditText) findViewById(R.id.ca_threshold);
         graphic.setThreshold(Long.parseLong(threshold.getText().toString()));
         graphic.setAlarmStatus(true);//d'uh???
+        Spinner s3 = (Spinner) findViewById(R.id.create_alarm_spinner1);
+
+        graphic.setControlTime(s3.getSelectedItemPosition());
+
         ///Alarm MANAGER
         String username = getIntent().getExtras().getString("username");
         String token = getIntent().getExtras().getString("token");
         String serverIP = getIntent().getExtras().getString("serverIP");
-        Log.d("crate.alarm",""+username+"\n"+token+"\n"+"name"+"\n"+serverIP);
+        String query = graphic.getQuery();
+        String threshold2 = threshold.getText().toString();
+        Bundle myExtrasBundle = new Bundle();
+        //myExtrasBundle.putParcelableArrayList("graphic",(ArrayList)tmp);
+        myExtrasBundle.putString("username",username);
+        myExtrasBundle.putString("token",token);
+        myExtrasBundle.putString("serverIP",serverIP);
+        myExtrasBundle.putString("query",query);
+        myExtrasBundle.putString("threshold",threshold2);
+        int minutes[] = {60,300,600,1800,3600};
+
+
+        Job myJob = dispatcher.newJobBuilder()
+                .setService(JobServiceAlarm.class) // the JobService that will be called
+                .setTag(graphic.getName())        // uniquely identifies the job
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(0,minutes[graphic.getControlTime()]))
+                .setLifetime(Lifetime.FOREVER)
+                .setReplaceCurrent(false)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setExtras(myExtrasBundle)
+                .build();
+
+        dispatcher.mustSchedule(myJob);
+
+        //Log.d("crate.alarm",""+username+"\n"+token+"\n"+"name"+"\n"+serverIP);
 
 //
 //        Intent intent = new Intent(this, Alarm.class);
@@ -137,23 +172,30 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         showGraphicIntent.putExtra("token",token);
         showGraphicIntent.putExtra("serverIP",serverIP);
         showGraphicIntent.putExtra("flag",true);
-
+    ///alarm
+    /*
         Intent intent = new Intent(context, Alarm.class);
-        intent.putExtra("graphic",graphic);
+        intent.putExtra("graphic",(Graphic)graphic);
         intent.putExtra("username",username);
         intent.putExtra("token",token);
         intent.putExtra("serverIP",serverIP);
+        intent.putExtra("graphName",graphic.getName());
+        Log.d("create.alarm",""+username+"\n"+token+"\n"+serverIP);
+
         // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(context, 1,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0,
+                intent, PendingIntent.FLAG_CANCEL_CURRENT);
         // Setup periodic alarm every every half hour from this point onwards
         long firstMillis = System.currentTimeMillis(); // alarm is set right away
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarm = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
         // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
                 20000, pIntent);
         int minutes[] = {60000,300000,600000,1800000,3600000};
+        //////////////////////////
+        */
+
 
 
         context.startActivity(showGraphicIntent);//contexti ref göstererek baattım.

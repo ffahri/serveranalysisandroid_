@@ -33,8 +33,12 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         saveControl = new CreateGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
         String[] arraySpinner = new String[] {
-                "node_cpu","node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active", "node_network_receive_packets",
-                "node_network_transmit_packets","http_requests_total"
+                "node_cpu","node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active","node_memory_Active_anon",
+                "node_memory_Active_files","node_memory_Buffers","node_memory_Inactive","node_memory_SwapFree","node_netstat_Icmp_InMsgs",
+                "node_netstat_Icmp_OutMsgs","node_netstat_Ip6_InOctets","node_netstat_Ip6_OutOctets","node_netstat_Tcp_ActiveOpens",
+                "node_network_receive_bytes","node_network_transmit_bytes",
+                "node_network_receive_packets",
+                "node_network_transmit_packets","http_requests_total","node_arp_entries",
         };
         Spinner s = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

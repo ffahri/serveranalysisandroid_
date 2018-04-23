@@ -20,12 +20,14 @@ public class Alarm extends BroadcastReceiver {
         String username = intent.getExtras().getString("username");
         String token = intent.getExtras().getString("token");
         String serverIP = intent.getExtras().getString("serverIP");
-        Log.d("alarm",""+username+"\n"+token+"\n"+"name"+"\n"+serverIP);
-
-        i.putExtra("graphic", (Graphic)intent.getExtras().get("graphic"));
+        Log.d("alarm.CLASS",""+username+"\n"+token+"\n"+"name"+"\n"+serverIP);
+        Graphic graphic = (Graphic)intent.getExtras().get("graphic");
+        i.putExtra("graphic", graphic);
         i.putExtra("username",username);
         i.putExtra("token",token);
         i.putExtra("serverIP",serverIP);
+        i.putExtra("graphName",intent.getExtras().getString("graphName"));
+
 
         context.startService(i);
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
@@ -44,7 +46,7 @@ public class Alarm extends BroadcastReceiver {
 //        Toast.makeText(context, "Alarm received!", Toast.LENGTH_LONG).show();
     }
 //
-//    public Alarm(Context context, Intent intent) {
-//        onReceive(context,intent);
+//  public Alarm(Context context, Intent intent) {
+//       onReceive(context,intent);
 //    }
 }

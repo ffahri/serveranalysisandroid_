@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,6 +34,10 @@ import java.util.Map;
 
 public class AlarmChecker extends IntentService {
 
+    String username;
+    String token;
+    String serverIP;
+    Graphic graphic;
 
     public AlarmChecker() {
         super("AlarmChecker");
@@ -41,24 +46,37 @@ public class AlarmChecker extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("Alarm.Checker","onCreate");
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent, flags, startId);
-        return START_STICKY;
+    public void onStart(@Nullable Intent intent, int startId) {
+        super.onStart(intent, startId);
+
     }
+
+//    @Override
+//    public int onStartCommand(Intent intent, int flags, int startId) {
+//        super.onStartCommand(intent, flags, startId);
+//
+//        return START_STICKY;
+//    }
 
     @Override
     protected void onHandleIntent(Intent intent) {//servis başlıyor activity açık
         int i = 0;
         Log.d("Alarm.Checker","SERVIS CHECK");
         RequestQueue mRequestQueue;
-        String username = intent.getExtras().getString("username");
-        final String token = intent.getExtras().getString("token");
-        String serverIP = intent.getExtras().getString("serverIP");
-        final Graphic graphic = (Graphic)intent.getExtras().get("graphic");
+
+        //Log.d("Alarm.Checker","onStart");
+        username = intent.getExtras().getString("username");
+        token = intent.getExtras().getString("token");
+        serverIP = intent.getExtras().getString("serverIP");
+        Log.d("Alarm.Checker",intent.getExtras().getString("graphName"));
+        graphic = (Graphic)intent.getExtras().get("graphic");
+
+        Log.d("alarm",""+username+"\n"+token+"\n"+serverIP);
+        if(graphic==null)
+        Log.d("Alarm.Checker","null");
         final ArrayList<Long> xList = new ArrayList<Long>();
         try {
 

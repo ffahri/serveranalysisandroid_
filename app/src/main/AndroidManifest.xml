@@ -39,12 +39,22 @@
         <activity android:name=".AlarmDashboard" />
         <receiver
             android:name=".Alarm"
-            android:process=":remote" >
+            android:process=":remote"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
         </receiver>
 
+        <!--<service-->
+            <!--android:name=".AlarmChecker"/>-->
         <service
-            android:name=".AlarmChecker" />
-
+            android:exported="false"
+            android:name=".JobServiceAlarm">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
         <activity android:name=".About" />
         <activity android:name=".RemoveGraphic" />
         <activity android:name=".LoadingScreen" />

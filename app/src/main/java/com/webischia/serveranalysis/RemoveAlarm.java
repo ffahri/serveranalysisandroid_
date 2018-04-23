@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.webischia.serveranalysis.Controls.SaveControl;
 import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.SaveService;
@@ -20,10 +22,14 @@ import java.util.ArrayList;
 public class RemoveAlarm extends AppCompatActivity implements SaveControl{
     SaveService saveService;
     SaveControl saveControl;
+    FirebaseJobDispatcher dispatcher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remove_alarm);
+        dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+
         setTitle("Remove Alarm");
         LinearLayout ll = findViewById(R.id.ra_ll);
         saveControl = new RemoveAlarm();
@@ -34,13 +40,14 @@ public class RemoveAlarm extends AppCompatActivity implements SaveControl{
             for (int i = 0; i < graphs.size(); i++) {
                 final Graphic tmp = (Graphic) graphs.get(i);
                 if (tmp.isAlarmStatus()) {
-                    Button temp = new Button(this);
+                    final Button temp = new Button(this);
                     //temp.setLayoutParams(a.getLayoutParams());
                     temp.setText(tmp.getName());
                     temp.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             tmp.setAlarmStatus(false);
                             saveService.updateGraphic(tmp, getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"), getIntent().getExtras().getString("serverIP"));
+                            dispatcher.cancel(tmp.getName());
                             finish();
                         }
                     });
