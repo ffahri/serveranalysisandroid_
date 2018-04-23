@@ -98,7 +98,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         String username = getIntent().getExtras().getString("username");
         String token = getIntent().getExtras().getString("token");
         String serverIP = getIntent().getExtras().getString("serverIP");
-        String query = graphic.getQuery();
+        String query = graphic.svcForm();
         String threshold2 = threshold.getText().toString();
         Bundle myExtrasBundle = new Bundle();
         //myExtrasBundle.putParcelableArrayList("graphic",(ArrayList)tmp);

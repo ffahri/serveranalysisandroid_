@@ -52,6 +52,10 @@ public class Graphic implements Serializable {
             return query+mode+"["+time_range+"]"; //bu hardcoded oldu todo düzenle
 
     }
+    public String svcForm()
+    {
+        return query+mode;
+    }
     public String getName(){
         return name;
     }

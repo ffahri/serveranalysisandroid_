@@ -390,7 +390,9 @@ public class ShowGraphic extends AppCompatActivity{
                                         if (graphic.getQuery().equals("node_load1")) {
                                             Double axes_x = js3.getDouble(1);
                                             yValues2.add(new Entry(ii, axes_x.floatValue())); //x 0 y 60 olsun f de float f si
-                                        } else if (graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active")) {
+                                        } else if(graphic.getQuery().matches("node_memory_MemFree|node_memory_Cached|" +
+                                                "node_memory_Active|node_memory_Active_anon|node_memory_Active_files|" +
+                                                "node_memory_Buffers|node_memory_Inactive|node_memory_SwapFree|node_network_receive_bytes|node_network_transmit_bytes")) {
                                             Long axes_x = js3.getLong(1);
                                             axes_x = axes_x / 1000000;
                                             Log.d("if.qimp", "böldüm");

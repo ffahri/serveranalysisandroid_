@@ -33,12 +33,10 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         saveControl = new CreateGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
         String[] arraySpinner = new String[] {
-                "node_cpu","node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active","node_memory_Active_anon",
+                "node_load1", "node_memory_MemFree", "node_memory_Cached", "node_memory_Active","node_memory_Active_anon",
                 "node_memory_Active_files","node_memory_Buffers","node_memory_Inactive","node_memory_SwapFree","node_netstat_Icmp_InMsgs",
                 "node_netstat_Icmp_OutMsgs","node_netstat_Ip6_InOctets","node_netstat_Ip6_OutOctets","node_netstat_Tcp_ActiveOpens",
-                "node_network_receive_bytes","node_network_transmit_bytes",
-                "node_network_receive_packets",
-                "node_network_transmit_packets","http_requests_total","node_arp_entries",
+                "node_network_receive_bytes","node_network_transmit_bytes","node_network_receive_packets","node_network_transmit_packets","node_arp_entries",
         };
         Spinner s = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -48,11 +46,11 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         String[] timeSpinner = new String[] {
                 "1m","5m","10m","30m"
         };
-        Spinner s2 = (Spinner) findViewById(R.id.spinner3);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,timeSpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s2.setAdapter(adapter2);
+//        Spinner s2 = (Spinner) findViewById(R.id.spinner3);
+//        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item,timeSpinner);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        s2.setAdapter(adapter2);
         String[] graphicSpinner = new String[] {
                 "Line Chart","Bar Chart","Scatter Chart"
         };
@@ -66,7 +64,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     public void createGraph(View view){
 
         Spinner s = (Spinner) findViewById(R.id.spinner2);
-        Spinner s2 = (Spinner) findViewById(R.id.spinner3);
+//        Spinner s2 = (Spinner) findViewById(R.id.spinner3);
         EditText name = (EditText) findViewById(R.id.editText_graphicname);
         String fixName[] = name.getText().toString().split(" ");
        // EditText metric = (EditText) findViewById(R.id.editText_metricname);
@@ -74,8 +72,14 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
         //EditText time = (EditText) findViewById(R.id.editText_time);
         String metric = (String)s.getSelectedItem();
         //String time = (String)s2.getSelectedItem();
-        String mode="";
+        String mode;
+        if(metric.equals("node_network_receive_packets") || metric.equals("node_network_transmit_bytes") || metric.equals("node_network_receive_bytes")
+                ||metric.equals("node_network_transmit_packets"))
+        mode="{device=\"eth0\"}";
+        else
+            mode="";
         Graphic newGraph = new Graphic(metric,fixName[0]);
+        newGraph.setMode(mode);
         saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
 
 

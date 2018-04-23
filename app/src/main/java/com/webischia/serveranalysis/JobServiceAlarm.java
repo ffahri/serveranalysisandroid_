@@ -97,7 +97,13 @@ public class JobServiceAlarm extends JobService {
 //                                    JSONArray js3 = jsonArr3.getJSONArray(0);
                                     Log.d("js3", js3.toString());
                                     Long axes_x = js3.getLong(1);
-                                    axes_x = axes_x / 1000000;
+                                    if(query.matches("node_memory_MemFree|node_memory_Cached|" +
+                                            "node_memory_Active|node_memory_Active_anon|node_memory_Active_files|" +
+                                            "node_memory_Buffers|node_memory_Inactive|node_memory_SwapFree|node_network_receive_bytes|node_network_transmit_bytes")) {
+
+                                        axes_x = axes_x / 1000000;
+                                    }
+                                    else
                                     Log.d("axes.x",""+axes_x);
                                     xList.add(axes_x);
                                     if(axes_x>thr)
