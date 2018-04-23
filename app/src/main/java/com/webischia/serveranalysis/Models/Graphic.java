@@ -16,7 +16,7 @@ public class Graphic implements Serializable {
 
 
     //alarms
-    int level;                          //0 below - 1 above alt mı üst mü
+    int level;                          //0 above - 1 below üst mü alt mı
     Long threshold;                     //alarm seviye değeri
     int controlTime;                    // 0-1m 1-5m 2-10m 3-30m 4-60m
     boolean AlarmStatus = false;

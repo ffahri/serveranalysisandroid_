@@ -6,6 +6,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -60,7 +62,7 @@ public class JobServiceAlarm extends JobService {
         else
             thr=0L;
         Log.d("JobSchedule",tag+"\n"+serverIP+"\n"+token+"\n"+query+"\n"+threshold);
-
+        final String level = bundle.getString("level");
 //      //  ArrayList<Graphic> tmp = (ArrayList)(job.getExtras().getParcelableArrayList("graphic"));
 //        if(tmp!=null && tmp.size()>0) {
 //            Graphic graphic = tmp.get(0);
@@ -106,53 +108,60 @@ public class JobServiceAlarm extends JobService {
                                     else
                                     Log.d("axes.x",""+axes_x);
                                     xList.add(axes_x);
-                                    if(axes_x>thr)
+                                    if(level.equals("0")) {
+                                        if (axes_x > thr) {
+                                            //Toast.makeText(JobServiceAlarm.this, "???", Toast.LENGTH_SHORT).show();
+                                            Log.d("OK?", "K?");
+
+
+                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+
+                                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
+                                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);//default ses
+
+                                            Notification notification = new Notification.Builder(JobServiceAlarm.this)
+
+                                                    .setContentTitle("Server Analysis - Above")
+                                                    .setContentText("Alarm for " + tag + "  Alarm Value : " + axes_x)
+                                                    //.setContentIntent(pendingIntent)
+                                                    .setSound(alarmSound)//ses
+                                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})//titreşim
+                                                    //.addAction(android.R.drawable., "Chat", pendingIntent)
+                                                    .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                                                    .build();
+
+                                            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                                            notificationManager.notify(axes_x.intValue() * 6, notification);
+
+
+                                        }
+                                    }
+                                else
                                     {
-                                        //Toast.makeText(JobServiceAlarm.this, "???", Toast.LENGTH_SHORT).show();
-                                        Log.d("OK?","K?");
+                                        if (axes_x < thr) {
+                                            //Toast.makeText(JobServiceAlarm.this, "???", Toast.LENGTH_SHORT).show();
+                                            Log.d("OK?", "K?");
 
 
+                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+
+                                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
+                                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);//default ses
+
+                                            Notification notification = new Notification.Builder(JobServiceAlarm.this)
+                                                    .setContentTitle("Server Analysis - Below")
+                                                    .setContentText("Alarm for " + tag + "  Alarm Value : " + axes_x)
+                                                    .setSound(alarmSound)//ses
+                                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})//titreşim
+                                                    .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                                                    .build();
+
+                                            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            notificationManager.notify(axes_x.intValue() * 6, notification);
 
 
-
-                                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-
-                                        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
-
-                                        Notification notification = new Notification.Builder(JobServiceAlarm.this)
-                                     Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);//default ses
-
-                                                .setContentTitle("Server Analysis")
-                                                .setContentText("Alarm : "+tag+" Alarm Value : "+axes_x)
-                                                //.setContentIntent(pendingIntent)
-                                                     .setSound(alarmSound)//ses
-                                                    .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })//titreşim
-                                                //.addAction(android.R.drawable., "Chat", pendingIntent)
-                                                .setSmallIcon(android.R.drawable.sym_def_app_icon)
-
-                                                .build();
-
-                                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                                        notificationManager.notify(axes_x.intValue()*6, notification);
-
-//                                        Notification notification = new Notification.Builder(getApplicationContext())
-//                                                .setContentTitle("Server Analysis")
-//                                                .setContentText("Alarm : "+tag+"\nAlarm Value : "+axes_x)
-//                                                .setContentIntent(pendingIntent)
-//                                                //.addAction(android.R.drawable., "Chat", pendingIntent)
-                                        
-//                                                .setSmallIcon(android.R.drawable.sym_def_app_icon)
-//                                                .build();
-//
-//                                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//                                        notificationManager.notify(1, notification);
-
-
-
-
-
+                                        }
                                     }
 
                             }

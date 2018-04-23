@@ -50,7 +50,6 @@
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:popupBackground="@color/colorPrimary"
             android:visibility="visible" />
 
         <Button

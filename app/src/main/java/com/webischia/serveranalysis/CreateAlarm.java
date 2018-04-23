@@ -57,7 +57,14 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
 //                finish();
 //            }
 //        });
-
+        String[] level = new String[] {
+                "Above","Below"
+        };
+        Spinner s3 = (Spinner) findViewById(R.id.ca_spinner_level);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,level);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s3.setAdapter(adapter3);
         String[] timeSpinner = new String[] {
                 "1m","5m","10m","30m","60m","300m"
         };
@@ -77,9 +84,10 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
             EditText threshold = (EditText) findViewById(R.id.ca_threshold);
             if(graphic.getThreshold()!=null)
             threshold.setText(graphic.getThreshold().toString());
-            Spinner s3 = (Spinner) findViewById(R.id.create_alarm_spinner1);
+            Spinner s4 = (Spinner) findViewById(R.id.create_alarm_spinner1);
             //todo string -> int kontrolü
-            s3.setSelection(graphic.getControlTime());
+            s4.setSelection(graphic.getControlTime());
+            s3.setSelection(graphic.getLevel());
 
         }
 
@@ -91,9 +99,9 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         graphic.setThreshold(Long.parseLong(threshold.getText().toString()));
         graphic.setAlarmStatus(true);//d'uh???
         Spinner s3 = (Spinner) findViewById(R.id.create_alarm_spinner1);
-
         graphic.setControlTime(s3.getSelectedItemPosition());
-
+        Spinner s4 = (Spinner) findViewById(R.id.ca_spinner_level);
+        graphic.setLevel(s4.getSelectedItemPosition());
         ///Alarm MANAGER
         String username = getIntent().getExtras().getString("username");
         String token = getIntent().getExtras().getString("token");
@@ -107,6 +115,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         myExtrasBundle.putString("serverIP",serverIP);
         myExtrasBundle.putString("query",query);
         myExtrasBundle.putString("threshold",threshold2);
+        myExtrasBundle.putString("level",String.valueOf(graphic.getLevel()));
         int minutes[] = {60,300,600,1800,3600};
 
 
