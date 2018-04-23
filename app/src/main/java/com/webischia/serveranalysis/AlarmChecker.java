@@ -6,56 +6,41 @@ import android.content.Intent;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
+import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
+import com.github.mikephil.charting.data.Entry;
+import com.webischia.serveranalysis.Models.Graphic;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class AlarmChecker extends IntentService {
-    // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_FOO = "com.webischia.serveranalysis.action.FOO";
-    private static final String ACTION_BAZ = "com.webischia.serveranalysis.action.BAZ";
 
-    // TODO: Rename parameters
-    private static final String EXTRA_PARAM1 = "com.webischia.serveranalysis.extra.PARAM1";
-    private static final String EXTRA_PARAM2 = "com.webischia.serveranalysis.extra.PARAM2";
 
     public AlarmChecker() {
         super("AlarmChecker");
     }
 
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static void startActionFoo(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, AlarmChecker.class);
-        intent.setAction(ACTION_FOO);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
-    }
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static void startActionBaz(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, AlarmChecker.class);
-        intent.setAction(ACTION_BAZ);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
+    @Override
+    public void onCreate() {
+        super.onCreate();
     }
 
     @Override
@@ -67,10 +52,160 @@ public class AlarmChecker extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {//servis başlıyor activity açık
         int i = 0;
-        if (intent == null) {//uygulama kapandıgında bu ife giriyor
-            while (i < 1) {
+        Log.d("Alarm.Checker","SERVIS CHECK");
+        RequestQueue mRequestQueue;
+        String username = intent.getExtras().getString("username");
+        final String token = intent.getExtras().getString("token");
+        String serverIP = intent.getExtras().getString("serverIP");
+        final Graphic graphic = (Graphic)intent.getExtras().get("graphic");
+        final ArrayList<Long> xList = new ArrayList<Long>();
+        try {
 
-                Log.v("i", "activitye kapalı:"+i);
+
+            Cache cache = new DiskBasedCache(this.getCacheDir(), 1024 * 1024); // 1MB cap
+// Set up the network to use HttpURLConnection as the HTTP client.
+            Network network = new BasicNetwork(new HurlStack());
+// Instantiate the RequestQueue with the cache and network.
+            mRequestQueue = new RequestQueue(cache, network);
+
+            // final RequestQueue queue = Volley.newRequestQueue(context);  // this = context
+            mRequestQueue.start();
+
+            String url = "https://"+serverIP+"/api/v1/metric/"+graphic.getQuery();
+            Log.d("query_url",url);
+            //Log.d("username",username);
+            // Log.d("token",token);
+
+            StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+//                            ArrayList<Entry> yValues = new ArrayList<>();
+//                            ArrayList<String> xValues = new ArrayList<>();
+                            try {
+
+                                JSONObject jsonObj = new JSONObject(response);
+                                JSONObject jsonObj2 = jsonObj.getJSONObject("data");
+                                JSONArray jsonArr = jsonObj2.getJSONArray("result");
+                                for(int a = 0 ; a<jsonArr.length();a++) {
+                                    JSONObject jsonArr2 = jsonArr.getJSONObject(a);
+                                    JSONArray jsonArr3 = jsonArr2.getJSONArray("value");
+                                        JSONArray js3 = jsonArr3.getJSONArray(0);
+                                        Log.d("js3", js3.toString());
+                                            Long axes_x = js3.getLong(1);
+                                            axes_x = axes_x / 1000000;
+                                    if(axes_x > graphic.getThreshold())
+                                    {
+                                        xList.add(axes_x);
+                                    }
+
+
+
+                                }
+
+                                ////////////////// GRAFIK
+
+                            }
+
+//                            try {
+//                                JSONObject jsonObj = new JSONObject(response);
+//                                JSONObject jsonObj2 = jsonObj.getJSONObject("data");
+//                                JSONArray jsonArr = jsonObj2.getJSONArray("result");
+//                                JSONObject jsonArr2 = jsonArr.getJSONObject(0);
+//                                JSONArray jsonArr3 = jsonArr2.getJSONArray("values");
+//                                Log.d("id",""+jsonArr3.length());
+//
+//                                for(int ii=0 ; ii<jsonArr3.length() ; ii++){
+//                                    JSONArray js3 = jsonArr3.getJSONArray(ii);
+//
+//                                    Double timestamp = (new Double(js3.getDouble(0))*1000);
+//                                    Long timeLong = timestamp.longValue();//%1000000
+//                                    Date date = new Date(timeLong);
+//                                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//                                    String formattedDate = sdf.format(date);
+//                                    if(graphic.getQuery().equals("node_load1")) {
+//                                        Double axes_x = js3.getDouble(1);
+//                                        yValues.add(new Entry(ii, axes_x.floatValue())); //x 0 y 60 olsun f de float f si
+//                                    }
+//                                    else if(graphic.getQuery().equals("node_memory_MemFree") || graphic.getQuery().equals("node_memory_Cached") || graphic.getQuery().equals("node_memory_Active")) {
+//                                        Long axes_x = js3.getLong(1);
+//                                        axes_x = axes_x / 1000000;
+//                                        Log.d("if.qimp","böldüm");
+//                                        yValues.add(new Entry(ii,axes_x)); //x 0 y 60 olsun f de float f si
+//
+//                                    }
+//                                    else
+//                                    {
+//                                        Long axes_x = js3.getLong(1);
+//                                        yValues.add(new Entry(ii,(Long)axes_x)); //x 0 y 60 olsun f de float f si
+//
+//                                    }
+//                                    xValues.add(formattedDate);
+//                                }
+//                                queryControl.successQuery(xValues,yValues,context,graphic,username,token,serverIP);
+//                                ////////////////// GRAFIK
+//
+//                            }
+                            catch (Exception e)
+                            {
+                                Log.d("Query_ERROR", e.getMessage());
+
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error.Response",error.getMessage());
+
+
+                        }
+                    }
+            ) {
+
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    if(token != null) {
+                        params.put("Authorization", "Bearer "+token);
+
+                        return params;
+                    }
+                    else {
+                        Log.d("volley.headers","token null");
+                        return null;
+                    }
+                }
+            };
+            mRequestQueue.add(postRequest);
+
+        }
+        catch(Exception e)
+        {
+            Log.d("HATA.ALARMCHECKER",e.getMessage());
+        }
+
+
+        if(xList.size()>0 && xList.get(0)!=null) {
+            if (xList.get(0) > graphic.getThreshold()) {
+                Log.d("BULDUM","BULDUM");
+                Toast.makeText(this, "???", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        else
+        {
+            Log.d("Alarm.checker","HATA");
+        }
+    }
+
+
+}/*
+    if (intent == null) {//uygulama kapandıgında bu ife giriyor
 
                 if (i == 200000) {
 //alarm çağırma
@@ -85,11 +220,9 @@ public class AlarmChecker extends IntentService {
                     NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     manager.notify(0, builder.build());
 
-                    break;
-                }
 
             }
-            Log.v("activitye kapalı", "activitye kapalı:");
+            Log.d("Alarm.checker",""+intent.getExtras().get("test"));
             return;// retunr olması lazım
         }
 
@@ -98,32 +231,11 @@ public class AlarmChecker extends IntentService {
         else
         //activtiy açıkken burası
         {
-            while (i < 1) {
 //Activity açıkken bıraya giriyor
                 Log.v("activitye acık", "activitye acık:");
-            }
+
             // Alarm a = new Alarm(context,intent);
 
 
         }
-    }
-
-
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionFoo(String param1, String param2) {
-        // TODO: Handle action Foo
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    /**
-     * Handle action Baz in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionBaz(String param1, String param2) {
-        // TODO: Handle action Baz
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-}
+    */

@@ -37,10 +37,13 @@
         </activity>
         <activity android:name=".CreateAlarm" />
         <activity android:name=".AlarmDashboard" />
+        <receiver
+            android:name=".Alarm"
+            android:process=":remote" >
+        </receiver>
 
         <service
-            android:name=".AlarmChecker"
-            android:exported="false" />
+            android:name=".AlarmChecker" />
 
         <activity android:name=".About" />
         <activity android:name=".RemoveGraphic" />

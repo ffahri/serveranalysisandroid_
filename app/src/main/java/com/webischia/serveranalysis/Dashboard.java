@@ -17,8 +17,6 @@ public class Dashboard extends AppCompatActivity {
         setTitle("Dashboard");
 
 
-        // i = new Intent(this,AlarmChecker.class);// servis çağımra
-        //startService(i);
     }
 
     public void showGraphs(View view){
