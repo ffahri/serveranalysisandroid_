@@ -70,7 +70,7 @@ public class RemoveAlarm extends AppCompatActivity implements SaveControl{
     }
 
     @Override
-    public void successSave(String name, Context context, String username, String token, String serverIP) {
+    public void successSave(String name, Context context,String username,String token,String serverIP,Graphic graphic) {
         Log.d("ALARM","REMOVED_SUCCESS");
         Toast.makeText(context, "ALARM REMOVED !" , Toast.LENGTH_SHORT).show();
 

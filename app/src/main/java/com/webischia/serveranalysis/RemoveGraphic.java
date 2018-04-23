@@ -65,7 +65,7 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
     }
 
     @Override
-    public void successSave(String name, Context context, String username, String token, String serverIP) {
+    public void successSave(String name, Context context,String username,String token,String serverIP,Graphic graphic) {
 
 
     }

@@ -78,7 +78,7 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
     }
 
     @Override
-    public void successSave(String name,Context context,String username,String token,String serverIP) {
+    public void successSave(String name, Context context,String username,String token,String serverIP,Graphic graphic) {
         Log.d("test","OK!");
         Toast.makeText(context, "Graphic Saved !", Toast.LENGTH_SHORT).show();
         Intent showGraphicIntent = new Intent(context,Dashboard.class);

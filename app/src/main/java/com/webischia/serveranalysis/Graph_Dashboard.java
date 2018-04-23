@@ -92,7 +92,7 @@ public class Graph_Dashboard extends AppCompatActivity implements SaveControl,Qu
     }
 
     @Override
-    public void successSave(String name, Context context,String username,String token,String serverIP) {
+    public void successSave(String name, Context context,String username,String token,String serverIP,Graphic graphic) {
 
     }
 

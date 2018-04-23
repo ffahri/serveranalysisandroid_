@@ -41,6 +41,7 @@ public class AlarmChecker extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("Alarm.Checker","onCreate");
     }
 
     @Override

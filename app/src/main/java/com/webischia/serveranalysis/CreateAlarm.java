@@ -91,25 +91,11 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         String serverIP = getIntent().getExtras().getString("serverIP");
         Log.d("crate.alarm",""+username+"\n"+token+"\n"+"name"+"\n"+serverIP);
 
-
-        Intent intent = new Intent(this, Alarm.class);
-        intent.putExtra("graphic",graphic);
-        intent.putExtra("username",username);
-        intent.putExtra("token",token);
-        intent.putExtra("serverIP",serverIP);
+//
+//        Intent intent = new Intent(this, Alarm.class);
+//
 
 
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(this, 1,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        // Setup periodic alarm every every half hour from this point onwards
-        long firstMillis = System.currentTimeMillis(); // alarm is set right away
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
-        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
-                20000, pIntent);
-        int minutes[] = {60000,300000,600000,1800000,3600000};
         //manager.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime()+minutes[graphic.getControlTime()],minutes[graphic.getControlTime()],pendingIntent);
 
         ///*********
@@ -143,7 +129,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         finish(); //bu aktiviteyi kapat
     }
     @Override
-    public void successSave(String name, Context context, String username, String token, String serverIP) {
+    public void successSave(String name, Context context, String username, String token, String serverIP,Graphic graphic) {
         Log.d("test","OK!");
         Toast.makeText(context, "Graphic Saved !", Toast.LENGTH_SHORT).show();
         Intent showGraphicIntent = new Intent(context,AlarmDashboard.class);
@@ -151,6 +137,24 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         showGraphicIntent.putExtra("token",token);
         showGraphicIntent.putExtra("serverIP",serverIP);
         showGraphicIntent.putExtra("flag",true);
+
+        Intent intent = new Intent(context, Alarm.class);
+        intent.putExtra("graphic",graphic);
+        intent.putExtra("username",username);
+        intent.putExtra("token",token);
+        intent.putExtra("serverIP",serverIP);
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pIntent = PendingIntent.getBroadcast(context, 1,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every every half hour from this point onwards
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+                20000, pIntent);
+        int minutes[] = {60000,300000,600000,1800000,3600000};
+
 
         context.startActivity(showGraphicIntent);//contexti ref göstererek baattım.
 

@@ -47,7 +47,7 @@ public class SaveServiceImpl implements SaveService {
                 outFile.close();
                 Log.d("SAVE_GRAPH", "SUCCESS");
                 saveNames(graphObj.getName(), username);
-                saveControl.successSave(graphObj.getName(), context, username, token, serverIP);
+                saveControl.successSave(graphObj.getName(), context, username, token, serverIP,graphObj);
             }
         } catch (IOException i) {
             i.printStackTrace();
@@ -202,7 +202,7 @@ public class SaveServiceImpl implements SaveService {
                     outFile.close();
                     Log.d("SAVE_GRAPH", "SUCCESS");
                     //saveNames(graphObj.getName(), username);
-                    saveControl.successSave(graphObj.getName(), context, username, token, serverIP);
+                    saveControl.successSave(graphObj.getName(), context, username, token, serverIP,graphObj);
                 }
             } catch (IOException i) {
                 i.printStackTrace();
