@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.webischia.serveranalysis.Global.GlobalClass;
 
@@ -33,6 +34,8 @@ public class UserSettings extends AppCompatActivity {
                 Color.RED,Color.GREEN,Color.BLUE,Color.CYAN,Color.YELLOW,Color.rgb(255,0,255),Color.rgb(255,165,0)
         };
         GlobalClass.color_user= values[s3.getSelectedItemPosition()];
+        Toast.makeText(UserSettings.this, "LED Color Changed !", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
