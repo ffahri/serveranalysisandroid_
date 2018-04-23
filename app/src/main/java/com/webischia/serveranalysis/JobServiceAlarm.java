@@ -112,14 +112,17 @@ public class JobServiceAlarm extends JobService {
                                         Log.d("OK?","K?");
 
 
+
+
+
                                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
 
                                         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
 
-                                        Notification notification = new Notification.Builder(getApplicationContext())
+                                        Notification notification = new Notification.Builder(JobServiceAlarm.this)
                                                 .setContentTitle("Server Analysis")
-                                                .setContentText("Alarm : "+tag+"\nAlarm Value : "+axes_x)
-                                                .setContentIntent(pendingIntent)
+                                                .setContentText("Alarm : "+tag+" Alarm Value : "+axes_x)
+                                                //.setContentIntent(pendingIntent)
                                                 //.addAction(android.R.drawable., "Chat", pendingIntent)
                                                 .setSmallIcon(android.R.drawable.sym_def_app_icon)
                                                 .build();
@@ -127,6 +130,18 @@ public class JobServiceAlarm extends JobService {
                                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                                         notificationManager.notify(1, notification);
+
+//                                        Notification notification = new Notification.Builder(getApplicationContext())
+//                                                .setContentTitle("Server Analysis")
+//                                                .setContentText("Alarm : "+tag+"\nAlarm Value : "+axes_x)
+//                                                .setContentIntent(pendingIntent)
+//                                                //.addAction(android.R.drawable., "Chat", pendingIntent)
+//                                                .setSmallIcon(android.R.drawable.sym_def_app_icon)
+//                                                .build();
+//
+//                                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//
+//                                        notificationManager.notify(1, notification);
 
 
 
