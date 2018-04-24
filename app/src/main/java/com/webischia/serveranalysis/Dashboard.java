@@ -53,7 +53,7 @@ public class Dashboard extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+     /*   super.onBackPressed();
         String username = getIntent().getExtras().getString("username");
         String token = getIntent().getExtras().getString("token");
         Intent dashboardIntent = new Intent(this,Login.class);
@@ -61,7 +61,10 @@ public class Dashboard extends AppCompatActivity {
         dashboardIntent.putExtra("serverIP",getIntent().getExtras().getString("serverIP"));
         dashboardIntent.putExtra("username",username);
         startActivity(dashboardIntent);//contexti ref göstererek başlattım.
-        finish(); //bu aktiviteyi kapat
+        finish(); //bu aktiviteyi kapat*/
+           Intent a = new Intent(Intent.ACTION_MAIN);//dashboarda geriye basınca telefonun ekranına atıyor
+        a.addCategory(Intent.CATEGORY_HOME);
+        startActivity(a);
 
     }
 }
