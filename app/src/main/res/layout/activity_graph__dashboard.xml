@@ -40,6 +40,11 @@
                 android:text="REMOVE GRAPHIC"
                 android:textAlignment="center" />
         </LinearLayout>
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <!-- Here you put the rest of your current view-->
 
         <LinearLayout
             android:id="@+id/graph_dash_ll"
@@ -47,6 +52,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:overScrollMode="always"
+            android:scrollIndicators="right"
+            android:scrollbars="vertical"
             app:layout_constraintTop_toBottomOf="@+id/graph_dash_horll"
             tools:layout_editor_absoluteX="3dp">
 
@@ -62,7 +69,7 @@
                 android:text="Button"
                 android:visibility="gone" />
         </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

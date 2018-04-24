@@ -80,7 +80,10 @@ public class CreateGraphic extends AppCompatActivity implements SaveControl {
             mode="";
         Graphic newGraph = new Graphic(metric,fixName[0]);
         newGraph.setMode(mode);
+        if(newGraph.getName()!=null)
         saveService.saveGraphics(newGraph,getIntent().getExtras().getString("username"),getIntent().getExtras().getString("token"),getIntent().getExtras().getString("serverIP"));
+        else
+            Toast.makeText(this, "GRAPHIC NAMES CANNOT BE EMPTY !" , Toast.LENGTH_SHORT).show();
 
 
     }

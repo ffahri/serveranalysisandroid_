@@ -6,73 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.webischia.serveranalysis.About">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="58dp"
-            android:text="Developers"
-            android:textAllCaps="true"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="Backend"
-            android:textSize="28sp" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView10"
-            android:layout_below="@+id/textView10"
-            android:layout_marginTop="30dp"
-            android:text="UI &#038; Design"
-            android:textSize="28sp" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView9"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:text="FAHRI YARDIMCI"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textView12"
-            android:layout_below="@+id/textView12"
-            android:layout_marginTop="37dp"
-            android:text="UTKU GÜLSEVEN"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView15"
-            android:layout_below="@+id/textView15"
-            android:layout_marginTop="33dp"
-            android:text="ÖZGE GÜLERYÜZ"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

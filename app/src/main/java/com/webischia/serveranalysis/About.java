@@ -3,6 +3,7 @@ package com.webischia.serveranalysis;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebView;
 
 public class About extends AppCompatActivity {
 
@@ -10,6 +11,8 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        WebView view = findViewById(R.id.webview);
+        view.loadUrl("https://webischia.com/help/help.html");
     }
     @Override
     public void onBackPressed() {
