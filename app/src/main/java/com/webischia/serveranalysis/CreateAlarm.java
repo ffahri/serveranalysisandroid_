@@ -68,13 +68,9 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         String[] timeSpinner = new String[] {
                 "1m","5m","10m","30m","60m","300m"
         };
-        Spinner s2 = (Spinner) findViewById(R.id.create_alarm_spinner1);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,timeSpinner);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s2.setAdapter(adapter2);
+
         graphic = (Graphic) getIntent().getExtras().get("graphic");
-        s2.setSelection(graphic.getControlTime());
+        //s2.setSelection(graphic.getControlTime());
         if(graphic!=null) {
             Log.d("Create.Alarm","k null değil");
             Button tmp = (Button)findViewById(R.id.ca_button);
@@ -84,9 +80,6 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
             EditText threshold = (EditText) findViewById(R.id.ca_threshold);
             if(graphic.getThreshold()!=null)
             threshold.setText(graphic.getThreshold().toString());
-            Spinner s4 = (Spinner) findViewById(R.id.create_alarm_spinner1);
-            //todo string -> int kontrolü
-            s4.setSelection(graphic.getControlTime());
             s3.setSelection(graphic.getLevel());
 
         }
@@ -98,8 +91,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
         EditText threshold = (EditText) findViewById(R.id.ca_threshold);
         graphic.setThreshold(Long.parseLong(threshold.getText().toString()));
         graphic.setAlarmStatus(true);//d'uh???
-        Spinner s3 = (Spinner) findViewById(R.id.create_alarm_spinner1);
-        graphic.setControlTime(s3.getSelectedItemPosition());
+        graphic.setControlTime(1);
         Spinner s4 = (Spinner) findViewById(R.id.ca_spinner_level);
         graphic.setLevel(s4.getSelectedItemPosition());
         ///Alarm MANAGER
@@ -123,7 +115,7 @@ public class CreateAlarm extends AppCompatActivity implements SaveControl {
                 .setService(JobServiceAlarm.class) // the JobService that will be called
                 .setTag(graphic.getName())        // uniquely identifies the job
                 .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(0,minutes[graphic.getControlTime()]))
+                .setTrigger(Trigger.executionWindow(0,minutes[1]))
                 .setLifetime(Lifetime.FOREVER)
                 .setReplaceCurrent(false)
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)

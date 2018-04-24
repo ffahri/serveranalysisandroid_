@@ -20,17 +20,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Interval" />
-
-        <Spinner
-            android:id="@+id/create_alarm_spinner1"
-            android:layout_width="match_parent"
-            android:layout_height="52dp" />
-
-        <TextView
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

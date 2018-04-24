@@ -40,64 +40,49 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-           <TextView
-                android:id="@+id/txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-         
-            <Button
-                android:id="@+id/button6"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="11dp"
-                android:layout_marginStart="19dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="refresh"
-                android:text="REFRESH"
-                android:visibility="invisible"
-                tools:layout_editor_absoluteX="296dp"
-                tools:layout_editor_absoluteY="2dp" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/sg_create_alarm"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@+id/sg_spinner"
-                android:layout_weight="1"
-                android:onClick="createAlarm"
-                android:text="Alarm" />
+                <TextView
+                    android:id="@+id/txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <Spinner
-                android:id="@+id/sg_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="44dp"
-                android:layout_alignTop="@+id/graphic_name_tv"
-                android:layout_toEndOf="@+id/graphic_name_tv"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                tools:layout_editor_absoluteX="47dp"
-                tools:layout_editor_absoluteY="271dp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/graphic_name_tv"
-                style="@android:style/Widget.Material.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/sg_create_alarm"
-                android:layout_alignBottom="@+id/sg_create_alarm"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                android:text="GrafikADI"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="296dp"
-                tools:layout_editor_absoluteY="50dp" />
+                <Button
+                    android:id="@+id/sg_create_alarm"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/sg_spinner"
+                    android:layout_weight="1"
+                    android:onClick="createAlarm"
+                    android:text="Alarm" />
+
+                <Spinner
+                    android:id="@+id/sg_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/graphic_name_tv"
+                    android:layout_toEndOf="@+id/graphic_name_tv"
+                    android:layout_weight="1"
+                    tools:layout_editor_absoluteX="47dp"
+                    tools:layout_editor_absoluteY="271dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.webischia.serveranalysis.Controls.SaveControl;
 import com.webischia.serveranalysis.Models.Graphic;
 import com.webischia.serveranalysis.Service.SaveService;
@@ -21,6 +23,7 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
 
     SaveControl saveControl;
     SaveService saveService;
+    FirebaseJobDispatcher dispatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
         saveControl = new RemoveGraphic();
         saveService = new SaveServiceImpl(saveControl,this);
         setTitle("Remove Graphic");
+        dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+
         setContentView(R.layout.activity_remove_graphic);
         LinearLayout ll = findViewById(R.id.remove_graph_ll);
         ArrayList graphs = getIntent().getParcelableArrayListExtra("graphs");
@@ -39,6 +44,7 @@ public class RemoveGraphic extends AppCompatActivity implements SaveControl {
                 temp.setText(tmp.getName());
                 temp.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        dispatcher.cancel(tmp.getName());
                         saveService.removeGraphic(tmp, getIntent().getExtras().getString("username"), getIntent().getExtras().getString("token"), getIntent().getExtras().getString("serverIP"));
                         finish();
                     }

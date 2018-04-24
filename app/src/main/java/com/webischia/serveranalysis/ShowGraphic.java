@@ -34,7 +34,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.AxisValueFormatter;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.webischia.serveranalysis.Controls.QueryControl;
 
 import com.webischia.serveranalysis.Models.Graphic;
@@ -111,8 +113,7 @@ public class ShowGraphic extends AppCompatActivity{
         else
         graphic = (Graphic)k.get(0);
         setTitle("Graphic : "+graphic.getName());
-        TextView temp = (TextView)findViewById(R.id.graphic_name_tv);
-        temp.setText(graphic.getName());
+
         if(getIntent().getParcelableArrayListExtra("values") != null && getIntent().getParcelableArrayListExtra("xValues") != null)
             yValues = getIntent().getParcelableArrayListExtra("values");
             xValues = getIntent().getParcelableArrayListExtra("xValues");
@@ -207,11 +208,12 @@ public class ShowGraphic extends AppCompatActivity{
                 linechart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-            veri.setText(""+e.getY());
+            veri.setText("Value :"+e.getY());
             }
 
             @Override
             public void onNothingSelected() {
+                veri.setText("");
 
             }
         });
