@@ -57,6 +57,8 @@ public class ShowGraphic extends AppCompatActivity{
     Graphic graphic;
     Intent i;
     PendingIntent pen_i;
+        TextView veri;
+
     Context mContext;
     String token;
     @Override
@@ -68,6 +70,7 @@ public class ShowGraphic extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graphic);
+                veri = findViewById(R.id.txt);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//Ekranı yan çevirme kodu
         final String[] timeSpinner = new String[] {
                 "30s","1m","5m","10m","30m","60m"
@@ -200,6 +203,18 @@ public class ShowGraphic extends AppCompatActivity{
 
 
         linechart1.invalidate();
+        //tıklanınca textviewe değer yazma
+                linechart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+            veri.setText(""+e.getY());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
     }
     public void refresh(View view)
     {
