@@ -9,14 +9,8 @@ import android.graphics.Color;
  */
 
 public class GlobalClass extends Application {
-    String serverURI;
-    String username;
-    public static int color_user= Color.CYAN;
-    public String getServerURI() {
-        return serverURI;
-    }
-
-    public void setServerURI(String serverURI) {
-        this.serverURI = serverURI;
-    }
+    public static String serverURI;
+    public static String username;
+    public static String password;
+    public static int color_user = Color.CYAN;
 }

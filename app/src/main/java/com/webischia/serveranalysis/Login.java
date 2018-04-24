@@ -13,8 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.webischia.serveranalysis.Controls.LoginControl;
+import com.webischia.serveranalysis.Global.GlobalClass;
 import com.webischia.serveranalysis.Service.LoginServiceImpl;
 import com.webischia.serveranalysis.Service.LoginService;
+
+import javax.microedition.khronos.opengles.GL;
 
 public class Login extends AppCompatActivity implements LoginControl{
 
@@ -26,6 +29,16 @@ public class Login extends AppCompatActivity implements LoginControl{
         setContentView(R.layout.activity_login);
         loginControl = new Login();
         control = new LoginServiceImpl(loginControl,this);
+        if(GlobalClass.username!=null&&GlobalClass.serverURI!=null)
+        {
+            EditText txt_username, txt_password, server_ip;
+            txt_username = findViewById(R.id.username);
+            txt_password = findViewById(R.id.password);
+            server_ip = findViewById(R.id.server_ip);
+            txt_username.setText(GlobalClass.username);
+            txt_password.setText(GlobalClass.password);
+            server_ip.setText(GlobalClass.serverURI);
+        }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //ekranın yatay dönmesini engelleme
 
     }
@@ -42,6 +55,7 @@ public class Login extends AppCompatActivity implements LoginControl{
             txt_username = findViewById(R.id.username);
             txt_password = findViewById(R.id.password);
             server_ip = findViewById(R.id.server_ip);
+            GlobalClass.password = txt_password.getText().toString();
             control.loginCheck(server_ip.getText().toString(), txt_username.getText().toString(), txt_password.getText().toString());
         }
 
@@ -52,6 +66,8 @@ public class Login extends AppCompatActivity implements LoginControl{
     public void successLogin(String serverIP,String username, String token, Context context) {
             //Toast.makeText(getBaseContext(), "Login Success !", Toast.LENGTH_SHORT).show();
             //control.saveUser(username);
+            GlobalClass.username=username;
+            GlobalClass.serverURI=serverIP;
             Toast.makeText(context, "Login Success ! \nWelcome " + username, Toast.LENGTH_SHORT).show();
             Intent dashboardIntent = new Intent(context,Dashboard.class);
             dashboardIntent.putExtra("token",token);
