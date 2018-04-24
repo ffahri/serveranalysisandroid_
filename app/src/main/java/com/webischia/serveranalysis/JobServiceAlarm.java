@@ -26,6 +26,7 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
+import com.github.mikephil.charting.data.Entry;
 import com.webischia.serveranalysis.Global.GlobalClass;
 import com.webischia.serveranalysis.Models.Graphic;
 
@@ -103,9 +104,13 @@ public class JobServiceAlarm extends JobService {
                                     Long axes_x = js3.getLong(1);
                                     if(query.matches("node_memory_MemFree|node_memory_Cached|" +
                                             "node_memory_Active|node_memory_Active_anon|node_memory_Active_files|" +
-                                            "node_memory_Buffers|node_memory_Inactive|node_memory_SwapFree|node_network_receive_bytes|node_network_transmit_bytes")) {
+                                            "node_memory_Buffers|node_memory_Inactive|node_memory_SwapFree")) {
 
                                         axes_x = axes_x / 1000000;
+                                    }
+                                    else if(query.matches("|node_network_receive_bytes|node_network_transmit_bytes"))
+                                    {
+                                        axes_x = axes_x / 1000;
                                     }
                                     else
                                     Log.d("axes.x",""+axes_x);
